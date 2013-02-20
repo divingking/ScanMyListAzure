@@ -414,14 +414,16 @@ namespace ScanMyListWebRole
 
                 if (NewOrder.sent && allHasSupplier)
                 {
-                    return SendOrder(NewOrder.cid, NewOrder.oid);
+                    return string.Format("{0} id=_{1}", SendOrder(NewOrder.cid, NewOrder.oid), NewOrder.oid);
                 }
                 else if (NewOrder.sent)
                 {
-                    return "Order without supplier specified cannot be sent! Stored as unsent instead";
+                    return string.Format(
+                        "Order without supplier specified cannot be sent! Stored as unsent instead. id=_{0}", 
+                        NewOrder.oid);
                 }
 
-                return "New Order created! ";
+                return string.Format("New Order created! id=_{0}", NewOrder.oid);
             }
             else
             {
@@ -432,7 +434,7 @@ namespace ScanMyListWebRole
                     GetOrderOverviewResult retrievedOrder = enumerator.Current;
                     if ((bool)retrievedOrder.sent)
                     {
-                        return "Sent order cannot be modified!";
+                        return string.Format("Sent order cannot be modified! id=_{0}", NewOrder.oid);
                     }
                     else
                     {
@@ -461,7 +463,7 @@ namespace ScanMyListWebRole
                             }
                         }
 
-                        return "Order updated! ";
+                        return string.Format("Order updated! id=_{0}", NewOrder.oid);
                     }
                 }
                 else
