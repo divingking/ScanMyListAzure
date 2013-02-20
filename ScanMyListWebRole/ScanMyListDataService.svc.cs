@@ -397,12 +397,14 @@ namespace ScanMyListWebRole
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             if (NewOrder.oid == -1)
             {
-                int oid = context.CreateOrder(NewOrder.title, NewOrder.cid, NewOrder.sent, NewOrder.scanIn);
+                int oid = context.CreateOrder(NewOrder.title, NewOrder.cid, false, NewOrder.scanIn);
+                bool allHasSupplier = true;
                 foreach (Product current in NewOrder.products)
                 {
                     if (current.supplier == null)
                     {
                         context.AddProductToOrder(oid, current.upc, null, current.quantity);
+                        allHasSupplier = false;
                     }
                     else
                     {
@@ -410,14 +412,13 @@ namespace ScanMyListWebRole
                     }
                 }
 
-                if (NewOrder.sent)
+                if (NewOrder.sent && allHasSupplier)
                 {
-                    context.SendOrder(NewOrder.cid, oid);
-                    if (!MailHelper.SendOrderBackup(NewOrder))
-                        return "Fail to send system confirmation mail!";
-                    if (!MailHelper.SendOrder(NewOrder, NewOrder.cid))
-                        return "Fail to send confirmation mail!";
-                    return "Order sent!";
+                    return SendOrder(NewOrder.cid, NewOrder.oid);
+                }
+                else if (NewOrder.sent)
+                {
+                    return "Order without supplier specified cannot be sent! Stored as unsent instead";
                 }
 
                 return "New Order created! ";
