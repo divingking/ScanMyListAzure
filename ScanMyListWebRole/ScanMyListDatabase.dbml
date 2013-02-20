@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ScanMyList" Class="ScanMyListDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=iml0mpyqrb.database.windows.net;Initial Catalog=ScanMyList;User ID=smladmin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ScanMyListConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.AddProduct" Method="AddProduct">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddProductToOrder" Method="AddProductToOrder">
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="supplier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ClearProductFromOrder" Method="ClearProductFromOrder">
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.CreateOrder" Method="CreateOrder">
+    <Parameter Name="title" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="in" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetAllSuppliers" Method="GetAllSuppliers">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAllSuppliersResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetCustomer" Method="GetCustomer">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetCustomerResult">
+      <Column Name="fname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="mname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="lname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetInventory" Method="GetInventory">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetInventoryResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetNOrdersFromLast" Method="GetNOrdersFromLast">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="last" Type="System.Int32" DbType="Int" />
+    <Parameter Name="n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetNOrdersFromLastResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrder" Method="GetOrder">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetOrderResult">
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="upc" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="pname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="sid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="saddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrderOverview" Method="GetOrderOverview">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetOrderOverviewResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrders" Method="GetOrders">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetOrdersResult">
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="oid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="upc" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="pname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="sid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="saddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrdersByDate" Method="GetOrdersByDate">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="start" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="end" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetOrdersByDateResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrdersByRange" Method="GetOrdersByRange">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="start" Type="System.Int32" DbType="Int" />
+    <Parameter Name="end" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetOrdersByRangeResult">
+      <Column Name="row_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scan_in" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductByName" Method="GetProductByName">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductByNameResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductByUPC" Method="GetProductByUPC">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductByUPCResult">
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductsForOrder" Method="GetProductsForOrder">
+    <Parameter Name="order_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductsForOrderResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="product_detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="supplier_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="supplier_name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="supplier_addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductSummary" Method="GetProductSummary">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <ElementType Name="GetProductSummaryResult">
+      <Column Name="oid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetSuppliers" Method="GetSuppliers">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSuppliersResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.HasInventory" Method="HasInventory">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InitializeInventory" Method="InitializeInventory">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lead_time" Type="System.Int32" DbType="Int" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Login" Method="Login">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="pass" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="LoginResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.NewProduct" Method="NewProduct">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ProductCount" Method="ProductCount">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <ElementType Name="ProductCountResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
+      <Column Name="count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SendOrder" Method="SendOrder">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateInventoryQuantity" Method="UpdateInventoryQuantity">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateLeadTime" Method="UpdateLeadTime">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lead_time" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateOrderScanIn" Method="UpdateOrderScanIn">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="scan_in" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateOrderTitle" Method="UpdateOrderTitle">
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="oid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="title" Type="System.String" DbType="VarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateProductLocation" Method="UpdateProductLocation">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
