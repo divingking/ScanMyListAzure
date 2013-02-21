@@ -414,7 +414,7 @@ namespace ScanMyListWebRole
 
                 if (NewOrder.sent && allHasSupplier)
                 {
-                    return string.Format("{0} id=_{1}", SendOrder(NewOrder.cid, NewOrder.oid), NewOrder.oid);
+                    return string.Format("{0} id=_{1}", SendOrder(NewOrder.cid, oid), oid);
                 }
                 else if (NewOrder.sent)
                 {
