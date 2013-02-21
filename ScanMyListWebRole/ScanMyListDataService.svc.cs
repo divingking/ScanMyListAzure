@@ -249,6 +249,8 @@ namespace ScanMyListWebRole
                         title = result.title, 
                         oid = result.oid,
                         date = (long)result.date,
+                        scanIn = (bool)result.scan_in, 
+                        sent = (bool)result.sent, 
                         products = new List<Product>()
                     };
                 }
@@ -306,6 +308,7 @@ namespace ScanMyListWebRole
             {
                 orders.Add(new Order()
                 {
+                    cid = cid, 
                     oid = result.id, 
                     title = result.title, 
                     date = (long)result.date, 
@@ -326,6 +329,7 @@ namespace ScanMyListWebRole
             {
                 orders.Add(new Order()
                 {
+                    cid = cid, 
                     oid = result.id, 
                     title = result.title, 
                     date = (long)result.date, 
@@ -505,7 +509,8 @@ namespace ScanMyListWebRole
             {
                 cid = cid,
                 oid = oid,
-                date = 0,
+                date = 0, 
+                title = null, 
                 scanIn = false,
                 sent = false,
                 products = null
