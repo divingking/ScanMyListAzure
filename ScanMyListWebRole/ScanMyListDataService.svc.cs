@@ -450,6 +450,7 @@ namespace ScanMyListWebRole
                         {
                             context.UpdateOrderScanIn(NewOrder.cid, NewOrder.oid, NewOrder.scanIn);
                         }
+                        bool allHasSupplier = true;
                         if (NewOrder.products != null || NewOrder.products.Count != 0)
                         {
                             context.ClearProductFromOrder(NewOrder.oid);
@@ -459,12 +460,24 @@ namespace ScanMyListWebRole
                                 if (current.supplier == null)
                                 {
                                     context.AddProductToOrder(NewOrder.oid, current.upc, null, current.quantity);
+                                    allHasSupplier = false;
                                 }
                                 else
                                 {
                                     context.AddProductToOrder(NewOrder.oid, current.upc, current.supplier.id, current.quantity);
                                 }
                             }
+                        }
+
+                        if (NewOrder.sent && allHasSupplier)
+                        {
+                            return string.Format("{0} id=_{1}", SendOrder(NewOrder.cid, NewOrder.oid), NewOrder.oid);
+                        }
+                        else if (NewOrder.sent)
+                        {
+                            return string.Format(
+                                "Order without supplier specified cannot be sent! Stored as unsent instead. id=_{0}",
+                                NewOrder.oid);
                         }
 
                         return string.Format("Order updated! id=_{0}", NewOrder.oid);
