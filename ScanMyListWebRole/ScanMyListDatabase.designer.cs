@@ -264,6 +264,13 @@ namespace ScanMyListWebRole
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, location);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IncrementInventory")]
+		public int IncrementInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, quantity);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class GetAllSuppliersResult

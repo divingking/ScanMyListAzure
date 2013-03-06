@@ -275,4 +275,10 @@
     <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.IncrementInventory" Method="IncrementInventory">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

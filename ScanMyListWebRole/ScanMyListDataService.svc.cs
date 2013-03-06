@@ -568,6 +568,14 @@ namespace ScanMyListWebRole
             }
             else
             {
+                if (order.scanIn)
+                {
+                    IncrementInventories(order.products, order.cid);
+                }
+                else
+                {
+                    DecrementInventories(order.products, order.cid);
+                }
                 context.SendOrder(cid, oid);
                 if (!MailHelper.SendOrderBackup(order))
                     return "Fail to send system confirmation mail!";
@@ -589,6 +597,26 @@ namespace ScanMyListWebRole
             else
             {
                 return -1;
+            }
+        }
+
+        private void IncrementInventories(IList<Product> products, int customerId)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+
+            foreach (Product product in products)
+            {
+                context.IncrementInventory(product.upc, customerId, product.quantity);
+            }
+        }
+
+        private void DecrementInventories(IList<Product> products, int customerId)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+
+            foreach (Product product in products)
+            {
+                context.IncrementInventory(product.upc, customerId, -1 * product.quantity);
             }
         }
     }
