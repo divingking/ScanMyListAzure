@@ -1,9 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ScanMyList" Class="ScanMyListDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=iml0mpyqrb.database.windows.net;Initial Catalog=ScanMyList;User ID=smladmin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ScanMyListConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ScanMyListTest" Class="ScanMyListDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=iml0mpyqrb.database.windows.net;Initial Catalog=ScanMyListTest;Persist Security Info=True;User ID=smladmin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ScanMyListTestConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.AddProduct" Method="AddProduct">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
     <Parameter Name="name" Type="System.String" DbType="VarChar(30)" />
     <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateProductLocation" Method="UpdateProductLocation">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.AddProductToOrder" Method="AddProductToOrder">
@@ -28,9 +34,9 @@
     <Parameter Name="cid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetAllSuppliersResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="addr" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
@@ -82,9 +88,9 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="sid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="sname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="sname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="saddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="saddr" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetOrderOverview" Method="GetOrderOverview">
@@ -116,8 +122,8 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="sid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="sname" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="saddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="sname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="saddr" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetOrdersByDate" Method="GetOrdersByDate">
@@ -181,8 +187,8 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="supplier_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="supplier_name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="supplier_addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="supplier_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="supplier_addr" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
@@ -195,14 +201,19 @@
       <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetSessionId" Method="GetSessionId">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="session_id" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.GetSuppliers" Method="GetSuppliers">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
     <Parameter Name="cid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetSuppliersResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="business" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="addr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="addr" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
@@ -210,6 +221,12 @@
   <Function Name="dbo.HasInventory" Method="HasInventory">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
     <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.IncrementInventory" Method="IncrementInventory">
+    <Parameter Name="upc" Type="System.String" DbType="NVarChar(13)" />
+    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.InitializeInventory" Method="InitializeInventory">
@@ -245,6 +262,16 @@
     <Parameter Name="oid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SetSessionId" Method="SetSessionId">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="session_id" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SetUUID" Method="SetUUID">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="uuid" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.UpdateInventoryQuantity" Method="UpdateInventoryQuantity">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
     <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
@@ -267,18 +294,6 @@
     <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
     <Parameter Name="oid" Type="System.Int32" DbType="Int" />
     <Parameter Name="title" Type="System.String" DbType="VarChar(100)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.UpdateProductLocation" Method="UpdateProductLocation">
-    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
-    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.IncrementInventory" Method="IncrementInventory">
-    <Parameter Name="upc" Type="System.String" DbType="VarChar(13)" />
-    <Parameter Name="customer_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

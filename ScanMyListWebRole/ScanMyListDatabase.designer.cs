@@ -22,7 +22,7 @@ namespace ScanMyListWebRole
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="ScanMyList")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="ScanMyListTest")]
 	public partial class ScanMyListDatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -33,7 +33,7 @@ namespace ScanMyListWebRole
     #endregion
 		
 		public ScanMyListDatabaseDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ScanMyListConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ScanMyListTestConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -66,6 +66,13 @@ namespace ScanMyListWebRole
 		public int AddProduct([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string detail)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, name, detail);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateProductLocation")]
+		public int UpdateProductLocation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string location)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, location);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -181,6 +188,14 @@ namespace ScanMyListWebRole
 			return ((ISingleResult<GetProductSummaryResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSessionId")]
+		public int GetSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] ref string session_id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), cid, session_id);
+			session_id = ((string)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSuppliers")]
 		public ISingleResult<GetSuppliersResult> GetSuppliers([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid)
 		{
@@ -192,6 +207,13 @@ namespace ScanMyListWebRole
 		public int HasInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IncrementInventory")]
+		public int IncrementInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, quantity);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -230,6 +252,20 @@ namespace ScanMyListWebRole
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SetSessionId")]
+		public int SetSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string session_id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), cid, session_id);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SetUUID")]
+		public int SetUUID([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string uuid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), cid, uuid);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateInventoryQuantity")]
 		public int UpdateInventoryQuantity([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
 		{
@@ -255,20 +291,6 @@ namespace ScanMyListWebRole
 		public int UpdateOrderTitle([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> oid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string title)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), customer_id, oid, title);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateProductLocation")]
-		public int UpdateProductLocation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string location)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, location);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IncrementInventory")]
-		public int IncrementInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(13)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, customer_id, quantity);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -306,7 +328,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
 		public string name
 		{
 			get
@@ -338,7 +360,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_addr", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_addr", DbType="VarChar(255)")]
 		public string addr
 		{
 			get
@@ -894,7 +916,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sname", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sname", DbType="VarChar(50)")]
 		public string sname
 		{
 			get
@@ -926,7 +948,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saddr", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saddr", DbType="VarChar(255)")]
 		public string saddr
 		{
 			get
@@ -1322,7 +1344,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sname", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sname", DbType="VarChar(50)")]
 		public string sname
 		{
 			get
@@ -1338,7 +1360,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saddr", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saddr", DbType="VarChar(255)")]
 		public string saddr
 		{
 			get
@@ -1958,7 +1980,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_name", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_name", DbType="VarChar(50)")]
 		public string supplier_name
 		{
 			get
@@ -1974,7 +1996,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_addr", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_addr", DbType="VarChar(255)")]
 		public string supplier_addr
 		{
 			get
@@ -2104,7 +2126,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
 		public string name
 		{
 			get
@@ -2136,7 +2158,7 @@ namespace ScanMyListWebRole
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_addr", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_addr", DbType="VarChar(255)")]
 		public string addr
 		{
 			get
