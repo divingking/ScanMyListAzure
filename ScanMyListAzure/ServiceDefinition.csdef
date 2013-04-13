@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="ScanMyListAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2012-10.1.8">
   <WebRole name="ScanMyListWebRole" vmsize="Small">
+    <Certificates>
+      <Certificate name="SMLTest" storeLocation="LocalMachine" storeName="CA"/>
+    </Certificates>
     <Sites>
       <Site name="Web">
         <Bindings>
-          <Binding name="Endpoint1" endpointName="Endpoint1" />
+          <Binding name="HttpsIn" endpointName="HttpsIn" />
         </Bindings>
       </Site>
     </Sites>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="SMLTest" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />

@@ -112,6 +112,9 @@
       <LastGenOutput>ScanMyListDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="SMLTest.cer" />
+    <Content Include="SMLTest.pfx" />
+    <Content Include="SMLTest.pvk" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
