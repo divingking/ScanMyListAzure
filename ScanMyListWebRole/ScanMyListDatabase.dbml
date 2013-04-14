@@ -296,4 +296,20 @@
     <Parameter Name="title" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.CreateNewCustomer" Method="CreateNewCustomer">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="fname" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="mname" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="lname" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="addr" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="business" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Logout" Method="Logout">
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

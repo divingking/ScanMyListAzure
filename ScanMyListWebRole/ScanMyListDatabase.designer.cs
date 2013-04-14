@@ -293,6 +293,20 @@ namespace ScanMyListWebRole
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), customer_id, oid, title);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CreateNewCustomer")]
+		public int CreateNewCustomer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string fname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string mname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string lname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string addr, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> tier)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, password, fname, mname, lname, addr, email, business, tier);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Logout")]
+		public int Logout([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), cid);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class GetAllSuppliersResult

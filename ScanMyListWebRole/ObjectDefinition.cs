@@ -41,6 +41,8 @@ namespace ScanMyListWebRole
         public bool sent { get; set; }
         [DataMember]
         public bool scanIn { get; set; }
+        [DataMember]
+        public string sessionId { get; set; }
     }
 
     [DataContract]
@@ -56,6 +58,29 @@ namespace ScanMyListWebRole
         public string address { get; set; }
         [DataMember]
         public double price { get; set; }
+    }
+
+    [DataContract]
+    public class NewUser
+    {
+        [DataMember]
+        public string login { get; set; }
+        [DataMember]
+        public string pass { get; set; }
+        [DataMember]
+        public string fname { get; set; }
+        [DataMember]
+        public string mname { get; set; }
+        [DataMember]
+        public string lname { get; set; }
+        [DataMember]
+        public string address { get; set; }
+        [DataMember]
+        public string email { get; set; }
+        [DataMember]
+        public string business { get; set; }
+        [DataMember]
+        public int tier { get; set; }
     }
 
     [DataContract]
