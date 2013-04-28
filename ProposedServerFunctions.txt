@@ -1,0 +1,27 @@
+1. Login
+2. Check Inventory
+	a. Check current Inventory
+	b. Check InventoryHistory
+   
+3. Update Inventory
+	a. Add a new Product into Inventory
+	b. Update Product location
+	c. Update Product quantity
+	d. Update Product lead time
+	e. Every update needs to have a corresponding entry in InventoryHistory
+   
+4. Check history Orders
+	a. Get Order overview 
+		- By time range
+		- By Order number (i.e. From 5th to 10th order)
+	b. Get Order detail
+		- Get complete information about the order
+   
+5. Make an Order
+	a. Create a scan-in order
+		- Leave customer blank, fill in Supplier
+	b. Create a scan-out order
+		- Leave supplier blank, fill in Customer
+	c. Send an Order
+		- Break down the order by target(Supplier/Customer)
+		- Send partial order only related to target
