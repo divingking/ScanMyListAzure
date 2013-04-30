@@ -82,3 +82,4 @@ create clustered index OrderContains on Consists(oid);
 create index SuppliesSuppliers on Supplies(business);
 create clustered index SuppliesProducts on Supplies(upc);
 create clustered index InventoryCid on Inventory(business);
+create clustered index InventoryHistoryBusiness on InventoryHistory(business);
