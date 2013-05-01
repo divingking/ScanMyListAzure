@@ -16,7 +16,7 @@ create table Product (
 
 create table Account (
     login varchar(255), 
-    password varchar(20), 
+    password varchar(512), 
     business int, 
     foreign key (business) references Business(id)
 ); 
@@ -41,18 +41,11 @@ create table InventoryHistory (
 ); 
 create table Supplies (
     business int, 
+	customer int, 
     upc varchar(20), 
     price float, 
     foreign key (business) references Business(id), 
-    foreign key (upc) references Product(upc)
-); 
-create table Customer (
-    business int, 
-    customer int, 
-    upc varchar(20), 
-    price float, 
-    foreign key (business) references Business(id), 
-    foreign key (customer) references Business(id), 
+	foreign key (customer) references Business(id), 
     foreign key (upc) references Product(upc)
 ); 
 create table OrderList (
@@ -80,6 +73,7 @@ create table Consists (
 create index BusinessCategory on Business(category);
 create clustered index OrderContains on Consists(oid);
 create index SuppliesSuppliers on Supplies(business);
+create index SuppliesCustomers on Supplies(customer);
 create clustered index SuppliesProducts on Supplies(upc);
 create clustered index InventoryCid on Inventory(business);
 create clustered index InventoryHistoryBusiness on InventoryHistory(business);

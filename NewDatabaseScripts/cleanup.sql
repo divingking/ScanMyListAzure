@@ -1,9 +1,8 @@
 
 
-drop table Constsis; 
+drop table Consists; 
 
 drop table OrderList; 
-drop table Customer; 
 drop table Supplies; 
 drop table InventoryHistory;
 drop table Inventory; 

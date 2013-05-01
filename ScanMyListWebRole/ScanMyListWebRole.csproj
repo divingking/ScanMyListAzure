@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
     <Compile Include="DatabaseProcedures.cs" />
+    <Compile Include="Encryptor.cs" />
     <Compile Include="IScanMyListDataService.cs" />
     <Compile Include="MailHelper.cs" />
     <Compile Include="ObjectDefinition.cs" />
