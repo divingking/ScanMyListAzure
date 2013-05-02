@@ -12,45 +12,45 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "product_upc?upc={upc}&cid={cid}"
+            UriTemplate = "product_upc?upc={upc}&bid={bid}"
         )]
-        Product GetProductByUPC(string upc, int cid, string sessionId);
+        Product GetProductByUPC(string upc, int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "product_name?name={name}&cid={cid}"
+            UriTemplate = "product_name?name={name}&bid={bid}"
         )]
-        List<Product> GetProductByName(string name, int cid, string sessionId);
+        List<Product> GetProductByName(string name, int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "update_lead_time?upc={upc}&cid={cid}&lead_time={lead_time}"
+            UriTemplate = "update_lead_time?upc={upc}&bid={bid}&lead_time={lead_time}"
         )]
-        string UpdateLeadTime(string upc, int cid, int lead_time, string sessionId);
+        string UpdateLeadTime(string upc, int bid, int lead_time, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "update_inventory_quantity?upc={upc}&cid={cid}&quantity={quantity}"
+            UriTemplate = "update_inventory_quantity?upc={upc}&bid={bid}&quantity={quantity}"
         )]
-        string UpdateInventoryQuantity(string upc, int cid, int quantity, string sessionId);
+        string UpdateInventoryQuantity(string upc, int bid, int quantity, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "update_product_location?upc={upc}&cid={cid}&location={location}"
+            UriTemplate = "update_product_location?upc={upc}&bid={bid}&location={location}"
         )]
-        string UpdateProductLocation(string upc, int cid, string location, string sessionId);
+        string UpdateProductLocation(string upc, int bid, string location, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -67,27 +67,27 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "inventory?cid={cid}"
+            UriTemplate = "inventory?bid={bid}"
         )]
-        List<Product> GetInventory(int cid, string sessionId);
+        List<Product> GetInventory(int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "suppliers?upc={upc}&cid={cid}"
+            UriTemplate = "suppliers?upc={upc}&bid={bid}"
         )]
-        List<Supplier> GetSuppliers(string upc, int cid, string sessionId);
+        List<Business> GetSuppliers(string upc, int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "all_suppliers?cid={cid}"
+            UriTemplate = "all_suppliers?bid={bid}"
         )]
-        List<Supplier> GetAllSuppliers(int cid, string sessionId);
+        List<Business> GetAllSuppliers(int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -102,53 +102,71 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "orders?cid={cid}"
+            UriTemplate = "orders?bid={bid}"
         )]
-        List<Order> GetOrders(int cid, string sessionId);
+        List<Order> GetOrders(int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "orders_by_date?cid={cid}&start={start}&end={end}"
+            UriTemplate = "receipts?bid={bid}"
         )]
-        List<Order> GetOrdersByDate(int cid, long start, long end, string sessionId);
+        List<Order> GetReceipts(int bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "orders_by_range?cid={cid}&start={start}&end={end}"
+            UriTemplate = "orders_by_date?bid={bid}&start={start}&end={end}"
         )]
-        List<Order> GetOrdersByRange(int cid, int start, int end, string sessionId);
+        List<Order> GetOrdersByDate(int bid, long start, long end, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "n_orders_from_last?cid={cid}&last={last}&n={n}"
+            UriTemplate = "orders_by_range?bid={bid}&start={start}&end={end}"
         )]
-        List<Order> GetNOrdersFromLast(int cid, int last, int n, string sessionId);
+        List<Order> GetOrdersByRange(int bid, int start, int end, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "products_for_order?cid={cid}&oid={oid}"
+            UriTemplate = "n_orders_from_last?bid={bid}&last={last}&n={n}"
         )]
-        List<Product> GetProductsForOrder(int cid, int oid, string sessionId);
+        List<Order> GetNOrdersFromLast(int bid, int last, int n, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "products_for_order?bid={bid}&oid={oid}"
+        )]
+        List<Product> GetProductsForOrder(int bid, int oid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "products_for_receipt?bid={bid}&oid={oid}"
+        )]
+        List<Product> GetProductsForReceipt(int bid, int oid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "summary?cid={cid}&upc={upc}"
+            UriTemplate = "summary?bid={bid}&upc={upc}"
         )]
-        string GetProductSummary(int cid, string upc, string sessionId);
+        string GetProductSummary(int bid, string upc, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -165,18 +183,18 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "update_title?cid={cid}&oid={oid}&title={title}"
+            UriTemplate = "update_title?bid={bid}&oid={oid}&title={title}"
         )]
-        string UpdateOrderTitle(int cid, int oid, string title, string sessionId);
+        string UpdateOrderTitle(int bid, int oid, string title, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "send_order?cid={cid}&oid={oid}"
+            UriTemplate = "send_order?bid={bid}&oid={oid}"
         )]
-        string SendOrder(int cid, int oid, string sessionId);
+        string SendOrder(int bid, int oid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -203,8 +221,8 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "logout?cid={cid}&session_id={sessionId}"
+            UriTemplate = "logout?bid={bid}&session_id={sessionId}"
         )]
-        string Logout(int cid, string sessionId);
+        string Logout(int bid, string sessionId);
     }
 }

@@ -2,9 +2,10 @@
 
 drop table Consists; 
 
-drop table OrderList; 
+drop table Record; 
+drop table Category;
+drop table RecordStatus;
 drop table Supplies; 
-drop table InventoryHistory;
 drop table Inventory; 
 
 drop table Account; 

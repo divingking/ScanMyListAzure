@@ -2,7 +2,7 @@
 	a. Create a new business if not exist		- done. 
 	b. Create an account linked to the business	- done. 
 	c. note: we only store the hash of the password in out database. 
-1. Login
+1. Login										- done. 
 
 2. Check Inventory
 	a. Check current Inventory				- done.  
