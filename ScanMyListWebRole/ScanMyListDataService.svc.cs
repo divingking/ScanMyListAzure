@@ -2,12 +2,27 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.ServiceModel;
 using System.Web.Script.Serialization;
 
 namespace ScanMyListWebRole
 {
     public class ScanMyListDataService : IScanMyListDataService
     {
+        public enum RecordCategory
+        {
+            Order, 
+            Receipt, 
+            Change
+        }
+
+        public enum RecordStatus
+        {
+            saved, 
+            sent, 
+            closed
+        }
+
         public Product GetProductByUPC(string upc, int bid, string sessionId)
         {
             if (CheckSession(bid, sessionId))
@@ -507,34 +522,34 @@ namespace ScanMyListWebRole
             }
         }
 
-        public List<Product> GetProductsForOrder(int bid, int oid, string sessionId)
+        public List<RecordProduct> GetRecordDetails(int bid, int rid, string sessionId)
         {
             if (CheckSession(bid, sessionId))
             {
                 ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-                var results = context.GetOrderDetails(bid, oid);
-                List<Product> products = new List<Product>();
-                foreach (var result in results)
+                var record = context.GetRecord(bid, rid);
+                IEnumerator<GetRecordResult> recordEnumerator = record.GetEnumerator();
+
+                if (recordEnumerator.MoveNext())
                 {
-                    products.Add(new Product()
+                    int category = (int)recordEnumerator.Current.category;
+
+                    switch (category)
                     {
-                        upc = result.upc,
-                        name = result.name,
-                        detail = result.detail,
-                        owner = bid,
-                        leadTime = (int)result.lead_time,
-                        quantity = (int)result.quantity,
-                        location = result.location,
-                        supplier = new Business()
-                        {
-                            id = result.customer_id,
-                            name = result.customer_name,
-                            email = result.customer_email, 
-                            price = (double)result.price
-                        }
-                    });
+                        case (int)RecordCategory.Order:
+                            return GetOrderDetails(context, bid, rid);
+                        case (int)RecordCategory.Receipt:
+                            return GetReceiptDetails(context, bid, rid);
+                        case (int)RecordCategory.Change:
+                            return GetChangeDetails(context, bid, rid);
+                        default:
+                            return null;
+                    }
                 }
-                return products;
+                else
+                {
+                    return null;
+                }
             }
             else
             {
@@ -542,39 +557,65 @@ namespace ScanMyListWebRole
             }
         }
 
-        public List<Product> GetProductsForReceipt(int bid, int oid, string sessionId)
+        private List<RecordProduct> GetOrderDetails(ScanMyListDatabaseDataContext context, int bid, int rid)
         {
-            if (CheckSession(bid, sessionId))
+            List<RecordProduct> products = new List<RecordProduct>();
+
+            var results = context.GetOrderDetails(bid, rid);
+
+            foreach (var product in results)
             {
-                ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-                var results = context.GetReceiptDetails(bid, oid);
-                List<Product> products = new List<Product>();
-                foreach (var result in results)
-                {
-                    products.Add(new Product()
+                products.Add(
+                    new RecordProduct()
                     {
-                        upc = result.upc,
-                        name = result.name,
-                        detail = result.detail,
-                        owner = bid,
-                        leadTime = (int)result.lead_time,
-                        quantity = (int)result.quantity,
-                        location = result.location,
-                        supplier = new Business()
-                        {
-                            id = result.supplier_id,
-                            name = result.supplier_name,
-                            email = result.supplier_email,
-                            price = (double)result.price
-                        }
+                        upc = product.product_upc, 
+                        customer = product.customer_id, 
+                        quantity = (int)product.product_quantity, 
+                        price = (double)product.product_price
                     });
-                }
-                return products;
             }
-            else
+
+            return products;
+        }
+
+        private List<RecordProduct> GetReceiptDetails(ScanMyListDatabaseDataContext context, int bid, int rid)
+        {
+            List<RecordProduct> products = new List<RecordProduct>();
+
+            var results = context.GetReceiptDetails(bid, rid);
+
+            foreach (var product in results)
             {
-                return null;
+                products.Add(
+                    new RecordProduct()
+                    {
+                        upc = product.product_upc, 
+                        supplier = product.supplier_id, 
+                        quantity = (int)product.product_quantity, 
+                        price = (double)product.product_price
+                    });
             }
+
+            return products;
+        }
+
+        private List<RecordProduct> GetChangeDetails(ScanMyListDatabaseDataContext context, int bid, int rid)
+        {
+            List<RecordProduct> products = new List<RecordProduct>();
+
+            var results = context.GetChangeDetails(bid, rid);
+
+            foreach (var product in results)
+            {
+                products.Add(
+                    new RecordProduct()
+                    {
+                        upc = product.product_upc, 
+                        quantity = (int)product.product_quantity
+                    });
+            }
+
+            return products;
         }
 
         public string GetProductSummary(int bid, string upc, string sessionId)
@@ -602,29 +643,205 @@ namespace ScanMyListWebRole
                     lastProductCount = (int)(enumerator.Current.quantity);
                 }
 
-                String startStr = start.ToString();
-                String endStr = end.ToString();
-                DateTime startDate = new DateTime(Convert.ToInt32(startStr.Substring(0, 4)),          // year
-                                                    Convert.ToInt32(startStr.Substring(4, 2)),          // month   
-                                                    Convert.ToInt32(startStr.Substring(6, 2)),          // day
-                                                    Convert.ToInt32(startStr.Substring(8, 2)),          // hour
-                                                    Convert.ToInt32(startStr.Substring(10, 2)),         // minute
-                                                    Convert.ToInt32(startStr.Substring(12, 2)));        // second
-                DateTime endDate = new DateTime(Convert.ToInt32(endStr.Substring(0, 4)),          // year
-                                                    Convert.ToInt32(endStr.Substring(4, 2)),          // month   
-                                                    Convert.ToInt32(endStr.Substring(6, 2)),          // day
-                                                    Convert.ToInt32(endStr.Substring(8, 2)),          // hour
-                                                    Convert.ToInt32(endStr.Substring(10, 2)),         // minute
-                                                    Convert.ToInt32(endStr.Substring(12, 2)));        // second
-
-                TimeSpan dateDiff = endDate.Subtract(startDate);
-                double days = Convert.ToDouble(dateDiff.Days);
+                double days = GetDays(start, end);
 
                 return string.Format("{0} {1}", (double)(productCount - lastProductCount) / days, days / (double)orderCount);
             }
             else
             {
                 return "Session Expired! ";
+            }
+        }
+
+        public List<RecordProduct> GetProductSummaryData(int bid, string upc, string sessionId)
+        {
+            if (CheckSession(bid, sessionId))
+            {
+                ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+
+                List<RecordProduct> products = new List<RecordProduct>();
+
+                var retrievedProducts = context.GetProductSummary(bid, upc, sessionId);
+
+                foreach (var product in retrievedProducts)
+                {
+                    products.Add(
+                        new RecordProduct()
+                        {
+                            upc = upc, 
+                            supplier = product.supplier, 
+                            customer = product.customer, 
+                            quantity = product.quantity
+                        });
+                }
+
+                return products;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private double GetDays(long start, long end)
+        {
+            String startStr = start.ToString();
+            String endStr = end.ToString();
+            DateTime startDate = new DateTime(Convert.ToInt32(startStr.Substring(0, 4)),          // year
+                                                Convert.ToInt32(startStr.Substring(4, 2)),          // month   
+                                                Convert.ToInt32(startStr.Substring(6, 2)),          // day
+                                                Convert.ToInt32(startStr.Substring(8, 2)),          // hour
+                                                Convert.ToInt32(startStr.Substring(10, 2)),         // minute
+                                                Convert.ToInt32(startStr.Substring(12, 2)));        // second
+            DateTime endDate = new DateTime(Convert.ToInt32(endStr.Substring(0, 4)),          // year
+                                                Convert.ToInt32(endStr.Substring(4, 2)),          // month   
+                                                Convert.ToInt32(endStr.Substring(6, 2)),          // day
+                                                Convert.ToInt32(endStr.Substring(8, 2)),          // hour
+                                                Convert.ToInt32(endStr.Substring(10, 2)),         // minute
+                                                Convert.ToInt32(endStr.Substring(12, 2)));        // second
+
+            TimeSpan dateDiff = endDate.Subtract(startDate);
+            return Convert.ToDouble(dateDiff.Days);
+        }
+
+        public string CreateRecord(Record newRecord)
+        {
+            if (CheckSession(newRecord.business, newRecord.sessionId))
+            {
+                this.ValidateRecord(newRecord);
+
+                ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+                if (newRecord.id == -1)
+                {
+                    // Create a new record
+                    int rid = context.CreateRecord(
+                            newRecord.business, newRecord.title, newRecord.category, newRecord.status); ;
+                    if (newRecord.category == (int)RecordCategory.Change)
+                    {
+                        newRecord.status = (int)RecordStatus.closed;
+                    }
+
+                    foreach (RecordProduct product in newRecord.products)
+                    {
+                        context.AddProductToRecord(
+                            rid, product.upc, product.supplier, product.customer, product.quantity);
+                    }
+
+                    if (newRecord.status == (int)RecordStatus.sent)
+                    {
+                        return string.Format("{0} id=_{1}", SendOrder(newRecord.business, rid, newRecord.sessionId), rid);
+                    }
+                    else
+                    {
+                        return string.Format("New Record saved! id=_{0}", newRecord.id);
+                    }
+                }
+                else
+                {
+                    // Update an existing record
+                    var result = context.GetRecord(newRecord.business, newRecord.id);
+                    IEnumerator<GetRecordResult> recordEnumerator = result.GetEnumerator();
+
+                    if (recordEnumerator.MoveNext())
+                    {
+                        GetRecordResult retrievedRecord = recordEnumerator.Current;
+
+                        if (retrievedRecord.status != (int)RecordStatus.saved)
+                        {
+                            throw new FaultException("Sent or Closed Record cannot be modified! ");
+                        }
+                        else
+                        {
+                            if (!newRecord.title.Equals(retrievedRecord.title))
+                            {
+                                context.UpdateRecordTitle(newRecord.business, newRecord.id, newRecord.title);
+                            }
+                            
+                            if (newRecord.products != null || newRecord.products.Count != 0)
+                            {
+                                context.ClearProductsFromRecord(newRecord.id);
+
+                                foreach (RecordProduct product in newRecord.products)
+                                {
+                                    context.AddProductToRecord(
+                                        newRecord.id, product.upc, product.supplier, product.customer, product.quantity);
+                                }
+                            }
+
+                            if (newRecord.status == (int)RecordStatus.sent)
+                            {
+                                return string.Format(
+                                    "{0} id=_{1}", 
+                                    SendOrder(newRecord.business, newRecord.id, newRecord.sessionId), newRecord.id);
+                            }
+                            else
+                            {
+                                return string.Format("New Record saved! id=_{0}", newRecord.id);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new FaultException("The record you requested for update does not exist! ");
+                    }
+                }
+            }
+            else
+            {
+                throw new FaultException("Session Expired! ");
+            }
+        }
+
+        private void ValidateRecord(Record record)
+        {
+            if (record.category == (int)RecordCategory.Change)
+            {
+                if (record.id != -1)
+                {
+                    throw new FaultException("Cannot modify an Inventory change! ");
+                }
+
+                record.status = (int)RecordStatus.closed;
+                foreach (RecordProduct product in record.products)
+                {
+                    product.supplier = 1;
+                    product.customer = 1;
+                    product.price = 0;
+                }
+            }
+            else
+            {
+                if (record.status == (int)RecordStatus.closed)
+                {
+                    throw new FaultException("Cannot create a closed Record! ");
+                }
+
+                bool allHasSupplier = true;
+                bool allHasCustomer = true;
+
+                foreach (RecordProduct product in record.products)
+                {
+                    if (product.supplier == 1)
+                    {
+                        allHasSupplier = false;
+                    }
+                    if (product.customer == 1)
+                    {
+                        allHasCustomer = false;
+                    }
+                }
+
+                if (record.status == (int)RecordStatus.sent)
+                {
+                    if (record.category == (int)RecordCategory.Order && !allHasCustomer)
+                    {
+                        throw new FaultException("Cannot send an Order without specifying all customers! ");
+                    }
+                    else if (record.category == (int)RecordCategory.Receipt && !allHasSupplier)
+                    {
+                        throw new FaultException("Cannot send a Receipt without specifying all suppliers! ");
+                    }
+                }
             }
         }
 
@@ -729,34 +946,34 @@ namespace ScanMyListWebRole
             }
         }
 
-        public string UpdateOrderTitle(int bid, int oid, string title, string sessionId)
+        public string UpdateRecordTitle(int bid, int rid, string title, string sessionId)
         {
             if (CheckSession(bid, sessionId))
             {
                 ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-                var result = context.GetOrderOverview(bid, oid);
-                IEnumerator<GetOrderOverviewResult> enumerator = result.GetEnumerator();
+                var result = context.GetRecord(bid, rid);
+                IEnumerator<GetRecordResult> enumerator = result.GetEnumerator();
                 if (enumerator.MoveNext())
                 {
-                    GetOrderOverviewResult order = enumerator.Current;
-                    if ((bool)order.sent)
+                    GetRecordResult record = enumerator.Current;
+                    if (record.status == (int)RecordStatus.sent || record.status == (int)RecordStatus.closed)
                     {
-                        return "Sent order's title cannot be updated! ";
+                        throw new FaultException("Sent or Closed Record's title cannot be updated! ");
                     }
                     else
                     {
-                        context.UpdateOrderTitle(bid, oid, title);
-                        return string.Format("Order {0}'s title has been updated to {1}.", oid, title);
+                        context.UpdateRecordTitle(bid, rid, title);
+                        return string.Format("Record {0}'s title has been updated to {1}.", rid, title);
                     }
                 }
                 else
                 {
-                    return "No such order! ";
+                    return "No such record! ";
                 }
             }
             else
             {
-                return "Session Expired! ";
+                throw new FaultException("Session Expired! ");
             }
         }
 
@@ -838,20 +1055,25 @@ namespace ScanMyListWebRole
             }
         }
 
-        public int Register(NewUser user)
+        public int RegisterBusiness(Business business)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+
+            int bid = context.RegisterBusiness(
+                business.name, business.address, business.zip, business.email, business.category);
+
+            return bid;
+        }
+
+        public int RegisterAccount(NewUser user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string passwordHash = Encryptor.GenerateHash(user.pass);
 
-            int bid = context.CreateNewCustomer(
+            int bid = context.RegisterAccount(
                 user.login, 
                 passwordHash, 
-                user.fname, 
-                user.mname, 
-                user.lname, 
-                user.address, 
-                user.email, 
-                user.email, 
+                user.business, 
                 user.tier);
 
             return bid;
@@ -861,6 +1083,7 @@ namespace ScanMyListWebRole
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string passwordHash = Encryptor.GenerateHash(user.pass);
+
             var results = context.Login(user.login, passwordHash);
             IEnumerator<LoginResult> loggedIn = results.GetEnumerator();
             if (loggedIn.MoveNext())
@@ -870,13 +1093,13 @@ namespace ScanMyListWebRole
                 string sessionValue = string.Format("{0}", rand.Next());
                 string sessionId = Encryptor.GenerateHash(sessionValue);
 
-                context.SetSessionId(bid, sessionId);
+                context.UpdateSessionId(user.login, sessionId);
 
                 return sessionId;
             }
             else
             {
-                return "Invalid username or password. ";
+                throw new FaultException("Invalid username or password. ");
             }
         }
 
@@ -904,23 +1127,23 @@ namespace ScanMyListWebRole
             return sessionId.Equals(retrievedSessionId);
         }
 
-        private void IncrementInventories(IList<Product> products, int customerId)
+        private void IncrementInventories(IList<Product> products, int business)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
             foreach (Product product in products)
             {
-                context.IncrementInventory(product.upc, customerId, product.quantity);
+                context.IncrementInventory(business, product.upc, product.quantity);
             }
         }
 
-        private void DecrementInventories(IList<Product> products, int customerId)
+        private void DecrementInventories(IList<Product> products, int business)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
             foreach (Product product in products)
             {
-                context.IncrementInventory(product.upc, customerId, -1 * product.quantity);
+                context.IncrementInventory(business, product.upc, -1 * product.quantity);
             }
         }
     }

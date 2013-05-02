@@ -46,6 +46,42 @@ namespace ScanMyListWebRole
     }
 
     [DataContract]
+    public class RecordProduct
+    {
+        [DataMember]
+        public string upc { get; set; }
+        [DataMember]
+        public int supplier { get; set; }
+        [DataMember]
+        public int customer { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
+        [DataMember]
+        public double price { get; set; }
+    }
+
+    [DataContract]
+    public class Record
+    {
+        [DataMember]
+        public int id { get; set; }
+        [DataMember]
+        public string title { get; set; }
+        [DataMember]
+        public int business { get; set; }
+        [DataMember]
+        public long date { get; set; }
+        [DataMember]
+        public List<RecordProduct> products { get; set; }
+        [DataMember]
+        public int status { get; set; }
+        [DataMember]
+        public int category { get; set; }
+        [DataMember]
+        public string sessionId { get; set; }
+    }
+
+    [DataContract]
     public class Order
     {
         [DataMember]
@@ -74,17 +110,7 @@ namespace ScanMyListWebRole
         [DataMember]
         public string pass { get; set; }
         [DataMember]
-        public string fname { get; set; }
-        [DataMember]
-        public string mname { get; set; }
-        [DataMember]
-        public string lname { get; set; }
-        [DataMember]
-        public string address { get; set; }
-        [DataMember]
-        public string email { get; set; }
-        [DataMember]
-        public string business { get; set; }
+        public int business { get; set; }
         [DataMember]
         public int tier { get; set; }
     }

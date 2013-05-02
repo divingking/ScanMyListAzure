@@ -147,26 +147,25 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "products_for_order?bid={bid}&oid={oid}"
+            UriTemplate = "products_for_Record?bid={bid}&rid={rid}&session={sessionId}"
         )]
-        List<Product> GetProductsForOrder(int bid, int oid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "products_for_receipt?bid={bid}&oid={oid}"
-        )]
-        List<Product> GetProductsForReceipt(int bid, int oid, string sessionId);
+        List<RecordProduct> GetRecordDetails(int bid, int rid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "summary?bid={bid}&upc={upc}"
+            UriTemplate = "summary?bid={bid}&upc={upc}&session={sessionId}"
         )]
         string GetProductSummary(int bid, string upc, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "summary_data?bid={bid}&upc={upc}&session={sessionId}"
+        )]
+        List<RecordProduct> GetProductSummaryData(int bid, string upc, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -176,23 +175,23 @@ namespace ScanMyListWebRole
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "create"
         )]
-        string CreateOrder(Order NewOrder);
+        string CreateRecord(Record newRecord);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "update_title?bid={bid}&oid={oid}&title={title}"
+            UriTemplate = "update_title?bid={bid}&rid={rid}&title={title}&session={sessionId}"
         )]
-        string UpdateOrderTitle(int bid, int oid, string title, string sessionId);
+        string UpdateRecordTitle(int bid, int rid, string title, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "send_order?bid={bid}&oid={oid}"
+            UriTemplate = "send_order?bid={bid}&oid={oid}&session={sessionId}"
         )]
         string SendOrder(int bid, int oid, string sessionId);
 
@@ -202,9 +201,19 @@ namespace ScanMyListWebRole
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "register"
+            UriTemplate = "register_business"
         )]
-        int Register(NewUser user);
+        int RegisterBusiness(NewUser user);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "register_account"
+        )]
+        int RegisterAccount(NewUser user);
 
         [OperationContract]
         [WebInvoke(
@@ -221,7 +230,7 @@ namespace ScanMyListWebRole
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "logout?bid={bid}&session_id={sessionId}"
+            UriTemplate = "logout?bid={bid}&session={sessionId}"
         )]
         string Logout(int bid, string sessionId);
     }
