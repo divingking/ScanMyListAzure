@@ -9,10 +9,10 @@ namespace ScanMyListWebRole
     {
         public static GetProductByUPCResult GetProductByUPC(string upc, int cid)
         {
-            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            /*ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             try
             {
-                var result = context.GetProductByUPC(upc, cid);
+                var result = context.GetProductByUPC(cid, upc);
                 IEnumerator<GetProductByUPCResult> enumerator = result.GetEnumerator();
                 if (enumerator.MoveNext())
                 {
@@ -27,7 +27,9 @@ namespace ScanMyListWebRole
             {
                 
                 throw;
-            }
+            }*/
+
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-
-namespace ScanMyListWebRole
+﻿namespace ScanMyListWebRole
 {
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
     [DataContract]
     public class Business
     {
@@ -51,6 +51,8 @@ namespace ScanMyListWebRole
         [DataMember]
         public string upc { get; set; }
         [DataMember]
+        public string name { get; set; }
+        [DataMember]
         public int supplier { get; set; }
         [DataMember]
         public int customer { get; set; }
@@ -67,6 +69,8 @@ namespace ScanMyListWebRole
         public int id { get; set; }
         [DataMember]
         public string title { get; set; }
+        [DataMember]
+        public int account { get; set; }
         [DataMember]
         public int business { get; set; }
         [DataMember]
@@ -103,8 +107,10 @@ namespace ScanMyListWebRole
     }
 
     [DataContract]
-    public class NewUser
+    public class User
     {
+        [DataMember]
+        public int id { get; set; }
         [DataMember]
         public string login { get; set; }
         [DataMember]
@@ -113,10 +119,14 @@ namespace ScanMyListWebRole
         public int business { get; set; }
         [DataMember]
         public int tier { get; set; }
+        [DataMember]
+        public string email { get; set; }
+        [DataMember]
+        public string sessionId { get; set; }
     }
 
     [DataContract]
-    public class User
+    public class LoginUser
     {
         [DataMember]
         public string login { get; set; }

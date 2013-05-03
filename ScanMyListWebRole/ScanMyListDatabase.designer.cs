@@ -70,9 +70,9 @@ namespace ScanMyListWebRole
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUUID")]
-		public int UpdateUUID([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UUID", DbType="VarChar(50)")] string uUID)
+		public int UpdateUUID([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UUID", DbType="VarChar(50)")] string uUID)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, uUID);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, uUID);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -80,6 +80,13 @@ namespace ScanMyListWebRole
 		public int AddProductToRecord([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> supplier, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> customer, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rid, upc, supplier, customer, quantity);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ClearProductsFromRecord")]
+		public int ClearProductsFromRecord([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rid);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -123,6 +130,13 @@ namespace ScanMyListWebRole
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business);
 			return ((ISingleResult<GetAllSuppliersResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetBusiness")]
+		public ISingleResult<GetBusinessResult> GetBusiness([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business);
+			return ((ISingleResult<GetBusinessResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetChangeDetails")]
@@ -181,6 +195,13 @@ namespace ScanMyListWebRole
 			return ((ISingleResult<GetProductFromInventoryResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetProductSummary")]
+		public ISingleResult<GetProductSummaryResult> GetProductSummary([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, upc);
+			return ((ISingleResult<GetProductSummaryResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetReceiptDetails")]
 		public ISingleResult<GetReceiptDetailsResult> GetReceiptDetails([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
 		{
@@ -193,6 +214,20 @@ namespace ScanMyListWebRole
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business);
 			return ((ISingleResult<GetReceiptsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRecord")]
+		public ISingleResult<GetRecordResult> GetRecord([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
+			return ((ISingleResult<GetRecordResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRecordAfter")]
+		public ISingleResult<GetRecordAfterResult> GetRecordAfter([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
+			return ((ISingleResult<GetRecordAfterResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRecords")]
@@ -209,6 +244,14 @@ namespace ScanMyListWebRole
 			return ((ISingleResult<GetRecordsByTimeRangeResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSessionId")]
+		public int GetSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] ref string session_id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, session_id);
+			session_id = ((string)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSuppliers")]
 		public ISingleResult<GetSuppliersResult> GetSuppliers([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business)
 		{
@@ -223,17 +266,31 @@ namespace ScanMyListWebRole
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Login")]
-		public ISingleResult<LoginResult> Login([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string password)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IncrementInventory")]
+		public int IncrementInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, password);
-			return ((ISingleResult<LoginResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, upc, quantity);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Logout")]
+		public int Logout([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.RegisterAccount")]
-		public int RegisterAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> tier)
+		public int RegisterAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> tier)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, password, business, tier);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, password, email, business, tier);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.RegisterBusiness")]
+		public int RegisterBusiness([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> zip, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string category)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, address, zip, email, category);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -273,60 +330,45 @@ namespace ScanMyListWebRole
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateSessionId")]
-		public int UpdateSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string session_id)
+		public int UpdateSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(512)")] string session_id)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, session_id);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, session_id);
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRecord")]
-		public ISingleResult<GetRecordResult> GetRecord([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetAccountEmail")]
+		public ISingleResult<GetAccountEmailResult> GetAccountEmail([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
+			return ((ISingleResult<GetAccountEmailResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Login")]
+		public ISingleResult<LoginResult> Login([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string password)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), login, password);
+			return ((ISingleResult<LoginResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteOrder")]
+		public ISingleResult<GetCompleteOrderResult> GetCompleteOrder([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
-			return ((ISingleResult<GetRecordResult>)(result.ReturnValue));
+			return ((ISingleResult<GetCompleteOrderResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetProductSummary")]
-		public ISingleResult<GetProductSummaryResult> GetProductSummary([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, upc);
-			return ((ISingleResult<GetProductSummaryResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ClearProductsFromRecord")]
-		public int ClearProductsFromRecord([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rid);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSessionId")]
-		public int GetSessionId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] ref string session_id)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, session_id);
-			session_id = ((string)(result.GetParameterValue(1)));
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.RegisterBusiness")]
-		public int RegisterBusiness([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> zip, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string category)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, address, zip, email, category);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRecordAfter")]
-		public ISingleResult<GetRecordAfterResult> GetRecordAfter([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteReceipt")]
+		public ISingleResult<GetCompleteReceiptResult> GetCompleteReceipt([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
-			return ((ISingleResult<GetRecordAfterResult>)(result.ReturnValue));
+			return ((ISingleResult<GetCompleteReceiptResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.IncrementInventory")]
-		public int IncrementInventory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteChange")]
+		public ISingleResult<GetCompleteChangeResult> GetCompleteChange([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, upc, quantity);
-			return ((int)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
+			return ((ISingleResult<GetCompleteChangeResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -637,6 +679,122 @@ namespace ScanMyListWebRole
 				if ((this._email != value))
 				{
 					this._email = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetBusinessResult
+	{
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _address;
+		
+		private System.Nullable<int> _zip;
+		
+		private string _email;
+		
+		private string _category;
+		
+		public GetBusinessResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(100)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="VarChar(255)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zip", DbType="Int")]
+		public System.Nullable<int> zip
+		{
+			get
+			{
+				return this._zip;
+			}
+			set
+			{
+				if ((this._zip != value))
+				{
+					this._zip = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(255)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this._email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(50)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
 				}
 			}
 		}
@@ -1534,6 +1692,104 @@ namespace ScanMyListWebRole
 		}
 	}
 	
+	public partial class GetProductSummaryResult
+	{
+		
+		private int _id;
+		
+		private System.Nullable<long> _date;
+		
+		private System.Nullable<int> _quantity;
+		
+		private System.Nullable<int> _supplier;
+		
+		private System.Nullable<int> _customer;
+		
+		public GetProductSummaryResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
+		public System.Nullable<long> date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this._date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
+		public System.Nullable<int> quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this._quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier", DbType="Int")]
+		public System.Nullable<int> supplier
+		{
+			get
+			{
+				return this._supplier;
+			}
+			set
+			{
+				if ((this._supplier != value))
+				{
+					this._supplier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer", DbType="Int")]
+		public System.Nullable<int> customer
+		{
+			get
+			{
+				return this._customer;
+			}
+			set
+			{
+				if ((this._customer != value))
+				{
+					this._customer = value;
+				}
+			}
+		}
+	}
+	
 	public partial class GetReceiptDetailsResult
 	{
 		
@@ -1815,6 +2071,238 @@ namespace ScanMyListWebRole
 				if ((this._supplier_email != value))
 				{
 					this._supplier_email = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetRecordResult
+	{
+		
+		private int _id;
+		
+		private string _title;
+		
+		private System.Nullable<long> _date;
+		
+		private System.Nullable<int> _category;
+		
+		private System.Nullable<int> _status;
+		
+		private System.Nullable<int> _business;
+		
+		public GetRecordResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(50)")]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this._title = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
+		public System.Nullable<long> date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this._date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Int")]
+		public System.Nullable<int> category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this._status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_business", DbType="Int")]
+		public System.Nullable<int> business
+		{
+			get
+			{
+				return this._business;
+			}
+			set
+			{
+				if ((this._business != value))
+				{
+					this._business = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetRecordAfterResult
+	{
+		
+		private int _id;
+		
+		private string _title;
+		
+		private System.Nullable<long> _date;
+		
+		private System.Nullable<int> _business;
+		
+		private System.Nullable<int> _category;
+		
+		private System.Nullable<int> _status;
+		
+		public GetRecordAfterResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(50)")]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this._title = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
+		public System.Nullable<long> date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this._date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_business", DbType="Int")]
+		public System.Nullable<int> business
+		{
+			get
+			{
+				return this._business;
+			}
+			set
+			{
+				if ((this._business != value))
+				{
+					this._business = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Int")]
+		public System.Nullable<int> category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this._status = value;
 				}
 			}
 		}
@@ -2150,15 +2638,61 @@ namespace ScanMyListWebRole
 		}
 	}
 	
+	public partial class GetAccountEmailResult
+	{
+		
+		private string _email;
+		
+		public GetAccountEmailResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(255)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this._email = value;
+				}
+			}
+		}
+	}
+	
 	public partial class LoginResult
 	{
+		
+		private int _id;
 		
 		private System.Nullable<int> _business;
 		
 		private System.Nullable<int> _tier;
 		
+		private string _session_id;
+		
 		public LoginResult()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_business", DbType="Int")]
@@ -2192,333 +2726,511 @@ namespace ScanMyListWebRole
 				}
 			}
 		}
-	}
-	
-	public partial class GetRecordResult
-	{
 		
-		private int _id;
-		
-		private string _title;
-		
-		private System.Nullable<long> _date;
-		
-		private System.Nullable<int> _category;
-		
-		private System.Nullable<int> _status;
-		
-		private System.Nullable<int> _business;
-		
-		public GetRecordResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_id", DbType="VarChar(512)")]
+		public string session_id
 		{
 			get
 			{
-				return this._id;
+				return this._session_id;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._session_id != value))
 				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(50)")]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this._title = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
-		public System.Nullable<long> date
-		{
-			get
-			{
-				return this._date;
-			}
-			set
-			{
-				if ((this._date != value))
-				{
-					this._date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Int")]
-		public System.Nullable<int> category
-		{
-			get
-			{
-				return this._category;
-			}
-			set
-			{
-				if ((this._category != value))
-				{
-					this._category = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
-		public System.Nullable<int> status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this._status = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_business", DbType="Int")]
-		public System.Nullable<int> business
-		{
-			get
-			{
-				return this._business;
-			}
-			set
-			{
-				if ((this._business != value))
-				{
-					this._business = value;
+					this._session_id = value;
 				}
 			}
 		}
 	}
 	
-	public partial class GetProductSummaryResult
+	public partial class GetCompleteOrderResult
 	{
 		
-		private int _id;
+		private int _record_id;
 		
-		private System.Nullable<long> _date;
+		private string _record_title;
 		
-		private System.Nullable<int> _quantity;
+		private System.Nullable<long> _record_date;
 		
-		private System.Nullable<int> _supplier;
+		private string _product_upc;
 		
-		private System.Nullable<int> _customer;
+		private string _product_name;
 		
-		public GetProductSummaryResult()
+		private System.Nullable<int> _product_quantity;
+		
+		private System.Nullable<double> _product_price;
+		
+		private int _customer_id;
+		
+		private string _customer_name;
+		
+		private string _customer_email;
+		
+		public GetCompleteOrderResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_id", DbType="Int NOT NULL")]
+		public int record_id
 		{
 			get
 			{
-				return this._id;
+				return this._record_id;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._record_id != value))
 				{
-					this._id = value;
+					this._record_id = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
-		public System.Nullable<long> date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_title", DbType="VarChar(50)")]
+		public string record_title
 		{
 			get
 			{
-				return this._date;
+				return this._record_title;
 			}
 			set
 			{
-				if ((this._date != value))
+				if ((this._record_title != value))
 				{
-					this._date = value;
+					this._record_title = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
-		public System.Nullable<int> quantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_date", DbType="BigInt")]
+		public System.Nullable<long> record_date
 		{
 			get
 			{
-				return this._quantity;
+				return this._record_date;
 			}
 			set
 			{
-				if ((this._quantity != value))
+				if ((this._record_date != value))
 				{
-					this._quantity = value;
+					this._record_date = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier", DbType="Int")]
-		public System.Nullable<int> supplier
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_upc", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string product_upc
 		{
 			get
 			{
-				return this._supplier;
+				return this._product_upc;
 			}
 			set
 			{
-				if ((this._supplier != value))
+				if ((this._product_upc != value))
 				{
-					this._supplier = value;
+					this._product_upc = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer", DbType="Int")]
-		public System.Nullable<int> customer
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_name", DbType="VarChar(100)")]
+		public string product_name
 		{
 			get
 			{
-				return this._customer;
+				return this._product_name;
 			}
 			set
 			{
-				if ((this._customer != value))
+				if ((this._product_name != value))
 				{
-					this._customer = value;
+					this._product_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_quantity", DbType="Int")]
+		public System.Nullable<int> product_quantity
+		{
+			get
+			{
+				return this._product_quantity;
+			}
+			set
+			{
+				if ((this._product_quantity != value))
+				{
+					this._product_quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_price", DbType="Float")]
+		public System.Nullable<double> product_price
+		{
+			get
+			{
+				return this._product_price;
+			}
+			set
+			{
+				if ((this._product_price != value))
+				{
+					this._product_price = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id", DbType="Int NOT NULL")]
+		public int customer_id
+		{
+			get
+			{
+				return this._customer_id;
+			}
+			set
+			{
+				if ((this._customer_id != value))
+				{
+					this._customer_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_name", DbType="VarChar(100)")]
+		public string customer_name
+		{
+			get
+			{
+				return this._customer_name;
+			}
+			set
+			{
+				if ((this._customer_name != value))
+				{
+					this._customer_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_email", DbType="VarChar(255)")]
+		public string customer_email
+		{
+			get
+			{
+				return this._customer_email;
+			}
+			set
+			{
+				if ((this._customer_email != value))
+				{
+					this._customer_email = value;
 				}
 			}
 		}
 	}
 	
-	public partial class GetRecordAfterResult
+	public partial class GetCompleteReceiptResult
 	{
 		
-		private int _id;
+		private int _record_id;
 		
-		private string _title;
+		private string _record_title;
 		
-		private System.Nullable<long> _date;
+		private System.Nullable<long> _record_date;
 		
-		private System.Nullable<int> _business;
+		private string _product_upc;
 		
-		private System.Nullable<int> _category;
+		private string _product_name;
 		
-		private System.Nullable<int> _status;
+		private System.Nullable<int> _product_quantity;
 		
-		public GetRecordAfterResult()
+		private System.Nullable<double> _product_price;
+		
+		private int _supplier_id;
+		
+		private string _supplier_name;
+		
+		private string _supplier_email;
+		
+		public GetCompleteReceiptResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_id", DbType="Int NOT NULL")]
+		public int record_id
 		{
 			get
 			{
-				return this._id;
+				return this._record_id;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._record_id != value))
 				{
-					this._id = value;
+					this._record_id = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(50)")]
-		public string title
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_title", DbType="VarChar(50)")]
+		public string record_title
 		{
 			get
 			{
-				return this._title;
+				return this._record_title;
 			}
 			set
 			{
-				if ((this._title != value))
+				if ((this._record_title != value))
 				{
-					this._title = value;
+					this._record_title = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="BigInt")]
-		public System.Nullable<long> date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_date", DbType="BigInt")]
+		public System.Nullable<long> record_date
 		{
 			get
 			{
-				return this._date;
+				return this._record_date;
 			}
 			set
 			{
-				if ((this._date != value))
+				if ((this._record_date != value))
 				{
-					this._date = value;
+					this._record_date = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_business", DbType="Int")]
-		public System.Nullable<int> business
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_upc", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string product_upc
 		{
 			get
 			{
-				return this._business;
+				return this._product_upc;
 			}
 			set
 			{
-				if ((this._business != value))
+				if ((this._product_upc != value))
 				{
-					this._business = value;
+					this._product_upc = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Int")]
-		public System.Nullable<int> category
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_name", DbType="VarChar(100)")]
+		public string product_name
 		{
 			get
 			{
-				return this._category;
+				return this._product_name;
 			}
 			set
 			{
-				if ((this._category != value))
+				if ((this._product_name != value))
 				{
-					this._category = value;
+					this._product_name = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
-		public System.Nullable<int> status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_quantity", DbType="Int")]
+		public System.Nullable<int> product_quantity
 		{
 			get
 			{
-				return this._status;
+				return this._product_quantity;
 			}
 			set
 			{
-				if ((this._status != value))
+				if ((this._product_quantity != value))
 				{
-					this._status = value;
+					this._product_quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_price", DbType="Float")]
+		public System.Nullable<double> product_price
+		{
+			get
+			{
+				return this._product_price;
+			}
+			set
+			{
+				if ((this._product_price != value))
+				{
+					this._product_price = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_id", DbType="Int NOT NULL")]
+		public int supplier_id
+		{
+			get
+			{
+				return this._supplier_id;
+			}
+			set
+			{
+				if ((this._supplier_id != value))
+				{
+					this._supplier_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_name", DbType="VarChar(100)")]
+		public string supplier_name
+		{
+			get
+			{
+				return this._supplier_name;
+			}
+			set
+			{
+				if ((this._supplier_name != value))
+				{
+					this._supplier_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supplier_email", DbType="VarChar(255)")]
+		public string supplier_email
+		{
+			get
+			{
+				return this._supplier_email;
+			}
+			set
+			{
+				if ((this._supplier_email != value))
+				{
+					this._supplier_email = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetCompleteChangeResult
+	{
+		
+		private int _record_id;
+		
+		private string _record_title;
+		
+		private System.Nullable<long> _record_date;
+		
+		private string _product_upc;
+		
+		private string _product_name;
+		
+		private System.Nullable<int> _product_quantity;
+		
+		public GetCompleteChangeResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_id", DbType="Int NOT NULL")]
+		public int record_id
+		{
+			get
+			{
+				return this._record_id;
+			}
+			set
+			{
+				if ((this._record_id != value))
+				{
+					this._record_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_title", DbType="VarChar(50)")]
+		public string record_title
+		{
+			get
+			{
+				return this._record_title;
+			}
+			set
+			{
+				if ((this._record_title != value))
+				{
+					this._record_title = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_date", DbType="BigInt")]
+		public System.Nullable<long> record_date
+		{
+			get
+			{
+				return this._record_date;
+			}
+			set
+			{
+				if ((this._record_date != value))
+				{
+					this._record_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_upc", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string product_upc
+		{
+			get
+			{
+				return this._product_upc;
+			}
+			set
+			{
+				if ((this._product_upc != value))
+				{
+					this._product_upc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_name", DbType="VarChar(100)")]
+		public string product_name
+		{
+			get
+			{
+				return this._product_name;
+			}
+			set
+			{
+				if ((this._product_name != value))
+				{
+					this._product_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_quantity", DbType="Int")]
+		public System.Nullable<int> product_quantity
+		{
+			get
+			{
+				return this._product_quantity;
+			}
+			set
+			{
+				if ((this._product_quantity != value))
+				{
+					this._product_quantity = value;
 				}
 			}
 		}

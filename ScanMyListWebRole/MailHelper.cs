@@ -1,122 +1,126 @@
-﻿using SendGridMail;
-using SendGridMail.Transport;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-
-namespace ScanMyListWebRole
+﻿namespace ScanMyListWebRole
 {
+    using SendGridMail;
+    using SendGridMail.Transport;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Text;
+
     public class MailHelper
     {
         //private const string username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
         //private const string password = "i6dvglzv";
 
-        public static bool SendOrderBackup(Order order)
+        public static bool SendRecordBackup(int bid, Record record, IDictionary<int, Business> involved)
         {
-            SendGrid testMessage = SendGrid.GenerateInstance();
-            testMessage.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
-            testMessage.AddTo("Sully Liu <zelinliu@me.com>");
-            testMessage.Subject = "Order confirmation For System";
+            SendGrid message = SendGrid.GenerateInstance();
+            message.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
+            message.AddTo("Sully Liu <zelinliu@me.com>");
+            message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
-            text.AppendLine(FormatOrder(order));
+            text.AppendLine(FormatRecord(record, involved));
             text.AppendLine();
             text.AppendLine();
-            text.AppendLine("This email was auto-generated. Please do not reply! ");
-            testMessage.Text = text.ToString();
+            text.AppendLine(
+                string.Format(
+                "This email was auto-generated and auto-sent to {0}. Please do not reply! ",
+                involved[bid].name));
+            message.Text = text.ToString();
 
             var username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
             var password = "i6dvglzv";
             var credentials = new NetworkCredential(username, password);
 
             var transportSMTP = SMTP.GenerateInstance(credentials);
+
             try
             {
-                transportSMTP.Deliver(testMessage);
+                transportSMTP.Deliver(message);
                 return true;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        public static bool SendOrder(Order order, int customer_id)
+        public static bool SendRecord(int bid, Record record, IDictionary<int, Business> involved)
         {
-            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var result = context.GetCustomer(customer_id);
-            IEnumerator<GetCustomerResult> enumerator = result.GetEnumerator();
-            if (enumerator.MoveNext())
+            SendGrid message = SendGrid.GenerateInstance();
+            message.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
+            message.AddTo(string.Format("{0} <{1}>", involved[bid].name, involved[bid].email));
+            message.Subject = "Order confirmation";
+            StringBuilder text = new StringBuilder();
+            text.AppendLine(FormatRecord(record, involved));
+            text.AppendLine();
+            text.AppendLine();
+            text.AppendLine(
+                string.Format(
+                "This email was auto-generated and auto-sent to {0}. Please do not reply! ", 
+                involved[bid].name));
+            message.Text = text.ToString();
+
+            var username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
+            var password = "i6dvglzv";
+            var credentials = new NetworkCredential(username, password);
+
+            var transportSMTP = SMTP.GenerateInstance(credentials);
+
+            try
             {
-                GetCustomerResult customer = enumerator.Current;
-                SendGrid testMessage = SendGrid.GenerateInstance();
-                testMessage.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
-                testMessage.AddTo(string.Format("{0} {1} <{2}>", customer.fname, customer.lname, customer.email));
-                testMessage.Subject = "Order confirmation";
-                StringBuilder text = new StringBuilder();
-                text.AppendLine(FormatOrder(order));
-                text.AppendLine();
-                text.AppendLine();
-                text.AppendLine("This email was auto-generated. Please do not reply! ");
-                testMessage.Text = text.ToString();
-
-                var username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
-                var password = "i6dvglzv";
-                var credentials = new NetworkCredential(username, password);
-
-                var transportSMTP = SMTP.GenerateInstance(credentials);
-                transportSMTP.Deliver(testMessage);
-
-                try
-                {
-                    transportSMTP.Deliver(testMessage);
-                    return true;
-                }
-                catch (System.Exception)
-                {
-                    return false;
-                }
+                transportSMTP.Deliver(message);
+                return true;
             }
-            else
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        private static string FormatOrder(Order order)
+        public static string FormatRecord(Record record, IDictionary<int, Business> involved)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine(string.Format("Date: {0}", order.date));
-            
-            if (order.scanIn)
-                builder.AppendLine("Scan in");
-            else
-                builder.AppendLine("Scan out");
+            builder.AppendLine(string.Format("Date: {0}", record.date));
 
-            int productCount = 0;
-            double totalPrice = 0;
-            builder.AppendLine("Products: ");
-            foreach (Product product in order.products)
+            switch (record.category)
             {
-                builder.AppendLine(string.Format("UPC: {0}", product.upc));
-                builder.AppendLine(string.Format("Name: {0}", product.name));
-                builder.AppendLine(string.Format("Detail: {0}", product.detail));
-                builder.AppendLine(string.Format("Lead Time: {0}", product.leadTime));
-                builder.AppendLine(string.Format("Quantity: {0}", product.quantity));
-                if (product.supplier != null)
+                case (int)RecordCategory.Order:
+                    builder.AppendLine("Order: ");
+                    break;
+                case (int)RecordCategory.Receipt:
+                    builder.AppendLine("Receipt: ");
+                    break;
+                case (int)RecordCategory.Change:
+                    builder.AppendLine("Inventory change: ");
+                    break;
+                default:
+                    break;
+            }
+
+            builder.AppendLine("Products: ");
+
+            foreach (RecordProduct product in record.products)
+            {
+                builder.AppendLine(string.Format("Name: {0} ", product.name));
+                builder.AppendLine(string.Format("Quantity: {0} ", product.quantity));
+
+                switch (record.category)
                 {
-                    builder.AppendLine(string.Format("Unit price: {0}", product.supplier.price));
-                    builder.AppendLine(string.Format("Total price: {0}", product.quantity * product.supplier.price));
-                    builder.AppendLine(string.Format("Supplier: {0}", product.supplier.name));
-                    builder.AppendLine(string.Format("Supplier's address: {0}", product.supplier.address));
-                    totalPrice += product.quantity * product.supplier.price;
+                    case (int)RecordCategory.Order:
+                        builder.AppendLine(string.Format("Customer: ",involved[product.customer].name));
+                        break;
+                    case (int)RecordCategory.Receipt:
+                        builder.AppendLine(string.Format("Supplier: ", involved[product.supplier].name));
+                        break;
+                    default:
+                        break;
                 }
                 builder.AppendLine();
-                productCount++;
             }
-            builder.AppendLine(string.Format("Total price: {0}", totalPrice));
 
             return builder.ToString();
         }

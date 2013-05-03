@@ -15,11 +15,13 @@ create table Product (
 ); 
 
 create table Account (
-    login varchar(255), 
+    id int primary key identity, 
+    login varchar(255) unique, 
     password varchar(512), 
+    email varchar(255), 
     business int, 
 	UUID varchar(50), 
-	session_id varchar(64), 
+	session_id varchar(512), 
 	tier int, 
     foreign key (business) references Business(id)
 ); 
