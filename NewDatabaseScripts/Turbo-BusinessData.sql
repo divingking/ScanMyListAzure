@@ -1,0 +1,28 @@
+
+insert into Business values ('Turbo Energy Drink', '15242 NE 72nd St. Redmond, WA', 98052, 'ariana@turbo-nrg.com', 'Drinks');
+insert into Business values ('Beverage Control', '5215 South Royal Atlanta Dr Suite 21-22, Tucker GA', 30084, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Beverage Specialties', '1621 Central Ave S, Units 26/27, Kent WA', 98035, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Bob Bisordi', 'PO Box 447, Kent WA', 98035, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Carbo Mix', '11319 Maryland Ave, Beltsville MD', 20704, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Coastal Beverage', '215 SW Shannon Avenue, Melbourne FL', 32901, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Cool Breeze Beverages', '6050 Causeway Blvd, Tampa FL', 33619, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Dan Good Distributing', '2703 5th St. #9, Sacramento CA', 95818, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Desert Isle Beverage', 'P.O. Box 700699, Kapolei HI', 96709, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('FPC Beverage', 'Attn: Clint Royster, 6630 Amberton Drive, Suite A&B, Elkridge MD', 21075-6296, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Global NRG', 'PO Box 89711, Sioux Falls SD', 57109, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('High Energy', '830 13 th ?Ave, New Smyrna Beach FL', 32169, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('J & J Distribution', '650 Oak St Rd, Alva FL', 33920, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Juice Products', '3992 S Airport Road, Ogden UT', 84405, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Kahlua Bay', '43 Trimble St, Nashville TN', 37210, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Kint Beverage Concepts Current', '1300 Crooked Hill Rd, Harrisburg PA', 17110, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('M/T Inc', '10336 Leo Rd, Fort Wayne IN', 46825, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Malloy Distribution', '108 SE Crestwood, Lees Summit MO', 64063, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Marineview Beverage', '1402 Puyallup St., Sumner WA', 98390, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Nauser Beverage', '6000 Paris Road, Columbia MO', 65203, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Pricketts', '123 M Street, Fresno CA', 93721, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Restaurant Source dba United Glassware', '5005 Washington St, Denver CO', 80216, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Seattle Turbo Energy Drink', '2440 Alki Ave SW #402, Seattle WA', 98116, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Shurflow Beverages', '9201 Brown Lane Ste 131, Austin TX', 98754, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Southfork Coffee', '134 Grimes Street #6, Eugene OR', 97402, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Tognazzini Beverage', '241 East Roemer Way, Santa Maria CA', 93454, 'changhao.han@gmail.com', 'Drinks');
+insert into Business values ('Tom Chappell', '207 Ladd St, Alton IL', 62002, 'changhao.han@gmail.com', 'Drinks');

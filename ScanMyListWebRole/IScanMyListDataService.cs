@@ -208,6 +208,24 @@
 
         [OperationContract]
         [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "business?name={name}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> SearchBusinessByName(string name, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "link?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        string LinkAccountToBusiness(int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
             Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,

@@ -295,14 +295,6 @@
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.RegisterAccount" Method="RegisterAccount">
-    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="password" Type="System.String" DbType="VarChar(512)" />
-    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.RegisterBusiness" Method="RegisterBusiness">
     <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="address" Type="System.String" DbType="VarChar(255)" />
@@ -350,16 +342,6 @@
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.Login" Method="Login">
-    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="password" Type="System.String" DbType="VarChar(20)" />
-    <ElementType Name="LoginResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetCompleteOrder" Method="GetCompleteOrder">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
@@ -402,6 +384,46 @@
       <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Login" Method="Login">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
+    <ElementType Name="LoginResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RegisterAccount" Method="RegisterAccount">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetAccountBusiness" Method="GetAccountBusiness">
+    <Parameter Name="aid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAccountBusinessResult">
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.LinkAccountToBusiness" Method="LinkAccountToBusiness">
+    <Parameter Name="aid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SearchBusinessByName" Method="SearchBusinessByName">
+    <Parameter Name="name" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="SearchBusinessByNameResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

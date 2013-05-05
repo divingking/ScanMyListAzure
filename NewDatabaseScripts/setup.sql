@@ -17,7 +17,7 @@ create table Product (
 create table Account (
     id int primary key identity, 
     login varchar(255) unique, 
-    password varchar(512), 
+    password varchar(128), 
     email varchar(255), 
     business int, 
 	UUID varchar(50), 

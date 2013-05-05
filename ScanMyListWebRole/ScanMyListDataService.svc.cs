@@ -1051,12 +1051,75 @@
             return bid;
         }
 
+        public List<Business> SearchBusinessByName(string name, int aid, string sessionId)
+        {
+            this.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.SearchBusinessByName(name);
+
+            List<Business> retrievedBusiness = new List<Business>();
+
+            foreach (var business in results)
+            {
+                retrievedBusiness.Add(
+                    new Business()
+                    {
+                        id = business.id, 
+                        name = business.name, 
+                        address = business.address, 
+                        zip = (int)business.zip, 
+                        email = business.email, 
+                        category = business.category
+                    });
+            }
+
+            return retrievedBusiness;
+        }
+
+        public string LinkAccountToBusiness(int bid, int aid, string sessionId)
+        {
+            this.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var acountBusinessResult = context.GetAccountBusiness(aid);
+            IEnumerator<GetAccountBusinessResult> accountBusinessEnumerator = acountBusinessResult.GetEnumerator();
+
+            if (accountBusinessEnumerator.MoveNext())
+            {
+                if (accountBusinessEnumerator.Current.business == 0)
+                {
+                    var requestBusinessResult = context.GetBusiness(bid);
+                    IEnumerator<GetBusinessResult> requestBusinessEnumerator = requestBusinessResult.GetEnumerator();
+
+                    if (requestBusinessEnumerator.MoveNext())
+                    {
+                        context.LinkAccountToBusiness(aid, bid);
+                        return string.Format("Account {0} successfully linked to Business {1}", aid, bid);
+                    }
+                    else
+                    {
+                        throw new FaultException("Business requested to link does not exist! ");
+                    }
+                }
+                else
+                {
+                    throw new FaultException("This account is already linked to a business! ");
+                }
+            }
+            else
+            {
+                throw new FaultException("Account does not exist! ");
+            }
+        }
+
         public User Login(LoginUser user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string passwordHash = Encryptor.GenerateHash(user.pass);
-
+            
             var results = context.Login(user.login, passwordHash);
+
             IEnumerator<LoginResult> loggedIn = results.GetEnumerator();
             if (loggedIn.MoveNext())
             {
@@ -1113,7 +1176,7 @@
 
             if (!sessionId.Equals(retrievedSessionId))
             {
-                sessionId.Equals(retrievedSessionId);
+                throw new FaultException("Session Expired! ");
             }
         }
 

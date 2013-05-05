@@ -13,7 +13,7 @@
         {
             SHA512 alg = SHA512.Create();
 
-            return Encoding.UTF8.GetString(alg.ComputeHash(GenerateBytes(password)));
+            return Encoding.ASCII.GetString(alg.ComputeHash(GenerateBytes(password)));
         }
 
         private static byte[] GenerateBytes(string key)
