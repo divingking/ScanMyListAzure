@@ -225,6 +225,29 @@
             return suppliers;
         }
 
+        public List<Business> GetAllCustomers(int bid, int aid, string sessionId)
+        {
+            this.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.GetAllCustomers(bid);
+            List<Business> customers = new List<Business>();
+            foreach (var result in results)
+            {
+                customers.Add(
+                    new Business()
+                    {
+                        id = result.id,
+                        name = result.name,
+                        address = result.address,
+                        zip = (int)result.zip,
+                        email = result.email
+                    }
+                );
+            }
+            return customers;
+        }
+
         public int ProductCount(string upc, int aid, string sessionId)
         {
             // Not in use for now. 
@@ -1039,7 +1062,7 @@
         public int RegisterAccount(User user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            string passwordHash = Encryptor.GenerateHash(user.pass);
+            string passwordHash = Encryptor.Generate512Hash(user.pass);
 
             int bid = context.RegisterAccount(
                 user.login, 
@@ -1116,13 +1139,14 @@
         public User Login(LoginUser user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            string passwordHash = Encryptor.GenerateHash(user.pass);
+            string passwordHash = Encryptor.Generate512Hash(user.pass);
             
             var results = context.Login(user.login, passwordHash);
 
             IEnumerator<LoginResult> loggedIn = results.GetEnumerator();
             if (loggedIn.MoveNext())
             {
+                /*
                 if (string.IsNullOrEmpty(loggedIn.Current.session_id))
                 {
                     Random rand = new Random();
@@ -1142,7 +1166,23 @@
                 else
                 {
                     throw new FaultException("The account has already logged in! ");
-                }
+                }*/
+                // Changed logic to allow multiple logins into same account (not Singleton anymore)
+                // by CH
+                Random rand = new Random();
+                string sessionValue = string.Format("{0}", rand.Next());
+                string sessionId = Encryptor.GenerateSimpleHash(sessionValue);
+
+                context.UpdateSessionId(loggedIn.Current.id, sessionId);
+
+                return new User()
+                {
+                    id = loggedIn.Current.id,
+                    business = (int)loggedIn.Current.business,
+                    tier = (int)loggedIn.Current.tier,
+                    sessionId = sessionId
+                };
+
             }
             else
             {

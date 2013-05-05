@@ -83,6 +83,15 @@
         [OperationContract]
         [WebInvoke(
             Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "all_customers?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> GetAllCustomers(int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "product_count?upc={upc}&aid={aid}&session={sessionId}"
         )]

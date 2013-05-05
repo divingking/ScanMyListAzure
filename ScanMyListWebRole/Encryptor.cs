@@ -9,11 +9,23 @@
 
     public class Encryptor
     {
-        public static string GenerateHash(string password)
+        public static string Generate512Hash(string password)
         {
             SHA512 alg = SHA512.Create();
 
             return Encoding.ASCII.GetString(alg.ComputeHash(GenerateBytes(password)));
+        }
+
+        public static string GenerateSimpleHash(string password)
+        {
+            MD5 alg = MD5.Create();
+            string hash = "";
+            byte[] hashes = alg.ComputeHash(GenerateBytes(password));
+            foreach (byte b in hashes)
+                hash += b.ToString("X");
+
+            return hash;
+            
         }
 
         private static byte[] GenerateBytes(string key)
