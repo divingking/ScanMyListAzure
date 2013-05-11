@@ -213,7 +213,7 @@
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "register_account"
         )]
-        int RegisterAccount(User user);
+        User RegisterAccount(User user);
 
         [OperationContract]
         [WebInvoke(

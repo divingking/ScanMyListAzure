@@ -21,6 +21,13 @@
         closed
     }
 
+    public enum DeviceType
+    {
+        iPhone,
+        Android,
+        website
+    }
+
     public class ScanMyListDataService : IScanMyListDataService
     {
         public Product GetProductByUPC(string upc, int bid, int aid, string sessionId)
@@ -1059,19 +1066,25 @@
             return bid;
         }
 
-        public int RegisterAccount(User user)
+        public User RegisterAccount(User user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string passwordHash = Encryptor.Generate512Hash(user.pass);
-
-            int bid = context.RegisterAccount(
+            context.RegisterAccount(
                 user.login, 
                 passwordHash,
                 user.email, 
-                user.business, 
+                1,
                 user.tier);
 
-            return bid;
+            LoginUser loginUser = new LoginUser();
+            loginUser.login = user.login;
+            loginUser.pass = user.pass;
+            loginUser.device = (int)DeviceType.website;
+
+            User newUser = this.Login(loginUser);
+            
+            return newUser;
         }
 
         public List<Business> SearchBusinessByName(string name, int aid, string sessionId)
@@ -1169,11 +1182,19 @@
                 }*/
                 // Changed logic to allow multiple logins into same account (not Singleton anymore)
                 // by CH
-                Random rand = new Random();
-                string sessionValue = string.Format("{0}", rand.Next());
-                string sessionId = Encryptor.GenerateSimpleHash(sessionValue);
+                string sessionId = "";
+                if (user.device != (int)DeviceType.website || loggedIn.Current.session_id == null)
+                {
+                    Random rand = new Random();
+                    string sessionValue = string.Format("{0}", rand.Next());
+                    sessionId = Encryptor.GenerateSimpleHash(sessionValue);
 
-                context.UpdateSessionId(loggedIn.Current.id, sessionId);
+                    context.UpdateSessionId(loggedIn.Current.id, sessionId);
+                }
+                else
+                {
+                    sessionId = loggedIn.Current.session_id;
+                }
 
                 return new User()
                 {

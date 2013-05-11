@@ -132,5 +132,7 @@
         public string login { get; set; }
         [DataMember]
         public string pass { get; set; }
+        [DataMember]
+        public int device { get; set; }
     }
 }
