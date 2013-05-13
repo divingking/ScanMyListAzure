@@ -880,14 +880,14 @@
 
             customers.Add(business.id, business);
 
-            if (MailHelper.SendRecord(bid, overallOrder, customers))
+            if (!MailHelper.SendRecord(bid, overallOrder, customers))
                 throw new FaultException("Failed to send confirmation email! ");
-            if (MailHelper.SendRecordBackup(bid, overallOrder, customers))
+            if (!MailHelper.SendRecordBackup(bid, overallOrder, customers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
 
             foreach (int customer in orders.Keys)
             {
-                if (MailHelper.SendRecord(customer, orders[customer], customers))
+                if (!MailHelper.SendRecord(customer, orders[customer], customers))
                     throw new FaultException(
                         string.Format("Failed to send confirmation email to Customer {0}! ", customers[customer].name));
             }
@@ -1237,7 +1237,7 @@
 
             if (!sessionId.Equals(retrievedSessionId))
             {
-                throw new FaultException("Session Expired! ");
+                throw new FaultException("Session Expired! Should be " + retrievedSessionId + "; instead we get " + sessionId);
             }
         }
 

@@ -111,10 +111,12 @@
                 switch (record.category)
                 {
                     case (int)RecordCategory.Order:
-                        builder.AppendLine(string.Format("Customer: ",involved[product.customer].name));
+                        if (involved.ContainsKey(product.customer))
+                            builder.AppendLine(string.Format("Customer: ",involved[product.customer].name));
                         break;
                     case (int)RecordCategory.Receipt:
-                        builder.AppendLine(string.Format("Supplier: ", involved[product.supplier].name));
+                        if (involved.ContainsKey(product.supplier))
+                            builder.AppendLine(string.Format("Supplier: ", involved[product.supplier].name));
                         break;
                     default:
                         break;
