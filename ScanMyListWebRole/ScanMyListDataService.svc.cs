@@ -544,6 +544,42 @@
             return products;
         }
 
+        public string GetProductSummaryForBusiness(int bid, string upc, int aid, int other_bid, string sessionId)
+        {
+            this.CheckSession(aid, sessionId);
+
+            long start = -1;
+            long end = -1;
+            int orderCount = 0;
+            int productCount = 0;
+            int lastProductCount = 0;
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.GetProductSummary(bid, upc);
+            IEnumerator<GetProductSummaryResult> enumerator = results.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if ((int)enumerator.Current.customer == other_bid || (int)enumerator.Current.supplier == other_bid)
+                {
+                    if (start == -1)
+                    {
+                        start = (long)(enumerator.Current.date);
+                    }
+                    end = (long)(enumerator.Current.date);
+
+                    orderCount++;
+                    productCount += (int)(enumerator.Current.quantity);
+                    lastProductCount = (int)(enumerator.Current.quantity);
+                }
+
+            }
+
+            if (start == -1 || end == -1)
+                return "This product does not have any summary information.";
+
+            double days = GetDays(start, end);
+
+            return string.Format("{0} {1}", (double)(productCount - lastProductCount) / days, days / (double)orderCount);
+        }
         public string GetProductSummary(int bid, string upc, int aid, string sessionId)
         {
             this.CheckSession(aid, sessionId);
@@ -568,6 +604,9 @@
                 productCount += (int)(enumerator.Current.quantity);
                 lastProductCount = (int)(enumerator.Current.quantity);
             }
+
+            if (start == -1 || end == -1)
+                return "This product does not have any summary information.";
 
             double days = GetDays(start, end);
 
@@ -655,7 +694,7 @@
                     }
                     else
                     {
-                        return string.Format("New Record saved! id=_{0}", newRecord.id);
+                        return string.Format("New Record saved! id=_{0}", rid);
                     }
                 }
             }
@@ -858,7 +897,7 @@
                             id = product.record_id, 
                             title = product.record_title, 
                             date = (long)product.record_date, 
-                            category = (int)RecordCategory.Receipt, 
+                            category = (int)RecordCategory.Order, 
                             products = new List<RecordProduct>()
                         });
                 }
@@ -933,7 +972,7 @@
                             id = product.record_id,
                             title = product.record_title,
                             date = (long)product.record_date,
-                            category = (int)RecordCategory.Order,
+                            category = (int)RecordCategory.Receipt,
                             products = new List<RecordProduct>()
                         });
                 }
@@ -986,7 +1025,7 @@
                     change.id = product.record_id;
                     change.title = product.record_title;
                     change.date = (long)product.record_date;
-                    change.category = (int)RecordCategory.Receipt;
+                    change.category = (int)RecordCategory.Change;
                 }
 
                 RecordProduct p = new RecordProduct()
@@ -1006,9 +1045,10 @@
 
             if (MailHelper.SendRecord(bid, change, self))
                 throw new FaultException("Failed to send confirmation email! ");
+            /*  we don't need to send backup for change
             if (MailHelper.SendRecordBackup(bid, change, self))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
-
+            */
             this.IncrementInventories(change.products, bid);
 
             return string.Format("Inventory change with id {0} sent! ", rid);
@@ -1070,6 +1110,7 @@
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string passwordHash = Encryptor.Generate512Hash(user.pass);
+
             context.RegisterAccount(
                 user.login, 
                 passwordHash,

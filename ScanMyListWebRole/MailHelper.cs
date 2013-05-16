@@ -63,6 +63,10 @@
                 involved[bid].name));
             message.Text = text.ToString();
 
+            // add Excel sheet as attachment
+            //string excelFilePath = ExcelGenerator.AutomateExcel();
+            //message.AddAttachment(excelFilePath);
+
             var username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
             var password = "i6dvglzv";
             var credentials = new NetworkCredential(username, password);
@@ -112,11 +116,11 @@
                 {
                     case (int)RecordCategory.Order:
                         if (involved.ContainsKey(product.customer))
-                            builder.AppendLine(string.Format("Customer: ",involved[product.customer].name));
+                            builder.AppendLine(string.Format("Customer: {0}",involved[product.customer].name));
                         break;
                     case (int)RecordCategory.Receipt:
                         if (involved.ContainsKey(product.supplier))
-                            builder.AppendLine(string.Format("Supplier: ", involved[product.supplier].name));
+                            builder.AppendLine(string.Format("Supplier: {0}", involved[product.supplier].name));
                         break;
                     default:
                         break;

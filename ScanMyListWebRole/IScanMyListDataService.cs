@@ -155,6 +155,14 @@
         [WebInvoke(
             Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "summary_for_business?bid={bid}&upc={upc}&aid={aid}&other_bid={other_bid}&session={sessionId}"
+        )]
+        string GetProductSummaryForBusiness(int bid, string upc, int aid, int other_bid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "summary?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
         )]
         string GetProductSummary(int bid, string upc, int aid, string sessionId);
