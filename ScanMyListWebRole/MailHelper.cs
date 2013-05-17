@@ -14,11 +14,12 @@
         //private const string username = "azure_bf33e57baacbfaae4ebfe0814f1d8a5d@azure.com";
         //private const string password = "i6dvglzv";
 
-        public static bool SendRecordBackup(int bid, Record record, IDictionary<int, Business> involved)
+        // send to the account email that has logged into this business user.
+        public static bool SendRecordBackup(string accountEmail, int bid, Record record, IDictionary<int, Business> involved)
         {
             SendGrid message = SendGrid.GenerateInstance();
             message.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
-            message.AddTo("Sully Liu <zelinliu@me.com>");
+            message.AddTo(accountEmail);
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
             text.AppendLine(FormatRecord(record, involved));

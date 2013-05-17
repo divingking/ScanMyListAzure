@@ -921,7 +921,7 @@
 
             if (!MailHelper.SendRecord(bid, overallOrder, customers))
                 throw new FaultException("Failed to send confirmation email! ");
-            if (!MailHelper.SendRecordBackup(bid, overallOrder, customers))
+            if (!MailHelper.SendRecordBackup(accountEmail, bid, overallOrder, customers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
 
             foreach (int customer in orders.Keys)
@@ -996,7 +996,7 @@
 
             if (MailHelper.SendRecord(bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send confirmation email! ");
-            if (MailHelper.SendRecordBackup(bid, overallReceipt, suppliers))
+            if (MailHelper.SendRecordBackup(accountEmail, bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
 
             foreach (int supplier in receipts.Keys)
