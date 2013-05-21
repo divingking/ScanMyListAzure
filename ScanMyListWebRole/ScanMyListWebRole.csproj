@@ -120,6 +120,8 @@
     <Content Include="SMLTest.cer" />
     <Content Include="SMLTest.pfx" />
     <Content Include="SMLTest.pvk" />
+    <Content Include="synchtest.pfx" />
+    <Content Include="ServiceConfiguration.Local.cscfg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

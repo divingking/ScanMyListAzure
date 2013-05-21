@@ -83,6 +83,8 @@
         public int category { get; set; }
         [DataMember]
         public string sessionId { get; set; }
+        [DataMember]
+        public string comment { get; set; }
     }
 
     [DataContract]

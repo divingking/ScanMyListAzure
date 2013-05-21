@@ -672,7 +672,7 @@
             {
                 // Create a new record
                 int rid = context.CreateRecord(
-                        newRecord.business, newRecord.title, newRecord.category, newRecord.status);
+                        newRecord.business, newRecord.title, newRecord.category, newRecord.status, newRecord.comment);
 
                 foreach (RecordProduct product in newRecord.products)
                 {
