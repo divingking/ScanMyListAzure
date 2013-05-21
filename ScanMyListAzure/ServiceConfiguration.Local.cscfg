@@ -6,6 +6,10 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
     <Certificates>
+      <Certificate
+        name="SMLTest"
+        thumbprint="926e08f62a8cf64ac8edc4583edf9fed3012f294"
+        thumbprintAlgorithm="sha1"/>
     </Certificates>
   </Role>
 </ServiceConfiguration>
