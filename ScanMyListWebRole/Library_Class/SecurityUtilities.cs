@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ScanMyListWebRole
+namespace SynchWebRole.Library_Class
 {
     public class SecurityUtilities
     {

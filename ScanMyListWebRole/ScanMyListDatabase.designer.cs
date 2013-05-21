@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScanMyListWebRole
+namespace SynchWebRole
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

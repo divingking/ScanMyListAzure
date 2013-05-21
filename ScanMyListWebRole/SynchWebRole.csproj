@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScanMyListWebRole</RootNamespace>
-    <AssemblyName>ScanMyListWebRole</AssemblyName>
+    <RootNamespace>SynchWebRole</RootNamespace>
+    <AssemblyName>SynchWebRole</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <UseIISExpress>true</UseIISExpress>
@@ -80,26 +80,36 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\CodeScales.Http.dll" />
-    <Content Include="ScanMyListDataService.svc" />
+    <Content Include="SynchDataService.svc" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
-    <Compile Include="ExcelGenerator.cs" />
-    <Compile Include="DatabaseProcedures.cs" />
-    <Compile Include="Encryptor.cs" />
-    <Compile Include="IScanMyListDataService.cs" />
-    <Compile Include="MailHelper.cs" />
-    <Compile Include="ObjectDefinition.cs" />
+    <Compile Include="Library_Class\SessionManager.cs" />
+    <Compile Include="Library_Class\ExcelGenerator.cs" />
+    <Compile Include="REST_Service\BusinessManager.cs" />
+    <Compile Include="REST_Service\IBusinessManager.cs" />
+    <Compile Include="REST_Service\IRecordManager.cs" />
+    <Compile Include="REST_Service\RecordManager.cs" />
+    <Compile Include="REST_Service\DatabaseProcedures.cs" />
+    <Compile Include="Library_Class\Encryptor.cs" />
+    <Compile Include="REST_Service\Enumerations.cs" />
+    <Compile Include="REST_Service\IAdministrator.cs" />
+    <Compile Include="REST_Service\IInventoryManager.cs" />
+    <Compile Include="REST_Service\InventoryManager.cs" />
+    <Compile Include="REST_Service\ISynchDataService.cs" />
+    <Compile Include="Library_Class\MailHelper.cs" />
+    <Compile Include="REST_Service\ObjectDefinition.cs" />
+    <Compile Include="REST_Service\Administrator.cs" />
     <Compile Include="ScanMyListDatabase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ScanMyListDatabase.dbml</DependentUpon>
     </Compile>
-    <Compile Include="ScanMyListDataService.svc.cs">
-      <DependentUpon>ScanMyListDataService.svc</DependentUpon>
+    <Compile Include="SynchDataService.svc.cs">
+      <DependentUpon>SynchDataService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityUtilities.cs" />
+    <Compile Include="Library_Class\SecurityUtilities.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +132,7 @@
     <Content Include="SMLTest.pvk" />
     <Content Include="synchtest.pfx" />
     <Content Include="ServiceConfiguration.Local.cscfg" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

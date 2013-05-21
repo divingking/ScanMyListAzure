@@ -15,7 +15,7 @@ using System.Reflection;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices; 
 
-namespace ScanMyListWebRole
+namespace SynchWebRole.Library_Class
 {
     public static class ExcelGenerator
     {

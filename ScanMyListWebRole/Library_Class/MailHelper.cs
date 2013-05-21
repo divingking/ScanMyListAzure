@@ -1,5 +1,6 @@
-﻿namespace ScanMyListWebRole
+﻿namespace SynchWebRole.Library_Class
 {
+    using SynchWebRole.REST_Service;
     using SendGridMail;
     using SendGridMail.Transport;
     using System;

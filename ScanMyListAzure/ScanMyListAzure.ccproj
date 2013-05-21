@@ -37,12 +37,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScanMyListWebRole\ScanMyListWebRole.csproj">
-      <Name>ScanMyListWebRole</Name>
+    <ProjectReference Include="..\ScanMyListWebRole\SynchWebRole.csproj">
+      <Name>SynchWebRole</Name>
       <Project>{d7a3b297-0408-4975-928b-25f684da57eb}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>ScanMyListWebRole</RoleName>
+      <RoleName>SynchWebRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>

@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 
-namespace ScanMyListWebRole
+namespace SynchWebRole
 {
     public class AzureLocalStorageTraceListener : XmlWriterTraceListener
     {
@@ -18,7 +18,7 @@ namespace ScanMyListWebRole
             DirectoryConfiguration directory = new DirectoryConfiguration();
             directory.Container = "wad-tracefiles";
             directory.DirectoryQuotaInMB = 10;
-            directory.Path = RoleEnvironment.GetLocalResource("ScanMyListWebRole.svclog").RootPath;
+            directory.Path = RoleEnvironment.GetLocalResource("SynchWebRole.svclog").RootPath;
             return directory;
         }
     }

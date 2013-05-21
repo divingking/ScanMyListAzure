@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 
-namespace ScanMyListWebRole
+namespace SynchWebRole
 {
     public class WebRole : RoleEntryPoint
     {

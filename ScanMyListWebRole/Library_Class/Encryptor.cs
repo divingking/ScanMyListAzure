@@ -1,4 +1,4 @@
-﻿namespace ScanMyListWebRole
+﻿namespace SynchWebRole.Library_Class
 {
     using System;
     using System.Collections.Generic;

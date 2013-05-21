@@ -1,12 +1,105 @@
-﻿namespace ScanMyListWebRole
+﻿namespace SynchWebRole.REST_Service
 {
     using System.Collections.Generic;
     using System.ServiceModel;
     using System.ServiceModel.Web;
 
     [ServiceContract]
-    public interface IScanMyListDataService
+    public interface ISynchDataService : IAdministrator, IBusinessManager, IInventoryManager, IRecordManager
     {
+        /*
+       // Administration Part
+        [OperationContract]
+        [WebInvoke(
+            Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "register_business"
+        )]
+        int RegisterBusiness(Business business);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "register_account"
+        )]
+        User RegisterAccount(User user);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "business?name={name}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> SearchBusinessByName(string name, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "link?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        string LinkAccountToBusiness(int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "login"
+        )]
+        User Login(LoginUser user);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "logout?aid={aid}&session={sessionId}"
+        )]
+        string Logout(int aid, string sessionId);
+
+        // End of Administration Part
+
+        // Business Management Part
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "suppliers?upc={upc}&bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> GetSuppliers(string upc, int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "all_suppliers?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> GetAllSuppliers(int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "all_customers?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        List<Business> GetAllCustomers(int bid, int aid, string sessionId);
+
+        // End of Business Management Part
+
+
+        // Inventory Management Part
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -65,38 +158,30 @@
         [OperationContract]
         [WebInvoke(
             Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "suppliers?upc={upc}&bid={bid}&aid={aid}&session={sessionId}"
+            UriTemplate = "summary_for_business?bid={bid}&upc={upc}&aid={aid}&other_bid={other_bid}&session={sessionId}"
         )]
-        List<Business> GetSuppliers(string upc, int bid, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "all_suppliers?bid={bid}&aid={aid}&session={sessionId}"
-        )]
-        List<Business> GetAllSuppliers(int bid, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "all_customers?bid={bid}&aid={aid}&session={sessionId}"
-        )]
-        List<Business> GetAllCustomers(int bid, int aid, string sessionId);
+        string GetProductSummaryForBusiness(int bid, string upc, int aid, int other_bid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "product_count?upc={upc}&aid={aid}&session={sessionId}"
+            UriTemplate = "summary?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
         )]
-        int ProductCount(string upc, int aid, string sessionId);
+        string GetProductSummary(int bid, string upc, int aid, string sessionId);
 
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "summary_data?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
+        )]
+        List<RecordProduct> GetProductSummaryData(int bid, string upc, int aid, string sessionId);
+
+        // End of Inventory Management Part
+
+        // Record Management Part
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -153,30 +238,6 @@
 
         [OperationContract]
         [WebInvoke(
-            Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "summary_for_business?bid={bid}&upc={upc}&aid={aid}&other_bid={other_bid}&session={sessionId}"
-        )]
-        string GetProductSummaryForBusiness(int bid, string upc, int aid, int other_bid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "summary?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
-        )]
-        string GetProductSummary(int bid, string upc, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "summary_data?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
-        )]
-        List<RecordProduct> GetProductSummaryData(int bid, string upc, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
             Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
@@ -203,61 +264,16 @@
         )]
         string SendRecord(int bid, int oid, int aid, string sessionId);
 
-        [OperationContract]
-        [WebInvoke(
-            Method = "POST",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "register_business"
-        )]
-        int RegisterBusiness(Business business);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "POST",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "register_account"
-        )]
-        User RegisterAccount(User user);
+        // End of Record Management Part
 
         [OperationContract]
         [WebInvoke(
             Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "business?name={name}&aid={aid}&session={sessionId}"
+            UriTemplate = "product_count?upc={upc}&aid={aid}&session={sessionId}"
         )]
-        List<Business> SearchBusinessByName(string name, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "link?bid={bid}&aid={aid}&session={sessionId}"
-        )]
-        string LinkAccountToBusiness(int bid, int aid, string sessionId);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "POST",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "login"
-        )]
-        User Login(LoginUser user);
-
-        [OperationContract]
-        [WebInvoke(
-            Method = "GET",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "logout?aid={aid}&session={sessionId}"
-        )]
-        string Logout(int aid, string sessionId);
+        int ProductCount(string upc, int aid, string sessionId);
+        */
+        
     }
 }

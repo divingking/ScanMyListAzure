@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="ScanMyListAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2012-10.1.8">
-  <Role name="ScanMyListWebRole">
+  <Role name="SynchWebRole">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate
+      <!--Certificate
         name="SMLTest"
         thumbprint="926e08f62a8cf64ac8edc4583edf9fed3012f294"
-        thumbprintAlgorithm="sha1"/>
+        thumbprintAlgorithm="sha1"/-->
     </Certificates>
   </Role>
 </ServiceConfiguration>
