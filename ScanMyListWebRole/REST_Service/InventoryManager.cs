@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Web.Script.Serialization;
 
 namespace SynchWebRole.REST_Service
@@ -194,13 +195,14 @@ namespace SynchWebRole.REST_Service
 
             }
 
-            if (start == -1 || end == -1)
-                return "This product does not have any summary information.";
+            if (orderCount <= 1)
+                throw new WebFaultException(HttpStatusCode.NoContent);
 
-            double days = GetDays(start, end);
+            double days = (start == end) ? 1.0 : GetDays(start, end);
 
             return string.Format("{0} {1}", (double)(productCount - lastProductCount) / days, days / (double)orderCount);
         }
+
         public string GetProductSummary(int bid, string upc, int aid, string sessionId)
         {
             SessionManager.CheckSession(aid, sessionId);

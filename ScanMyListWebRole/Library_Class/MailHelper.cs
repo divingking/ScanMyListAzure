@@ -23,6 +23,7 @@
             message.AddTo(accountEmail);
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
+            text.AppendLine(record.title);
             text.AppendLine(FormatRecord(record, involved));
             text.AppendLine();
             text.AppendLine();
