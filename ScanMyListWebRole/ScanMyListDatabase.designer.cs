@@ -470,9 +470,9 @@ namespace SynchWebRole
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PageRecordForBusiness")]
-		public ISingleResult<PageRecordForBusinessResult> PageRecordForBusiness([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> page_size, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> offset, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="BigInt")] System.Nullable<long> start_date)
+		public ISingleResult<PageRecordForBusinessResult> PageRecordForBusiness([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> page_size, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> offset)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, page_size, offset, start_date);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, page_size, offset);
 			return ((ISingleResult<PageRecordForBusinessResult>)(result.ReturnValue));
 		}
 	}

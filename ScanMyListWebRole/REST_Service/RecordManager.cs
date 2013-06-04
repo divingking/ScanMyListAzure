@@ -86,12 +86,12 @@ namespace SynchWebRole.REST_Service
             return records;
         }
 
-        public List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset, long start_date)
+        public List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset)
         {
             SessionManager.CheckSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.PageRecordForBusiness(bid, pageSize, offset, start_date);
+            var results = context.PageRecordForBusiness(bid, pageSize, offset);
 
             List<Record> records = new List<Record>();
             foreach (PageRecordForBusinessResult record in results)

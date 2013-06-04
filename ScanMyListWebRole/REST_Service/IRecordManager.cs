@@ -105,8 +105,8 @@ namespace SynchWebRole.REST_Service
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "page_record?bid={bid}&aid={aid}&session={sessionId}&page_size={pageSize}&offset={offset}&start_date={start_date}"
+            UriTemplate = "page_record?bid={bid}&aid={aid}&session={sessionId}&page_size={pageSize}&offset={offset}"
         )]
-        List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset, long start_date);
+        List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset);
     }
 }

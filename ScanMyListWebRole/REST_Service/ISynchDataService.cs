@@ -8,6 +8,14 @@
     [ServiceContract]
     public interface ISynchDataService : IAdministrator, IBusinessManager, IInventoryManager, IRecordManager
     {
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "count_item?bid={bid}&aid={aid}&session={sessionId}&item={item}"
+        )]
+        int CountItemForBusiness(int bid, int aid, string sessionId, string item);
 
         /*
        // Administration Part

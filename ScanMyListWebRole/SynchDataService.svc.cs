@@ -1,6 +1,7 @@
 ﻿namespace SynchWebRole.REST_Service
 {
     using System;
+    using SynchWebRole.Library_Class;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
@@ -10,6 +11,21 @@
 
     public partial class SynchDataService : ISynchDataService
     {
+        public int CountItemForBusiness(int bid, int aid, string sessionId, string item)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.CountItemForBusiness(bid, item);
+            int count = 0;
+            foreach (var result in results)
+            {
+                count = (int) result.Column1;
+            }
+
+            return count;
+        }
+
         public int ProductCount(string upc, int aid, string sessionId)
         {
             // Not in use for now. 

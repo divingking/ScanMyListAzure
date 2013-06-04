@@ -545,7 +545,6 @@
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
     <Parameter Name="offset" Type="System.Int32" DbType="Int" />
-    <Parameter Name="start_date" Type="System.Int64" DbType="BigInt" />
     <ElementType Name="PageRecordForBusinessResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
