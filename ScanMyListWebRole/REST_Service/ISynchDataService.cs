@@ -1,5 +1,6 @@
 ﻿namespace SynchWebRole.REST_Service
 {
+    using System;
     using System.Collections.Generic;
     using System.ServiceModel;
     using System.ServiceModel.Web;
@@ -7,6 +8,7 @@
     [ServiceContract]
     public interface ISynchDataService : IAdministrator, IBusinessManager, IInventoryManager, IRecordManager
     {
+
         /*
        // Administration Part
         [OperationContract]

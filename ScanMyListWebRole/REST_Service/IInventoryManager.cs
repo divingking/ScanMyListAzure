@@ -86,5 +86,35 @@ namespace SynchWebRole.REST_Service
             UriTemplate = "summary_data?bid={bid}&upc={upc}&aid={aid}&session={sessionId}"
         )]
         List<RecordProduct> GetProductSummaryData(int bid, string upc, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "search_inventory_by_upc?bid={bid}&aid={aid}&session={sessionId}&query={query}"
+        )]
+        List<Product> SearchInventoryByUpc(int bid, int aid, string sessionId, string query);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "search_inventory_by_name?bid={bid}&aid={aid}&session={sessionId}&query={query}"
+        )]
+        List<Product> SearchInventoryByName(int bid, int aid, string sessionId, string query);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "page_inventory?bid={bid}&aid={aid}&session={sessionId}&page_size={pageSize}&offset={offset}"
+        )]
+        List<Product> PageInventory(int bid, int aid, string sessionId, int pageSize, int offset);
     }
 }

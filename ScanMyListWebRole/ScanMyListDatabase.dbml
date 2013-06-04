@@ -1,16 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SynchTestDB" Class="ScanMyListDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=iml0mpyqrb.database.windows.net;Initial Catalog=SynchTestDB;User ID=smladmin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SynchTestDBConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.AddBusiness" Method="AddBusiness">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="zip" Type="System.Int32" DbType="Int" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="category" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateUUID" Method="UpdateUUID">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UUID" Parameter="uUID" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddCustomer" Method="AddCustomer">
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="customer_bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="price" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddProduct" Method="AddProduct">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.AddProductToInventory" Method="AddProductToInventory">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="location" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Parameter Name="lead_time" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.UpdateUUID" Method="UpdateUUID">
-    <Parameter Name="id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UUID" Parameter="uUID" Type="System.String" DbType="VarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.AddProductToRecord" Method="AddProductToRecord">
@@ -21,6 +42,13 @@
     <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.AddSupplier" Method="AddSupplier">
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="supplier_bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="price" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.ClearProductsFromRecord" Method="ClearProductsFromRecord">
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -29,6 +57,13 @@
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.CountItemForBusiness" Method="CountItemForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="item" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="CountItemForBusinessResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.CreateProduct" Method="CreateProduct">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
@@ -369,6 +404,45 @@
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.PageBusinessForBusiness" Method="PageBusinessForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <Parameter Name="reference" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="PageBusinessForBusinessResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.PageInventoryForBusiness" Method="PageInventoryForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <ElementType Name="PageInventoryForBusinessResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.PageItemForBusiness" Method="PageItemForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <Parameter Name="item" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="PageItemForBusinessResult">
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="upc" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.RegisterAccount" Method="RegisterAccount">
     <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
@@ -394,6 +468,44 @@
       <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchCustomerOrSupplier" Method="SearchCustomerOrSupplier">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="reference" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="query_string" Type="System.String" DbType="VarChar(255)" />
+    <ElementType Name="SearchCustomerOrSupplierResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchInventory" Method="SearchInventory">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="reference" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="query_string" Type="System.String" DbType="VarChar(255)" />
+    <ElementType Name="SearchInventoryResult">
+      <Column Name="upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchRecordByTitle" Method="SearchRecordByTitle">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="query_string" Type="System.String" DbType="VarChar(255)" />
+    <ElementType Name="SearchRecordByTitleResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.SendRecord" Method="SendRecord">
@@ -428,5 +540,20 @@
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.PageRecordForBusiness" Method="PageRecordForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <Parameter Name="start_date" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="PageRecordForBusinessResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

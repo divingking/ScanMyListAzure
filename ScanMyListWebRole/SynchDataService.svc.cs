@@ -10,7 +10,6 @@
 
     public partial class SynchDataService : ISynchDataService
     {
-
         public int ProductCount(string upc, int aid, string sessionId)
         {
             // Not in use for now. 

@@ -139,6 +139,90 @@ namespace SynchWebRole.REST_Service
             return "New product created. ";
         }
 
+        public List<Product> SearchInventoryByUpc(int bid, int aid, string sessionId, string query)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+            query = "%" + query + "%";
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.SearchInventory(bid, "upc", query);
+            List<Product> inventory = new List<Product>();
+
+            foreach (SearchInventoryResult p in results)
+            {
+                Product product = new Product()
+                {
+                    upc = p.upc,
+                    name = p.name,
+                    detail = p.detail,
+                    leadTime = (int)p.lead_time,
+                    quantity = (int)p.quantity,
+                    location = p.location,
+                    owner = bid
+                };
+
+                inventory.Add(product);
+            }
+
+            return inventory;
+        }
+
+        public List<Product> SearchInventoryByName(int bid, int aid, string sessionId, string query)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+            query = "%" + query + "%";
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.SearchInventory(bid, "name", query);
+            List<Product> inventory = new List<Product>();
+
+            foreach (SearchInventoryResult p in results)
+            {
+                Product product = new Product()
+                {
+                    upc = p.upc,
+                    name = p.name,
+                    detail = p.detail,
+                    leadTime = (int)p.lead_time,
+                    quantity = (int)p.quantity,
+                    location = p.location,
+                    owner = bid
+                };
+
+                inventory.Add(product);
+            }
+
+            return inventory;
+        }
+
+        public List<Product> PageInventory(int bid, int aid, string sessionId, int pageSize, int offset)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.PageInventoryForBusiness(bid, pageSize, offset);
+            List<Product> inventory = new List<Product>();
+
+            foreach (PageInventoryForBusinessResult p in results)
+            {
+                Product product = new Product()
+                {
+                    upc = p.upc,
+                    name = p.name,
+                    detail = p.detail,
+                    leadTime = (int)p.lead_time,
+                    quantity = (int)p.quantity,
+                    location = p.location,
+                    owner = bid
+                };
+
+                inventory.Add(product);
+            }
+
+            return inventory;
+        }
+
+        
         public List<Product> GetInventory(int bid, int aid, string sessionId)
         {
             SessionManager.CheckSession(aid, sessionId);

@@ -79,5 +79,100 @@ namespace SynchWebRole.REST_Service
             }
             return customers;
         }
+
+
+        public List<Business> SearchCustomer(int bid, int aid, string sessionId, string query)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            query = "%" + query + "%";
+            var results = context.SearchCustomerOrSupplier(bid, "customer", query);
+            List<Business> customers = new List<Business>();
+            foreach (SearchCustomerOrSupplierResult result in results)
+            {
+                customers.Add(
+                    new Business()
+                    {
+                        id = result.id,
+                        name = result.name,
+                        address = result.address,
+                        zip = (int)result.zip,
+                        email = result.email
+                    }
+                );
+            }
+            return customers;
+        }
+
+        public List<Business> SearchSupplier(int bid, int aid, string sessionId, string query)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            query = "%" + query + "%";
+            var results = context.SearchCustomerOrSupplier(bid, "supplier", query);
+            List<Business> suppliers = new List<Business>();
+            foreach (SearchCustomerOrSupplierResult result in results)
+            {
+                suppliers.Add(
+                    new Business()
+                    {
+                        id = result.id,
+                        name = result.name,
+                        address = result.address,
+                        zip = (int)result.zip,
+                        email = result.email
+                    }
+                );
+            }
+            return suppliers;
+        }
+
+        public List<Business> PageCustomer(int bid, int aid, string sessionId, int pageSize, int offset)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.PageBusinessForBusiness(bid, pageSize, offset, "customer");
+            List<Business> customers = new List<Business>();
+            foreach (PageBusinessForBusinessResult result in results)
+            {
+                customers.Add(
+                    new Business()
+                    {
+                        id = result.id,
+                        name = result.name,
+                        address = result.address,
+                        zip = (int)result.zip,
+                        email = result.email
+                    }
+                );
+            }
+            return customers;
+        }
+
+        public List<Business> PageSupplier(int bid, int aid, string sessionId, int pageSize, int offset)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.PageBusinessForBusiness(bid, pageSize, offset, "supplier");
+            List<Business> suppliers = new List<Business>();
+            foreach (PageBusinessForBusinessResult result in results)
+            {
+                suppliers.Add(
+                    new Business()
+                    {
+                        id = result.id,
+                        name = result.name,
+                        address = result.address,
+                        zip = (int)result.zip,
+                        email = result.email
+                    }
+                );
+            }
+            return suppliers;
+        }
     }
 }

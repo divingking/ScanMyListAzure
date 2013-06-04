@@ -59,6 +59,58 @@ namespace SynchWebRole.REST_Service
             return orders;
         }
 
+        public List<Record> SearchRecordByTitle(int bid, int aid, string sessionId, string query)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            query = "%" + query + "%";
+            var results = context.SearchRecordByTitle(bid, query);
+
+            List<Record> records = new List<Record>();
+
+            foreach (SearchRecordByTitleResult record in results)
+            {
+                records.Add(
+                    new Record()
+                    {
+                        id = record.id,
+                        title = record.title,
+                        date = (long)record.date,
+                        business = (int)record.business,
+                        category = (int)record.category,
+                        status = (int)record.status
+                    });
+            }
+
+            return records;
+        }
+
+        public List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset, long start_date)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.PageRecordForBusiness(bid, pageSize, offset, start_date);
+
+            List<Record> records = new List<Record>();
+            foreach (PageRecordForBusinessResult record in results)
+            {
+                records.Add(
+                    new Record()
+                    {
+                        id = record.id,
+                        title = record.title,
+                        date = (long)record.date,
+                        business = (int)record.business,
+                        category = (int)record.category,
+                        status = (int)record.status
+                    });
+            }
+
+            return records;
+        }
+
         public List<Record> GetReceipts(int bid, int aid, string sessionId)
         {
             SessionManager.CheckSession(aid, sessionId);

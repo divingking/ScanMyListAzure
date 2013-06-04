@@ -88,5 +88,25 @@ namespace SynchWebRole.REST_Service
             UriTemplate = "send_record?bid={bid}&oid={oid}&aid={aid}&session={sessionId}"
         )]
         string SendRecord(int bid, int oid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "search_record_by_title?bid={bid}&aid={aid}&session={sessionId}&query={query}"
+        )]
+        List<Record> SearchRecordByTitle(int bid, int aid, string sessionId, string query);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "page_record?bid={bid}&aid={aid}&session={sessionId}&page_size={pageSize}&offset={offset}&start_date={start_date}"
+        )]
+        List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset, long start_date);
     }
 }
