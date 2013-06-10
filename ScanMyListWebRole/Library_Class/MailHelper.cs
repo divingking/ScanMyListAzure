@@ -19,12 +19,12 @@
         public static bool SendRecordBackup(string accountEmail, int bid, Record record, IDictionary<int, Business> involved)
         {
             SendGrid message = SendGrid.GenerateInstance();
-            message.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
+            message.From = new MailAddress("Synch Order Tracking Service <ordertracking@synchbi.com>");
             message.AddTo(accountEmail);
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
             text.AppendLine(record.title);
-            text.AppendLine(FormatRecord(record, involved));
+            text.AppendLine(FormatRecord(record, involved, bid));
             text.AppendLine();
             text.AppendLine();
             text.AppendLine(
@@ -53,16 +53,16 @@
         public static bool SendRecord(int bid, Record record, IDictionary<int, Business> involved)
         {
             SendGrid message = SendGrid.GenerateInstance();
-            message.From = new MailAddress("ScanMyList Order Tracking Service <ordertracking@scanmylist.com>");
+            message.From = new MailAddress("Synch Order Tracking Service <ordertracking@synchbi.com>");
             message.AddTo(string.Format("{0} <{1}>", involved[bid].name, involved[bid].email));
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
-            text.AppendLine(FormatRecord(record, involved));
+            text.AppendLine(FormatRecord(record, involved, bid));
             text.AppendLine();
             text.AppendLine();
             text.AppendLine(
                 string.Format(
-                "This email was auto-generated and auto-sent to {0}. Please do not reply! ", 
+                "This email was auto-generated and auto-sent to {0}. Please do not reply. ", 
                 involved[bid].name));
             message.Text = text.ToString();
 
@@ -87,43 +87,57 @@
             }
         }
 
-        public static string FormatRecord(Record record, IDictionary<int, Business> involved)
+        public static string FormatRecord(Record record, IDictionary<int, Business> involved, int bid)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine(string.Format("Date: {0}", record.date));
+            // converts long int into Date
+            string dateString = record.date.ToString();
+            DateTime orderDate = new DateTime(
+                Convert.ToInt32(dateString.Substring(0, 4)),          // year
+                Convert.ToInt32(dateString.Substring(4, 2)),          // month   
+                Convert.ToInt32(dateString.Substring(6, 2)),          // day
+                Convert.ToInt32(dateString.Substring(8, 2)),          // hour
+                Convert.ToInt32(dateString.Substring(10, 2)),         // minute
+                Convert.ToInt32(dateString.Substring(12, 2)));        // second
+           
+            builder.AppendLine(string.Format("Date: {0}", orderDate.ToString()));
 
             switch (record.category)
             {
                 case (int)RecordCategory.Order:
-                    builder.AppendLine("Order: ");
+                    builder.AppendLine(string.Format("Order from {0}", involved[bid].name));
                     break;
                 case (int)RecordCategory.Receipt:
-                    builder.AppendLine("Receipt: ");
+                    builder.AppendLine(string.Format("Receipt for {0}", involved[bid].name));
                     break;
                 case (int)RecordCategory.Change:
-                    builder.AppendLine("Inventory change: ");
+                    builder.AppendLine("Inventory change");
                     break;
                 default:
                     break;
             }
 
-            builder.AppendLine("Products: ");
+            builder.AppendLine();
+            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", "Customer", "UPC/Product#", "Product Name", "Quantity"));
 
             foreach (RecordProduct product in record.products)
             {
-                builder.AppendLine(string.Format("Name: {0} ", product.name));
-                builder.AppendLine(string.Format("Quantity: {0} ", product.quantity));
-
                 switch (record.category)
                 {
                     case (int)RecordCategory.Order:
                         if (involved.ContainsKey(product.customer))
-                            builder.AppendLine(string.Format("Customer: {0}",involved[product.customer].name));
+                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", involved[product.customer].name,
+                                                                                            product.upc,
+                                                                                            product.name,
+                                                                                            product.quantity));
                         break;
                     case (int)RecordCategory.Receipt:
                         if (involved.ContainsKey(product.supplier))
-                            builder.AppendLine(string.Format("Supplier: {0}", involved[product.supplier].name));
+                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", involved[product.supplier].name,
+                                                                                            product.upc,
+                                                                                            product.name,
+                                                                                            product.quantity));
                         break;
                     default:
                         break;

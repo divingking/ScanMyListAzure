@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Web.Script.Serialization;
 
 namespace SynchWebRole.REST_Service
@@ -174,5 +175,62 @@ namespace SynchWebRole.REST_Service
             }
             return suppliers;
         }
+
+        public Business GetCustomerById(int bid, int aid, string sessionId, int cid)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var result = context.GetCustomerById(bid, cid);
+
+            IEnumerator<GetCustomerByIdResult> businessEnumerator = result.GetEnumerator();
+
+            if (businessEnumerator.MoveNext())
+            {
+                GetCustomerByIdResult retrievedBusiness = businessEnumerator.Current;
+
+                return new Business()
+                {
+                    id = retrievedBusiness.id,
+                    name = retrievedBusiness.name,
+                    address = retrievedBusiness.address,
+                    zip = (int)retrievedBusiness.zip,
+                    email = retrievedBusiness.email
+                };
+            }
+            else
+            {
+                throw new WebFaultException(HttpStatusCode.NoContent);
+            }
+        }
+
+        public Business GetSupplierById(int bid, int aid, string sessionId, int sid)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var result = context.GetSupplierById(bid, sid);
+
+            IEnumerator<GetSupplierByIdResult> businessEnumerator = result.GetEnumerator();
+
+            if (businessEnumerator.MoveNext())
+            {
+                GetSupplierByIdResult retrievedBusiness = businessEnumerator.Current;
+
+                return new Business()
+                {
+                    id = retrievedBusiness.id,
+                    name = retrievedBusiness.name,
+                    address = retrievedBusiness.address,
+                    zip = (int)retrievedBusiness.zip,
+                    email = retrievedBusiness.email
+                };
+            }
+            else
+            {
+                throw new WebFaultException(HttpStatusCode.NoContent);
+            }
+        }
+    
     }
 }
