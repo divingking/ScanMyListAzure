@@ -94,5 +94,25 @@ namespace SynchWebRole.REST_Service
             UriTemplate = "get_supplier_by_id?bid={bid}&aid={aid}&session={sessionId}&sid={sid}"
         )]
         Business GetSupplierById(int bid, int aid, string sessionId, int sid);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "add_customer?bid={bid}&aid={aid}&session={sessionId}&cid={cid}"
+        )]
+        void AddCustomer(int bid, int aid, string sessionId, int cid);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "add_supplier?bid={bid}&aid={aid}&session={sessionId}&sid={sid}"
+        )]
+        void AddSupplier(int bid, int aid, string sessionId, int sid);
     }
 }

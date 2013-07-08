@@ -231,6 +231,22 @@ namespace SynchWebRole.REST_Service
                 throw new WebFaultException(HttpStatusCode.NoContent);
             }
         }
+
+        public void AddSupplier(int bid, int aid, string sessionId, int sid)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            context.AddGeneralSupplier(bid, sid);
+        }
+
+        public void AddCustomer(int bid, int aid, string sessionId, int cid)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            context.AddGeneralCustomer(bid, cid);
+        }
     
     }
 }

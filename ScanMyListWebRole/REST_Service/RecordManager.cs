@@ -49,8 +49,8 @@ namespace SynchWebRole.REST_Service
                         upc = result.product_upc,
                         name = result.product_name,
                         quantity = (int)result.product_quantity,
-                        customer = result.customer_id,
-                        price = (double)result.product_price
+                        customer = result.customer_id
+                        //price = (double)result.product_price
                     });
             }
 

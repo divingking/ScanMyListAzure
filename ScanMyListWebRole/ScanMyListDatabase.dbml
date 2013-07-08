@@ -13,11 +13,9 @@
     <Parameter Name="UUID" Parameter="uUID" Type="System.String" DbType="VarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.AddCustomer" Method="AddCustomer">
+  <Function Name="dbo.AddGeneralCustomer" Method="AddGeneralCustomer">
     <Parameter Name="bid" Type="System.Int32" DbType="Int" />
     <Parameter Name="customer_bid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="price" Type="System.Double" DbType="Float" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.AddProduct" Method="AddProduct">
@@ -40,13 +38,6 @@
     <Parameter Name="supplier" Type="System.Int32" DbType="Int" />
     <Parameter Name="customer" Type="System.Int32" DbType="Int" />
     <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.AddSupplier" Method="AddSupplier">
-    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="supplier_bid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="price" Type="System.Double" DbType="Float" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.ClearProductsFromRecord" Method="ClearProductsFromRecord">
@@ -185,6 +176,17 @@
       <Column Name="supplier_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetCustomerById" Method="GetCustomerById">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetCustomerByIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.GetCustomers" Method="GetCustomers">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
@@ -230,7 +232,6 @@
       <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="product_detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="product_price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="customer_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="customer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="customer_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
@@ -362,6 +363,17 @@
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetSupplierById" Method="GetSupplierById">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSupplierByIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.GetSuppliers" Method="GetSuppliers">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
@@ -441,6 +453,20 @@
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.PageRecordForBusiness" Method="PageRecordForBusiness">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <ElementType Name="PageRecordForBusinessResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.RegisterAccount" Method="RegisterAccount">
@@ -541,40 +567,9 @@
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.PageRecordForBusiness" Method="PageRecordForBusiness">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
-    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
-    <ElementType Name="PageRecordForBusinessResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetCustomerById" Method="GetCustomerById">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetCustomerByIdResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetSupplierById" Method="GetSupplierById">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="sid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetSupplierByIdResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-    </ElementType>
+  <Function Name="dbo.AddGeneralSupplier" Method="AddGeneralSupplier">
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="supplier_bid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>
