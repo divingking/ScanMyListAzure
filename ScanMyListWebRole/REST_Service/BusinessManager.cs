@@ -28,7 +28,6 @@ namespace SynchWebRole.REST_Service
                         address = result.address,
                         zip = (int)result.zip,
                         email = result.email,
-                        price = (double)result.price
                     }
                 );
             }

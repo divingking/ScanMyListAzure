@@ -18,8 +18,6 @@
         public string email;
         [DataMember]
         public string category;
-        [DataMember]
-        public double price;
     }
 
     [DataContract]
