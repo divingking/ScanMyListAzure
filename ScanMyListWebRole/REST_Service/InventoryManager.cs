@@ -129,14 +129,14 @@ namespace SynchWebRole.REST_Service
             return string.Format("Product location for {0} of {1} updated", bid, upc);
         }
 
-        // Not in use for now. 
-        // Need to check session if this function is in used in the future
-        public string NewProduct(Product newProduct)
+        public string NewProduct(Product newProduct, int aid, string sessionId)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            SessionManager.CheckSession(aid, sessionId);
+
             context.CreateProduct(newProduct.upc, newProduct.name, newProduct.detail);
             context.AddProductToInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime);
-            return "New product created. ";
+            return "New product created.";
         }
 
         public List<Product> SearchInventoryByUpc(int bid, int aid, string sessionId, string query)
@@ -344,6 +344,16 @@ namespace SynchWebRole.REST_Service
 
             return products;
         }
+
+        public void UpdateProductUpc(int bid, int aid, string sessionId, string old_upc, string new_upc)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+
+            context.UpdateProductUpc(new_upc, old_upc);
+        }
+
 
         private double GetDays(long start, long end)
         {

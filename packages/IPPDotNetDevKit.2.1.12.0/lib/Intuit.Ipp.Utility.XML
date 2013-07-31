@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intuit.Ipp.Utility</name>
+    </assembly>
+    <members>
+        <member name="T:Intuit.Ipp.Utility.IEntitySerializer">
+            <summary>
+            Entity serialize contract.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IEntitySerializer.Serialize(System.Object)">
+            <summary>
+            Serializes the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Returns the serialize entity in string format.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IEntitySerializer.Serialize(System.Object,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Provides XML for the object provided
+            </summary>
+            <param name="typeToSerialize">object whose XML is required</param>
+            <param name="namespacesToAdd">List of namespaces to Add</param>
+            <returns>
+            stringBuilder which contains the XML of object
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IEntitySerializer.Deserialize``1(System.String)">
+            <summary>
+            DeSerializes the message to Type T.
+            </summary>
+            <typeparam name="T">The type to be  serailse to</typeparam>
+            <param name="message">The message.</param>
+            <returns>
+            Returns the deserialized message.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IEntitySerializer.Deserialize(System.Type,System.String)">
+            <summary>
+            Deserializes the specified type.
+            </summary>
+            <param name="type">The type of object to deserialize.</param>
+            <param name="message">The message.</param>
+            <returns>Returns de serialized object.</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ErrorCodeMissing">
+            <summary>
+              Looks up a localized string similar to API response without error code element..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ErrorCodeNonNemeric">
+            <summary>
+              Looks up a localized string similar to Error code &quot;{0}&quot; not numeric!.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ErrorDetails0">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}, Detail: {2}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ErrorDetails1">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.ErrorWithNoText">
+            <summary>
+              Looks up a localized string similar to Error {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.MustProvideIdOrName">
+            <summary>
+              Looks up a localized string similar to Must provide id or name of the field.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.Properties.Resources.NotAvailable">
+            <summary>
+              Looks up a localized string similar to n/a.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.RequestXmlCollection">
+            <summary>
+            A helper class to build API requests.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.RequestXmlCollection.requestId">
+            <summary>
+            Request Id.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.RequestXmlCollection.qdbapiElement">
+            <summary>
+            Quick book database API Element.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.RequestXmlCollection.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Utility.RequestXmlCollection"/> class.
+            </summary>
+            <param name="requestId">The request id.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.RequestXmlCollection.AddTextParameter(System.String,System.String)">
+            <summary>
+            Add an API parameter of type Text
+            </summary>
+            <param name="name">The name of the parameter.</param>
+            <param name="value">The value of parameter.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.RequestXmlCollection.AddNode(System.Xml.XmlElement,System.String,System.Xml.XmlNode)">
+            <summary>
+            Creates a new element with the given <paramref name="name"/>, appends the <paramref name="node"/> to that new element, and appends the new element to <paramref name="appendTo"/>.
+            </summary>
+            <param name="appendTo">The append to.</param>
+            <param name="name">The name of the child node.</param>
+            <param name="node">The child node.</param>
+            <returns>Returns xml element.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.RequestXmlCollection.QdbapiElement">
+            <summary>
+            Gets the Quick book database API element.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.DateHelper">
+            <summary>   
+            Helper functions for date-related problems.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.DateHelper.EpochJanFirst1970Utc">
+            <summary>
+            Defined as January 1st, 1970 UTC. Used in various ways as a reference point for date arithmetic.
+            </summary>
+            <see>GetMillisecondsSince01011970UTC</see>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.DateHelper.ParseDateTimeField(System.String)">
+            <summary>
+            Assuming the value represents a date or date/time returned by a query, parses the timestamp and converts it to a local date/time.
+            </summary>
+            <param name="value">the time stamp returned by the query</param>
+            <returns>the local time or date represented by the time stamp, or DateTime.MinValue if not a valid time stamp</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.DateHelper.GetLocalDateFromQuickBaseDate(System.Int64)">
+            <summary>
+            A so-called "QuickBaseDate" is a date used by Intuit QuickBase (and WorkPlace, if the app uses QuickBase as the underlying data store),
+            which is stored as the number of milliseconds since 1/1/1970 00:00:00 UTC.
+            This function returns the local equivalent of that date.
+            </summary>
+            <param name="quickBaseDate">a date returned from QuickBase as part of a query</param>
+            <returns>the local equivalent of that date as a DateTime object</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.IntuitErrorHandler">
+            <summary>
+            Intuit Error Handler class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IntuitErrorHandler.HandleErrors(System.String)">
+            <summary>
+            Check the response for any errors it might indicate. Will throw an exception if API response indicates an error.
+            Will throw an exception if it has a problem determining success or error.
+            </summary>
+            <param name="response">the QuickBase response to examine</param>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.IntuitErrorHandler.HandleErrors(System.Xml.XmlNode)">
+            <summary>
+            Check the response for any errors it might indicate. Will throw an exception if API response indicates an error.
+            Will throw an exception if it has a problem determining success or error.
+            </summary>
+            <param name="responseXml">the QuickBase response to examine</param>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.XmlObjectSerializer">
+            <summary>
+            Xml Serialize(r) to serialize and de serialize.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.XmlObjectSerializer.#ctor(Intuit.Ipp.Diagnostics.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Utility.XmlObjectSerializer"/> class.
+            </summary>
+            <param name="idsLogger">The ids logger.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.XmlObjectSerializer.Serialize(System.Object)">
+            <summary>
+            Serializes the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>
+            Returns the serialize entity in string format.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.XmlObjectSerializer.Deserialize``1(System.String)">
+            <summary>
+            DeSerializes the specified action entity type.
+            </summary>
+            <typeparam name="T">The type to be  serialize to</typeparam>
+            <param name="message">The message.</param>
+            <returns>
+            Returns the de serialized object.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.XmlObjectSerializer.Deserialize(System.Type,System.String)">
+            <summary>
+            De serializes the specified type.
+            </summary>
+            <param name="type">The type of object to de serialize.</param>
+            <param name="message">The message.</param>
+            <returns>Returns de serialized object.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Utility.XmlObjectSerializer.Serialize(System.Object,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Provides Xml for the object provided
+            </summary>
+            <param name="typeToSerialize">object whose Xml is required</param>
+            <param name="namespacesToAdd">List of namespaces to Add</param>
+            <returns> stringBuilder which contains the Xml of object</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Utility.XmlObjectSerializer.IDSLogger">
+            <summary>
+            Gets or sets IDS Logger.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Utility.UtilityConstants">
+            <summary>
+            Constants whose values do not change.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.UtilityConstants.ERRCODEXPATH">
+            <summary>
+            XPath for errcode tag.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.UtilityConstants.ERRTEXTXPATH">
+            <summary>
+            XPath for errtext tag.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Utility.UtilityConstants.ERRDETAILXPATH">
+            <summary>
+            XPath for errdetail tag.
+            </summary>
+        </member>
+    </members>
+</doc>

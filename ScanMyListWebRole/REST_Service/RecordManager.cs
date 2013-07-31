@@ -49,7 +49,8 @@ namespace SynchWebRole.REST_Service
                         upc = result.product_upc,
                         name = result.product_name,
                         quantity = (int)result.product_quantity,
-                        customer = result.customer_id
+                        customer = result.customer_id,
+                        note = result.item_note
                         //price = (double)result.product_price
                     });
             }
@@ -150,7 +151,8 @@ namespace SynchWebRole.REST_Service
                         name = result.product_name,
                         quantity = (int)result.product_quantity,
                         supplier = result.supplier_id,
-                        price = (double)result.product_price
+                        price = (double)result.product_price,
+                        note = result.item_note
                     });
             }
 
@@ -285,7 +287,8 @@ namespace SynchWebRole.REST_Service
                         upc = product.product_upc,
                         customer = product.customer_id,
                         quantity = (int)product.product_quantity,
-                        price = (double)product.product_price
+                        price = (double)product.product_price,
+                        note = product.item_note
                     });
             }
 
@@ -306,7 +309,8 @@ namespace SynchWebRole.REST_Service
                         upc = product.product_upc,
                         supplier = product.supplier_id,
                         quantity = (int)product.product_quantity,
-                        price = (double)product.product_price
+                        price = (double)product.product_price,
+                        note = product.item_note
                     });
             }
 
@@ -348,7 +352,7 @@ namespace SynchWebRole.REST_Service
                 foreach (RecordProduct product in newRecord.products)
                 {
                     context.AddProductToRecord(
-                        rid, product.upc, product.supplier, product.customer, product.quantity);
+                        rid, product.upc, product.supplier, product.customer, product.quantity, product.note);
                 }
 
                 if (newRecord.category == (int)RecordCategory.Change)
@@ -360,14 +364,21 @@ namespace SynchWebRole.REST_Service
                 {
                     if (newRecord.status == (int)RecordStatus.sent)
                     {
-                        return string.Format(
+                        string result = string.Format(
                             "{0} id=_{1}", this.SendRecord(newRecord.business, rid, newRecord.account, newRecord.sessionId), rid);
+
+                        // check with database to see if we need to relay this new record to ERP system
+                        // TO-DO
+                        //ERPIntegrator.testAzureStorageQueue(rid);
+
+                        return result;
                     }
                     else
                     {
                         return string.Format("New Record saved! id=_{0}", rid);
                     }
                 }
+
             }
             else
             {
@@ -399,7 +410,7 @@ namespace SynchWebRole.REST_Service
                             foreach (RecordProduct product in newRecord.products)
                             {
                                 context.AddProductToRecord(
-                                    newRecord.id, product.upc, product.supplier, product.customer, product.quantity);
+                                    newRecord.id, product.upc, product.supplier, product.customer, product.quantity, product.note);
                             }
                         }
 
@@ -665,14 +676,14 @@ namespace SynchWebRole.REST_Service
 
             suppliers.Add(business.id, business);
 
-            if (MailHelper.SendRecord(bid, overallReceipt, suppliers))
+            if (!MailHelper.SendRecord(bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send confirmation email! ");
-            if (MailHelper.SendRecordBackup(accountEmail, bid, overallReceipt, suppliers))
+            if (!MailHelper.SendRecordBackup(accountEmail, bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
 
             foreach (int supplier in receipts.Keys)
             {
-                if (MailHelper.SendRecord(supplier, receipts[supplier], suppliers))
+                if (!MailHelper.SendRecord(supplier, receipts[supplier], suppliers))
                     throw new FaultException(
                         string.Format("Failed to send confirmation email to Supplier {0}! ", suppliers[supplier].name));
             }
@@ -714,7 +725,7 @@ namespace SynchWebRole.REST_Service
 
             self.Add(business.id, business);
 
-            if (MailHelper.SendRecord(bid, change, self))
+            if (!MailHelper.SendRecord(bid, change, self))
                 throw new FaultException("Failed to send confirmation email! ");
             /*  we don't need to send backup for change
             if (MailHelper.SendRecordBackup(bid, change, self))

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>IPPDotNetDevKit</id>
+    <version>2.1.12.0</version>
+    <title>Intuit Partner Platform .NET DevKit</title>
+    <authors>Intuit</authors>
+    <owners>Intuit</owners>
+    <projectUrl>https://ipp.developer.intuit.com/0010_Intuit_Partner_Platform/0200_DevKits_for_Intuit_Partner_Platform/0100_IPP_.NET_DevKit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The IPP .NET DevKit is a set of .NET classes that make it easier to make secure calls to Intuit Data Services (IDS) that provide access to QuickBooks Desktop and QuickBooks Online data.  Please visit developer.intuit.com for more information on getting started.</description>
+    <summary>Intuit Partner Platform .NET DevKit</summary>
+    <releaseNotes />
+    <copyright>Intuit</copyright>
+    <language />
+    <tags>Intuit Partner Platform Anywhere .NET DevKit Visual Studio</tags>
+  </metadata>
+</package>

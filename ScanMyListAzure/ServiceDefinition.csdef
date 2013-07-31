@@ -22,5 +22,16 @@
     <LocalResources>
       <LocalStorage name="SynchWebRole.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
     </LocalResources>
+    <ConfigurationSettings>
+      <Setting name="SynchStorageConnection" />
+    </ConfigurationSettings>
   </WebRole>
+  <WorkerRole name="ERPIntegrationWorkerRole" vmsize="Small">
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="SynchStorageConnection" />
+    </ConfigurationSettings>
+  </WorkerRole>
 </ServiceDefinition>

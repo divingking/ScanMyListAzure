@@ -1,0 +1,996 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intuit.Ipp.Exception</name>
+    </assembly>
+    <members>
+        <member name="T:Intuit.Ipp.Exception.ServiceReturnedNoInformationException">
+            <summary>
+            Represents an Exception raised when ServiceContext is Null.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.SdkException">
+            <summary>
+            Represents an exception raised by the Intuit SDK.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.IdsException">
+            <summary>
+            Represents an IdsException.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Exception.IdsException.errorCode">
+            <summary>
+            Error Code(400, 200, 404).
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Exception.IdsException.errorMessage">
+            <summary>
+            Error Message.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Exception.IdsException.source">
+            <summary>
+            Source of the exception.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Exception.IdsException.innerException">
+            <summary>
+            Inner Exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the IdsException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Contains the System.Runtime.Serialization.SerializationInfo with information about the exception.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.IdsException.ErrorCode">
+            <summary>
+            Gets or sets Error Code(400, 200, 404).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.IdsException.Message">
+            <summary>
+            Error Message.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.IdsException.Source">
+            <summary>
+            Source of the exception.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.IdsException.InnerException">
+            <summary>
+            Gets inner exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SdkException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the SdkException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceReturnedNoInformationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ServiceReturnedNoInformationException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.RetryExceededException">
+            <summary>
+            Represents a Retry Exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryExceededException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the RetryExceededException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.InvalidParameterException">
+            <summary>
+            Represents an Exception raised when an invalid realm id is encountered.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidParameterException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the InvalidParameterException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.RetryException">
+            <summary>
+            Represents an exception raised when applying the retry policy for the Ids service calls.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.ServiceException">
+            <summary>
+            Represents an exception raised by the Intuit Service.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServiceException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ServiceException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.RetryException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the RetryException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.ServerTooBusyException">
+            <summary>
+            Represents an exception raised when the Ids server is busy and cannot process user requests.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ServerTooBusyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ServerTooBusyException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.InvalidTokenException">
+            <summary>
+            Represents an Exception raised when an invalid token was generated.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidTokenException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the InvalidTokenException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.SerializationException">
+            <summary>
+            Represents a Exception raised during Serialization/Deserialization of entities.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.SerializationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the SerializationException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.InvalidServiceRequestException">
+            <summary>
+            Represents an Exception raised when an invalid service request was made.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidServiceRequestException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the InvalidServiceRequestException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.IdsExceptionManager">
+            <summary>
+            Manages all the exceptions thrown to the user.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsExceptionManager.HandleException(System.String)">
+            <summary>
+            Handles exception thrown to the user.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsExceptionManager.HandleException(Intuit.Ipp.Exception.IdsException)">
+            <summary>
+            Handles Exception thrown to the user.
+            </summary>
+            <param name="idsException">Ids Exception</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsExceptionManager.HandleException(System.String,Intuit.Ipp.Exception.IdsException)">
+            <summary>
+            Handles Exception thrown to the user.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Ids Exception</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsExceptionManager.HandleException(System.String,System.String,System.String)">
+            <summary>
+            Handles Exception thrown to the user.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code.</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.IdsExceptionManager.HandleException(System.String,System.String,System.String,Intuit.Ipp.Exception.IdsException)">
+            <summary>
+            Handles Exception thrown to the user.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code.</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Ids Exception</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.CommunicationException">
+            <summary>
+            Represents an exception raised while communicating with IDS services.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.CommunicationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the CommunicationException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.ProtocolException">
+            <summary>
+            Represents a Protocol exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ProtocolException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ProtocolException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.FaultException">
+            <summary>
+            Represents a Fault Exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.FaultException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the FaultException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.ChannelTerminatedException">
+            <summary>
+            Represents an Exception raised when the communicating channel was terminated due to an unknown error.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.ChannelTerminatedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ChannelTerminatedException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.InvalidRealmException">
+            <summary>
+            Represents an Exception raised when an invalid realm id is encountered.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.InvalidRealmException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the InvalidRealmException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.EndpointNotFoundException">
+            <summary>
+            Represents an exception raised when an endpoint address was not found on IDS.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+            <param name="errorMessage">Error Message.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+            <param name="errorMessage">Error Message</param>
+            <param name="errorCode">Error Code(400, 200, 404).</param>
+            <param name="source">Source of the exception.</param>
+            <param name="innerException">Inner Exception.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Exception.EndpointNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the EndpointNotFoundException class.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Exception.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.ChannelTerminatedExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to The communicating channel was terminated..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.CommunicationExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to CommunicationException was thrown..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.EndpointNotFoundExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Ids service endpoint was not found..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.FaultExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Fault exception was raised..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.IdsExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Ids exception was thrown..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.InvalidParameterExceptionMessage">
+            <summary>
+              Looks up a localized string similar to Invalid Parameter.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.InvalidRealmExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Realm Id is invalid..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.InvalidServiceRequestExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to The Request to the service is invalid..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.InvalidTokenExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Security Token is invalid..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.IpsExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Ips exception thrown..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.ProtocolExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Protocol exception was raised..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.RetryExceededExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Exceeded retry attempts..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.RetryExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Retry Policy Exception was raised..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.SdkExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Sdk Exception was thrown..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.SerializationExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Serialization Exception was raised..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.ServerTooBusyExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to Ids Server is too busy..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Exception.Properties.Resources.ServiceExceptionDefaultMessage">
+            <summary>
+              Looks up a localized string similar to ServiceException was thrown..
+            </summary>
+        </member>
+    </members>
+</doc>

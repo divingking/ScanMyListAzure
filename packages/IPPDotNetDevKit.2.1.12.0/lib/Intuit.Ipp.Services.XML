@@ -1,0 +1,1474 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intuit.Ipp.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Intuit.Ipp.Services.DataServices">
+            <summary>
+            Intuit Partner Platform Services for QBO and QBD.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Services.IQboService">
+            <summary>
+            Intuit Partner Platform Services for QBO.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.Add``1(``0)">
+            <summary>
+            Adds an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Add.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.Delete``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.Update``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Update.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.FindById``1(``0)">
+            <summary>
+            Gets an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity"> Entity type to Find.</param>    
+            <returns> Returns an entity of specified Id.</returns> 
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.FindAll``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of all entities of type T under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999.</param>
+            <returns> Returns the list of entities.</returns>"
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQboService.ExecuteBatch``1(``0)">
+            <summary>
+            Process CRUD requests as Batch
+            </summary>
+            <typeparam name="T"> T is the type of IntuitBatchRequest</typeparam>
+            <param name="batchRequest">Multiple entities to be processed as batch</param>
+            <returns>Response of each Entities</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Services.IQbdService">
+            <summary>
+            Intuit Partner Platform Services specifically for QB.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.IQbdService.Revert``1(``0)">
+            <summary>
+            Reverts an entity under the specified realm. 
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Revert.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="F:Intuit.Ipp.Services.DataServices.serviceContext">
+            <summary>
+            The service context.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the DataServices class.
+            </summary>
+            <param name="serviceContext">IPP service context.</param>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidRealmException: When developer passes invalid reamId to API.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.Add``1(``0)">
+            <summary>
+            Adds an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Add.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.Delete``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete.</param>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.Update``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Update.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.FindById``1(``0)">
+            <summary>
+            Returns an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity"> Entity type to Find.</param>    
+            <returns> Returns an entity of specified Id.</returns> 
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.FindAll``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Returns a list of all entities of type T under the specified realm. The realm must be set in the context.
+            In QBD services, use query to filter results with PageNumber and PageSize
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999.</param>
+            <returns> Returns the list of entities.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.Revert``1(``0)">
+            <summary>
+            Reverts an entity under the specified realm. 
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Revert.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.ExecuteBatch``1(``0)">
+            <summary>
+            Process CRUD requests as Batch
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="batchRequest">Multiple entities to be processed as batch</param>
+            <returns>Response of each Entities</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.GetSyncStatus(Intuit.Ipp.Data.Qbd.SyncStatusRequest)">
+            <summary>
+            Gets the Status object containing information about the sync status of QuickBooks entities.
+            </summary>
+            <param name="syncStatusRequest">Sync status request.</param>
+            <returns>List of sync status response.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.GetSyncActivity(Intuit.Ipp.Data.Qbd.SyncActivityRequest)">
+            <summary>
+            Gets the SyncActivity object containing information about synchronization of QuickBooks desktop application.
+            </summary>
+            <param name="syncActivityRequest">Sync Activity request.</param>
+            <returns>List of sync activity response.</returns>
+            <exception>IdsException: When service returned with error information.</exception>
+            <exception>InvalidServiceRequestException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+            <exception>InvalidTokenException: Thrown when QBD entity is passed to QBO service and vice-versa.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.AddStringTypeCustomFieldDefinition(System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add StringTypeCustomFieldDefinition entity to IDS.
+            </summary>
+            <param name="entityType">Type of entity to which the CustomFieldDefinition is to be added..</param>
+            <param name="name">Name of the custom field.</param>
+            <param name="isHidden">Specifies whether the custom field is hidden.</param>
+            <param name="isRequired">Specifies whether the custom field is a required property.</param>
+            <returns>Returns the updated StringTypeCustomFieldDefinition entity.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.AddDateTypeCustomFieldDefinition(System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add DateTypeCustomFieldDefinition entity to IDS.
+            </summary>
+            <param name="entityType">Type of entity to which the CustomFieldDefinition is to be added..</param>
+            <param name="name">Name of the custom field.</param>
+            <param name="isHidden">Specifies whether the custom field is hidden.</param>
+            <param name="isRequired">Specifies whether the custom field is a required property.</param>
+            <returns>Returns the updated DateTypeCustomFieldDefinition entity.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.AddNumberTypeCustomFieldDefinition(System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add NumberTypeCustomFieldDefinition entity to IDS.
+            </summary>
+            <param name="entityType">Type of entity to which the CustomFieldDefinition is to be added..</param>
+            <param name="name">Name of the custom field.</param>
+            <param name="isHidden">Specifies whether the custom field is hidden.</param>
+            <param name="isRequired">Specifies whether the custom field is a required property.</param>
+            <returns>Returns the updated NumberTypeCustomFieldDefinition entity.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.AddBooleanTypeCustomFieldDefinition(System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Add BooleanTypeCustomFieldDefinition entity to IDS.
+            </summary>
+            <param name="entityType">Type of entity to which the CustomFieldDefinition is to be added..</param>
+            <param name="name">Name of the custom field.</param>
+            <param name="isHidden">Specifies whether the custom field is hidden.</param>
+            <param name="isRequired">Specifies whether the custom field is a required property.</param>
+            <returns>Returns the updated BooleanTypeCustomFieldDefinition entity.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.DataServices.ServiceContextValidation(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Validates the Service context.
+            </summary>
+            <param name="serviceContext">Service Context.</param>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.ServiceContext">
+            <summary>
+            Gets the Service context object.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnFindAllCompleted">
+            <summary>
+            Gets or sets the call back event for find all method in asynchronous call.
+            </summary>
+            <value>
+            The OnFindAllCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnAddAsyncCompleted">
+            <summary>
+            Gets or sets the call back event for Add method in asynchronous call.
+            </summary>
+            <value>
+            The OnAddAsyncCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnFindByIdAsyncCompleted">
+            <summary>
+            Gets or sets the call back event for FindByid method in asynchronous call.
+            </summary>
+            <value>
+            The OnFindByIdAsyncCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnUpdateAsyncCompleted">
+            <summary>
+            Gets or sets the call back event for Update method in asynchronous call.
+            </summary>
+            <value>
+            The OnUpdateAsyncCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnDeleteAsyncCompleted">
+            <summary>
+            Gets or sets the call back event for Delete method in asynchronous call.
+            </summary>
+            <value>
+            The OnDeleteAsyncCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnRevertAsyncCompleted">
+            <summary>
+            Gets or sets the call back event for Revert method in asynchronous call.
+            </summary>
+            <value>
+            The OnRevertAsyncCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnSyncStatusCallCompleted">
+            <summary>
+            Gets or sets the call back event for Sync Status method in asynchronous call.
+            </summary>
+            <value>
+            The OnSyncStatusCallCompleted call back.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Services.DataServices.OnSyncActivityCallCompleted">
+            <summary>
+            Gets or sets the call back event for Sync Activity method in asynchronous call.
+            </summary>
+            <value>
+            The OnSyncActivityCallCompleted call back..
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Services.ServiceExtensions">
+            <summary>
+            Service Query Extensions Methods.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServiceExtensions.ExecuteQuery``1(Intuit.Ipp.Data.IQuery,Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Executes the query specified.
+            </summary>
+            <typeparam name="T">IEntity type.</typeparam>
+            <param name="query">Query Object.</param>
+            <param name="serviceContext">IPP Service Context.</param>
+            <returns>ReadOnly Collection of specified entity.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServiceExtensions.ExecuteQuery``1(Intuit.Ipp.Data.IQuery,Intuit.Ipp.Core.ServiceContext,System.String)">
+            <summary>
+            Executes the query.
+            </summary>
+            <typeparam name="T">The IEntity</typeparam>
+            <param name="query">The query.</param>
+            <param name="serviceContext">The service context.</param>
+            <param name="simpleQuery">The simple query.</param>
+            <returns>Returns the read only collection of entities.</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Services.QbdService">
+            <summary>
+            Intuit Partner Platform Services specifically for QB.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.QbdService.serviceContext">
+            <summary>
+            The Service context object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.QbdService.restRequestHandler">
+            <summary>
+            Rest Request Handler.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the QbdService class.
+            </summary>
+            <param name="serviceContext">IPP Service Context</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.Revert``1(``0)">
+            <summary>
+            Reverts an entity under the specified realm. 
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Revert.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.Add``1(``0)">
+            <summary>
+            Adds an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Add.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.Delete``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.Update``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Update.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.FindById``1(``0)">
+            <summary>
+            Gets an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity"> Entity type to Find.</param>    
+            <returns> Returns an entity of specified Id.</returns> 
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.FindAll``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of all entities of type T under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999.</param>
+            <returns> Returns the list of entities.</returns>"
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.Get``1(Intuit.Ipp.Data.IQuery,System.String,System.Boolean)">
+            <summary>
+            Executes the query.
+            </summary>
+            <typeparam name="T">IQuery Type.</typeparam>
+            <param name="query">Query object.</param>
+            <param name="simpleQuery">The simple query.</param>
+            <param name="isQuerySpecified">if set to <c>true</c> [is query specified].</param>
+            <returns>
+            Return a read only collection of entities.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QbdService.ExecuteBatch``1(``0)">
+            <summary>
+            Process CRUD requests as Batch
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="batchRequest">Multiple entities to be processed as batch</param>
+            <returns>Response of each Entities</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Services.ServicesHelper">
+            <summary>
+            Class contains Helper Methods for Services.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServicesHelper.#ctor">
+            <summary>
+            Prevents a default instance of the ServicesHelper class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServicesHelper.IsTypeNull(Intuit.Ipp.Data.IEntity)">
+            <summary>
+            Checks whether the entity passed has a type or not.
+            </summary>
+            <param name="entity">CDM Entity.</param>
+            <returns>True if the type exists or else false.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServicesHelper.GetResourceStringForQBD(Intuit.Ipp.Services.IdsQbdResource)">
+            <summary>
+            Gets the resource string for QBD Enumeration.
+            </summary>
+            <param name="qbdResource">The QBD Resource.</param>
+            <returns>String representation of QBD Resource.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServicesHelper.GetResourceStringForQBO(Intuit.Ipp.Services.IdsQboResource)">
+            <summary>
+            Gets the resource string for QBO Enumeration.
+            </summary>
+            <param name="qboResource">The QBO Resource.</param>
+            <returns>String representation of QBO Resource.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ServicesHelper.GetPluralResourceStringForQBO(Intuit.Ipp.Services.IdsQboResource)">
+            <summary>
+            Gets the plural resource for QBO Enum.
+            </summary>
+            <param name="qboResource">The QBO Resoruce.</param>
+            <returns>IdsQboResource for Plural entity name.</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Services.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ArgumentCannotBeNegative">
+            <summary>
+              Looks up a localized string similar to The specified argument {0} cannot be initialized with a negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.CommunicationErrorMessage">
+            <summary>
+              Looks up a localized string similar to There was an error while communicating with the Ids Server..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EmptyBatchItem">
+            <summary>
+              Looks up a localized string similar to Batch request has empty batch item(s).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.CustomFieldDefinitionName">
+            <summary>
+              Looks up a localized string similar to name.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EntityConversionFailedMessage">
+            <summary>
+              Looks up a localized string similar to The provided entity cannot be converted to CdmBase object..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EntityIdDomainNotNullMessage">
+            <summary>
+              Looks up a localized string similar to IdDomain of the entity cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EntityIdNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Id of the entity cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EntityString">
+            <summary>
+              Looks up a localized string similar to entity.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.EntityTypeString">
+            <summary>
+              Looks up a localized string similar to entityType.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ErrorCodeMissing">
+            <summary>
+              Looks up a localized string similar to API response without errcode element..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ErrorCodeNonNemeric">
+            <summary>
+              Looks up a localized string similar to Error code &quot;{0}&quot; not numeric!.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ErrorDetails0">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}, Detail: {2}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ErrorDetails1">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ErrorWithNoText">
+            <summary>
+              Looks up a localized string similar to Error {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ExceptionGeneratedMessage">
+            <summary>
+              Looks up a localized string similar to Exception has been generated: {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.IdDomainString">
+            <summary>
+              Looks up a localized string similar to IdDomain.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.IdsLoggerNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Ids Logger cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.IdsMethodNotSupportedMessage">
+            <summary>
+              Looks up a localized string similar to This method is not supported for the given entity..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.IdString">
+            <summary>
+              Looks up a localized string similar to Id.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.InvalidBatchRequest">
+            <summary>
+              Looks up a localized string similar to Invalid Batch Request.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.PageNumberString">
+            <summary>
+              Looks up a localized string similar to pageNumber.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.PageSizeString">
+            <summary>
+              Looks up a localized string similar to pageSize.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ParameterNegativeValueMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot have a negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ParameterNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ParameterZeroNegativeValueMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot be zero or negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.QueryString">
+            <summary>
+              Looks up a localized string similar to query.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ReportsSpecificToQbdMessage">
+            <summary>
+              Looks up a localized string similar to Reports are only for QBD environment. Please specify a realm belonging to QBD service type..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.RequestValidatorNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Request Validator cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ResponseStreamNullOrEmptyMessage">
+            <summary>
+              Looks up a localized string similar to The Response Stream was null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.RetryLimitExceeded">
+            <summary>
+              Looks up a localized string similar to The action has exceeded its defined retry limit..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.RevertNotSupported">
+            <summary>
+              Looks up a localized string similar to Revert operation is not supported for QBO entities.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SearchQueryParameterName">
+            <summary>
+              Looks up a localized string similar to searchQuery.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ServiceContextNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Service Context cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.ServiceContextParameterName">
+            <summary>
+              Looks up a localized string similar to serviceContext.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SimpleQueryString">
+            <summary>
+              Looks up a localized string similar to simpleQuery.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SyncActivityRequestParameterName">
+            <summary>
+              Looks up a localized string similar to syncActivityRequest.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SyncStatusRequestParameterName">
+            <summary>
+              Looks up a localized string similar to syncStatusRequest.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SyncTokenNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Sync Token cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.Properties.Resources.SyncTokenParameterName">
+            <summary>
+              Looks up a localized string similar to SyncToken.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Services.QboService">
+            <summary>
+            Intuit Partner Platform Services for QBO. 
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.QboService.serviceContext">
+            <summary>
+            The service context object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.QboService.restRequestHandler">
+            <summary>
+            Rest Request Handler.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the QboService class.
+            </summary>
+            <param name="serviceContext">IPP Service Context.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.Add``1(``0)">
+            <summary>
+            Adds an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Add.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.Delete``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.Update``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Update.</param>
+            <returns>Returns an updated version of the entity with updated identifier and sync token.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.FindById``1(``0)">
+            <summary>
+            Gets an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity"> Entity type to Find.</param>    
+            <returns> Returns an entity of specified Id.</returns> 
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.FindAll``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of all entities of type T under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999.</param>
+            <returns> Returns the list of entities.</returns>"
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.Get``1(Intuit.Ipp.Data.Qbo.IQboQuery,System.String,System.Boolean)">
+            <summary>
+            Executes the query.
+            </summary>
+            <typeparam name="T">IQboQuery type.</typeparam>
+            <param name="qboQuery">IQboQuery Entity.</param>
+            <param name="simpleQuery">The simple query.</param>
+            <param name="isQuerySpecified">if set to <c>true</c> [is query specified].</param>
+            <returns>
+            Return a read only collection of entities.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.QboService.ExecuteBatch``1(``0)">
+            <summary>
+            Process CRUD requests as Batch
+            </summary>
+            <typeparam name="T">IQboQuery type.</typeparam>
+            <param name="batchRequest">Multiple entities to be processed as batch</param>
+            <returns>Response of each Entities</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Services.IdsReportResource">
+            <summary>
+            A list of Domain entities supported by IPS. Used by the REST infrastructure to construct relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.accountbalances">
+            <summary>
+            account balances Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.balancesheet">
+            <summary>
+            balance sheet Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.customerswhooweme">
+            <summary>
+            customers show me Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.advancedreport">
+            <summary>
+            advanced report Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.incomebreakdown">
+            <summary>
+            income breakdown Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.profitandloss">
+            <summary>
+            profitandloss Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.salessummary">
+            <summary>
+            sales summary Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsReportResource.topcustomersbysales">
+            <summary>
+            top customers by sales Resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Services.IdsQbdResource">
+            <summary>
+            A list of Domain entities supported by IDS QBD. Used by the REST infrastructure to construct relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.user">
+            <summary>
+            user Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.account">
+            <summary>
+            account Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.bill">
+            <summary>
+            bill Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.billpayment">
+            <summary>
+            bill payment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.billpaymentcreditcard">
+            <summary>
+            billpaymentcreditcard Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.bomcomponent">
+            <summary>
+            bom component Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.buildassembly">
+            <summary>
+            build assembly Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.charge">
+            <summary>
+            charge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.check">
+            <summary>
+            check Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.creditcardcharge">
+            <summary>
+            credit card charge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.creditcardcredit">
+            <summary>
+            credit card credit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.creditmemo">
+            <summary>
+            credit memo Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.currencyinfo">
+            <summary>
+            currency info Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.customer">
+            <summary>
+            customer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.customermsg">
+            <summary>
+            customer message Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.customertype">
+            <summary>
+            customer type Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.deposit">
+            <summary>
+            deposit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.discount">
+            <summary>
+            discount Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.employee">
+            <summary>
+            employee Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.estimate">
+            <summary>
+            estimate Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.fixedasset">
+            <summary>
+            fixedasset Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.incomebreakdown">
+            <summary>
+            incomebreakdown Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.inventoryadjustment">
+            <summary>
+            inventoryadjustment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.inventorysite">
+            <summary>
+            inventorysite Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.inventorytransfer">
+            <summary>
+            inventorytransfer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.invoice">
+            <summary>
+            invoice Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.item">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.itemconsolidated">
+            <summary>
+            itemconsolidated Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.itemreceipt">
+            <summary>
+            itemreceipt Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.job">
+            <summary>
+            job Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.jobtype">
+            <summary>
+            jobtype Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.journalentry">
+            <summary>
+            journalentry Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.othername">
+            <summary>
+            othername Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.payment">
+            <summary>
+            payment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.paymentmethod">
+            <summary>
+            paymentmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.payrollitem">
+            <summary>
+            payrollitem Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.payrollnonwageitem">
+            <summary>
+            payrollnonwageitem Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.purchaseorder">
+            <summary>
+            purchaseorder Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salesorder">
+            <summary>
+            salesorder Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salesreceipt">
+            <summary>
+            salesreceipt Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salesrep">
+            <summary>
+            salesrep Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salestax">
+            <summary>
+            salestax Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salestaxcode">
+            <summary>
+            salestaxcode Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salestaxgroup">
+            <summary>
+            salestaxgroup Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.shipmethod">
+            <summary>
+            shipmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.status">
+            <summary>
+            status Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.task">
+            <summary>
+            task Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.templatename">
+            <summary>
+            templatename Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.timeactivity">
+            <summary>
+            timeactivity Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.uom">
+            <summary>
+            unitofmeasure Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.vendor">
+            <summary>
+            vendor Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.vendorcredit">
+            <summary>
+            vendorcredit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.vendortype">
+            <summary>
+            vendortype Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.preferences">
+            <summary>
+            preferences Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.syncactivityrequest">
+            <summary>
+            syncactivityrequest Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.salesterm">
+            <summary>
+            salesterm Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.Class">
+            <summary>
+            class Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.creditcardrefund">
+            <summary>
+            creditcardrefun Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.companymetadata">
+            <summary>
+            company Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.customfielddefinition">
+            <summary>
+            customfielddefinition Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.namevalue">
+            <summary>
+            namevalue Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.recordcount">
+            <summary>
+            recordcount Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQbdResource.itemgroupcomponent">
+            <summary>
+            Item Group component resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Services.IdsQboResource">
+            <summary>
+            A list of Domain entities supported by IDS QBO. Used by the REST infrastructure
+            to construct the relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.user">
+            <summary>
+            user Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.account">
+            <summary>
+            account Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.bill">
+            <summary>
+            bill Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.changedatadeleted">
+            <summary>
+            changedatadeleted Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.check">
+            <summary>
+            check Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.companymetadata">
+            <summary>
+            companymetadata Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.customer">
+            <summary>
+            customer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.employee">
+            <summary>
+            employee Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.entitlements">
+            <summary>
+            entitlements Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.estimate">
+            <summary>
+            estimate Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.invoice">
+            <summary>
+            invoice Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.item">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.job">
+            <summary>
+            job Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.payment">
+            <summary>
+            payment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.preferences">
+            <summary>
+            preferences Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.vendor">
+            <summary>
+            vendor Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.Class">
+            <summary>
+            class Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.billpayment">
+            <summary>
+            billpayment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.cashpurchase">
+            <summary>
+            cashpurchase Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.creditcardcharge">
+            <summary>
+            creditcardcharge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.journalentry">
+            <summary>
+            journalentry Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.paymentmethod">
+            <summary>
+            paymentmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.salesreceipt">
+            <summary>
+            salesreceipt Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.salesterm">
+            <summary>
+            term Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.timeactivity">
+            <summary>
+            timeactivity Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.accounts">
+            <summary>
+            accounts Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.bills">
+            <summary>
+            bills Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.checks">
+            <summary>
+            checks Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.customers">
+            <summary>
+            customers Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.employees">
+            <summary>
+            employees Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.estimates">
+            <summary>
+            estimates Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.invoices">
+            <summary>
+            invoices Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.items">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.jobs">
+            <summary>
+            jobs Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.payments">
+            <summary>
+            payments Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.vendors">
+            <summary>
+            vendors Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.Classes">
+            <summary>
+            classes Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.billpayments">
+            <summary>
+            billpayments Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.cashpurchases">
+            <summary>
+            cashpurchases Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.creditcardcharges">
+            <summary>
+            creditcardcharges Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.journalentries">
+            <summary>
+            journalentries Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.paymentmethods">
+            <summary>
+            paymentmethods Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.salesreceipts">
+            <summary>
+            salesreceipts Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.salesterms">
+            <summary>
+            terms Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.IdsQboResource.timeactivities">
+            <summary>
+            timeactivities Resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Services.ReportingServices">
+            <summary>
+            Intuit Partner Platform Reporting Services.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.ReportingServices.serviceContext">
+            <summary>
+            Service Context.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Services.ReportingServices.restRequestHandler">
+            <summary>
+            The Rest request handler object.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the ReportingServices class.
+            </summary>
+            <param name="serviceContext">IPP Service Context.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.#ctor">
+            <summary>
+            Prevents a default instance of the ReportingServices class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.AccountBalancesReport(Intuit.Ipp.Data.Qbd.ReportAccountBalances)">
+            <summary>
+            Returns all accounts along with their balances.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.BalanceSheetStandardReport(Intuit.Ipp.Data.Qbd.BalanceSheetStd)">
+            <summary>
+            This report provides a financial snapshot of your company for a specified date.
+            The report calculates how much your business is worth (your business's equity) by subtracting all the money your company owes (liabilities) from everything it owns (assets). The total for equity includes your company's net income for the fiscal year to date.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.CustomersWhoOwesMeReport(Intuit.Ipp.Data.Qbd.ReportCustomersWhoOweMe)">
+            <summary>
+            Returns a list of customers who owe a balance, the amount owed, and the due date.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.IncomeBreakdownReport(Intuit.Ipp.Data.Qbd.ReportIncomeBreakdown)">
+            <summary>
+            Returns income accounts and current balances. With POSTs you can use optional filtering by start and end dates.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.ProfitAndLossReport(Intuit.Ipp.Data.Qbd.ReportProfitAndLoss)">
+            <summary>
+            A profit and loss report can be defined as your income statement. 
+            This report summarizes the income and expenses for a selected duration and helps you determine the profit or loss status.
+            The report also displays the subtotals of each income or expense account in your chart-of-accounts.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.SalesSummaryReport(Intuit.Ipp.Data.Qbd.ReportSalesSummary)">
+            <summary>
+            Returns the total sales data for all customers, with an optional date filter for POSTs.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.TopCustomersBySalesReport(Intuit.Ipp.Data.Qbd.ReportTopCustomersBySales)">
+            <summary>
+            Returns customers and sales data, with an optional date filter for POSTS.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.Summary1099Report(Intuit.Ipp.Data.Qbd.Summary1099)">
+            <summary>
+            The Summary 1099 report displays the amounts spent with each vendor that your company has specified as a 1099 vendor. 
+            This report helps you to fill the 1099-MISC tax form. The report summarizes the cash outflows to each vendor for whom your company files a 1099-MISC form.
+            The report shows the vendors who are specified as 1099 vendors.
+            Summary1099 report contains sensitive information about a tax Id, which is specified in the Social Security number (SSN) or the VendorTaxID element.
+            The sensitive information is visible based on the role that is assigned to you. 
+            If you are assigned the Sensitive Report role, you can view the Summary1099 report but sensitive information in the report remains hidden from you. 
+            However, if you need to access sensitive information, you require permission from the Realm admin. 
+            If you are assigned the Confidential Data role, you can view both the Summary1099 report and sensitive information. 
+            If you are not assigned any of the above role, you cannot query for the Summary1099 report. 
+            Realm admin can access sensitive information present in the report, but the App admin and other users require permission from the Realm admin to view or to access this information.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Services.ReportingServices.CustomTxnDetailsReport(Intuit.Ipp.Data.Qbd.CustomTxnDetail)">
+            <summary>
+            This report lists individual transactions. If a transaction involves multiple accounts, each account is listed a separate line. 
+            For example, a check written to the telephone company would have two lines in the report.
+            One line will show that the check was written from your checking account. 
+            The other line will show that you assigned the amount in your check to your telephone expense account.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+            <returns>Returns the Report containing the result.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Services.ReportingServices.ServiceContext">
+            <summary>
+            Gets Service Context Object.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Services.ReportingServices.OnReportCompleted">
+            <summary>
+            Gets or sets Report Completed Event Handler.
+            </summary>
+        </member>
+    </members>
+</doc>

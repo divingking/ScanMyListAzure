@@ -1,0 +1,1627 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intuit.Ipp.AsyncServices</name>
+    </assembly>
+    <members>
+        <member name="T:Intuit.Ipp.AsyncServices.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ArgumentCannotBeNegative">
+            <summary>
+              Looks up a localized string similar to The specified argument {0} cannot be initialized with a negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.CommunicationErrorMessage">
+            <summary>
+              Looks up a localized string similar to There was an error while communicating with the Ids Server..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.EntityIdDomainNotNullMessage">
+            <summary>
+              Looks up a localized string similar to IdDomain of the entity cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.EntityIdNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Id of the entity cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.EntityString">
+            <summary>
+              Looks up a localized string similar to entity.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ErrorCodeMissing">
+            <summary>
+              Looks up a localized string similar to API response without errcode element..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ErrorCodeNonNemeric">
+            <summary>
+              Looks up a localized string similar to Error code &quot;{0}&quot; not numeric!.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ErrorDetails0">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}, Detail: {2}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ErrorDetails1">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ErrorWithNoText">
+            <summary>
+              Looks up a localized string similar to Error {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ExceptionGeneratedMessage">
+            <summary>
+              Looks up a localized string similar to Exception has been generated: {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.IdDomainString">
+            <summary>
+              Looks up a localized string similar to IdDomain.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.IdsLoggerNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Ids Logger cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.IdsMethodNotSupportedMessage">
+            <summary>
+              Looks up a localized string similar to This method is not supported for the given entity..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.IdString">
+            <summary>
+              Looks up a localized string similar to Id.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.PageNumberString">
+            <summary>
+              Looks up a localized string similar to pageNumber.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.PageSizeString">
+            <summary>
+              Looks up a localized string similar to pageSize.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ParameterNegativeValueMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot have a negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ParameterNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ParameterZeroNegativeValueMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot be zero or negative value..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ReportsSpecificToQbdMessage">
+            <summary>
+              Looks up a localized string similar to Reports are only for QBD environment. Please specify a realm belonging to QBD service type..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.RequestValidatorNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Request Validator cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ResponseStreamNullOrEmptyMessage">
+            <summary>
+              Looks up a localized string similar to The Response Stream was null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.RetryLimitExceeded">
+            <summary>
+              Looks up a localized string similar to The action has exceeded its defined retry limit..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.SearchQueryParameterName">
+            <summary>
+              Looks up a localized string similar to searchQuery.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ServiceContextNotNullMessage">
+            <summary>
+              Looks up a localized string similar to The Service Context cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.ServiceContextParameterName">
+            <summary>
+              Looks up a localized string similar to serviceContext.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.Properties.Resources.SyncActivityRequestParameterName">
+            <summary>
+              Looks up a localized string similar to syncActivityRequest.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.IQboAsyncService">
+            <summary>
+            Intuit Partner Platform Services for QBO.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQboAsyncService.FindAllAsync``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Returns a list of all entities of type T under the specified realm in an asynchronous manner. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve </param>
+            <param name="pageSize">pageSize The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999 </param>        
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQboAsyncService.AddAsync``1(``0)">
+            <summary>
+            Adds specified new entity
+            </summary>
+            <typeparam name="T">Entity to be added</typeparam>
+            <param name="entity">Instance of entity to be added</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQboAsyncService.DeleteAsync``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Instance of entity to Delete</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQboAsyncService.FindByIdAsync``1(``0)">
+            <summary>
+            Call the Asynchronous methods to get a particular entity details.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Instance of entity to find</param> 
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQboAsyncService.UpdateAsync``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Returns an updated version of the entity with updated identifier and sync token</param>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.RestRequestHandler">
+            <summary>
+            RestRequestHandler contains the logic for calling REST services and get responses from the service.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.RestRequestHandler.requestBody">
+            <summary>
+            Request Body.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.AsyncServices.RestRequestHandler"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.AsyncServices.RestRequestHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.PrepareRequest(Intuit.Ipp.Core.RequestParameters,System.Object)">
+            <summary>
+            Prepares the http web request with authentication header added.
+            </summary>
+            <param name="parameters">The parameters.</param>
+            <param name="requestBody">The request entity.</param>
+            <returns>
+            Http web request object.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.ExecAsyncRequest(System.Net.HttpWebRequest,Intuit.Ipp.Retry.IntuitRetryPolicy)">
+            <summary>
+            Executes the Asynchronous Request.
+            </summary>
+            <param name="asyncRequest">Asynchronous web request.</param>
+            <param name="retryPolicy">Retry Policy.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.ExecAsyncRequestWithRetryPolicy(System.Net.HttpWebRequest,Intuit.Ipp.Retry.IntuitRetryPolicy)">
+            <summary>
+            Executes the Asynchronous Request.
+            </summary>
+            <param name="asyncRequest">Asynchronous web request.</param>
+            <param name="retryPolicy">Retry Policy.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.ExecuteServiceCallAsync(System.Net.HttpWebRequest,Intuit.Ipp.Retry.IntuitRetryPolicy)">
+            <summary>
+            Executes the Service Call using the Retry Policy.
+            </summary>
+            <param name="myRequest">Http Request.</param>
+            <param name="retryPolicy">Retry Policy.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.ExecAsyncRequest(System.Net.HttpWebRequest)">
+            <summary>
+            Executes the Asynchronous Request.
+            </summary>
+            <param name="asyncRequest">Asynchronous web request.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.AsyncExecutionCompleted(System.IAsyncResult)">
+            <summary>
+            Call back method for Find all entities  Asynchronously 
+            </summary>
+            <param name="result">Asynchronous Result.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.RestRequestHandler.GetRequestStreamCallback(System.IAsyncResult)">
+            <summary>
+            Callback for GetRequestStream.
+            </summary>
+            <param name="asynchronousResult">Asynchronous Result.</param>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.RestRequestHandler.OnCallCompleted">
+            <summary>
+            Callback event.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.RestRequestHandler.IdsLogger">
+            <summary>
+            Gets or sets IDS Logger.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.RestRequestHandler.Context">
+            <summary>
+            Gets or sets the context.
+            </summary>
+            <value>
+            The context.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.QboAsyncService">
+            <summary>
+            Intuit Partner Platform Services for QBO.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QboAsyncService.serviceContext">
+            <summary>
+            The Service context object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QboAsyncService.restRequestHandler">
+            <summary>
+            The Rest request handler object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QboAsyncService.requestedEntity">
+            <summary>
+            The Requested Entity.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.AsyncServices.QboAsyncService"/> class.
+            </summary>
+            <param name="serviceContext">IPP Service Context</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.#ctor(Intuit.Ipp.Core.ServiceContext,Intuit.Ipp.AsyncServices.RestRequestHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.AsyncServices.QboAsyncService"/> class.
+            </summary>
+            <param name="serviceContext">The service context.</param>
+            <param name="restRequestHandler">The rest request handler.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.FindAllAsync``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of all entities  of type T under the specified realm (asynchronously). The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type</typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.FindAllAsyncCompleted``1(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            FindAll a sync completed call back.
+            </summary>
+            <typeparam name="T">The Entity type.</typeparam>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.AddAsync``1(``0)">
+            <summary>
+            Adds an entity (asynchronously) under the specified realm in an asynchronous manner. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Add</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.AddAsyncompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            call back method for asynchronously Adding entity
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.UpdateAsync``1(``0)">
+            <summary>
+            Updates(asynchronously) an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Update</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.UpdateAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Callback event
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.DeleteAsync``1(``0)">
+            <summary>
+            Deletes an entity (asynchronously) under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.DeleteAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Delete operation call back method.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.FindByIdAsync``1(``0)">
+            <summary>
+            Calls the asynchronous method to get the required entity.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity"> Entity type to Find</param>    
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.FindByIdCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            FindByid call back method.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QboAsyncService.CreateIdsException(System.Exception)">
+            <summary>
+            Creates the ids exception.
+            </summary>
+            <param name="applicationException">The application exception.</param>
+            <returns>Returns the IdsException.</returns>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QboAsyncService.OnFindAllAsynCompleted">
+            <summary>
+            call back event for find all
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QboAsyncService.OnAddAsyncCompleted">
+            <summary>
+            Call back event for add.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QboAsyncService.OnUpdateAsynCompleted">
+            <summary>
+            call back event for update.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QboAsyncService.OnDeleteAsynCompleted">
+            <summary>
+            Call Back event for Delete.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QboAsyncService.OnFindByIdAsynCompleted">
+            <summary>
+            Call back event for FindById method.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.QboAsyncService.IdsLogger">
+            <summary>
+            Gets or sets the ids logger.
+            </summary>
+            <value>
+            The ids logger.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.AsyncExtensions">
+            <summary>
+            This file contains crud operations for both QBO/ABD
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.AsyncExtensions.dataServicesObject">
+            <summary>
+            The DataService object
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.AsyncExtensions.reportingServicesObject">
+            <summary>
+            Reporting Services object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.AsyncExtensions.restRequestHandler">
+            <summary>
+            The RestRequestHandler object
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.FindAllAsync``1(Intuit.Ipp.Services.DataServices,``0,System.Int32,System.Int32)">
+            <summary>
+            Retrieves specified entity based passed page number and page size
+            In QBD services, use query to filter results with PageNumber and PageSize
+            </summary>
+            <typeparam name="T">Entity to be retrieved</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Instance of entity to be retrieved</param>
+            <param name="pageNumber">Starting page from which entity has to be retrieved</param>
+            <param name="pageSize">Number of pages from starting page</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.FindAllAsyncCompleted(System.Object,Intuit.Ipp.Core.FindAllCallCompletedEventArgs)">
+            <summary>
+            Find Asynchronous Call back method
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.AddAsync``1(Intuit.Ipp.Services.DataServices,``0)">
+            <summary>
+            Adds specified new entity
+            </summary>
+            <typeparam name="T">Entity to be added</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Instance of entity to be added</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.AddAsyncCompleted(System.Object,Intuit.Ipp.Core.CallCompletedEventArgs{Intuit.Ipp.Data.IEntity})">
+            <summary>
+            Add Asynchronous call back method 
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.FindByIdAsync``1(Intuit.Ipp.Services.DataServices,``0)">
+            <summary>
+            Call the Asynchronous methods to get a particular entity details.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Instance of entity to find</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.FindByIdAsynCompleted(System.Object,Intuit.Ipp.Core.CallCompletedEventArgs{Intuit.Ipp.Data.IEntity})">
+            <summary>
+            Callback method for FindBy Id
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.DeleteAsync``1(Intuit.Ipp.Services.DataServices,``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Instance of entity to Delete</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.DeleteAsynCompleted(System.Object,Intuit.Ipp.Core.CallCompletedEventArgs{Intuit.Ipp.Data.IEntity})">
+            <summary>
+            Delete Asynchronously completed
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.UpdateAsync``1(Intuit.Ipp.Services.DataServices,``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Returns an updated version of the entity with updated identifier and sync token</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.UpdateAsyncCompleted(System.Object,Intuit.Ipp.Core.CallCompletedEventArgs{Intuit.Ipp.Data.IEntity})">
+            <summary>
+            Update asynchronously completed
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.RevertAsync``1(Intuit.Ipp.Services.DataServices,``0)">
+            <summary>
+            Reverts an entity under the specified realm asynchronously.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="entity">Instance of entity to Revert</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.RevertAsyncCompleted(System.Object,Intuit.Ipp.Core.CallCompletedEventArgs{Intuit.Ipp.Data.IEntity})">
+            <summary>
+            call back method for Revert asynchronously completion
+            </summary>
+            <param name="sender">this class</param>
+            <param name="eventArgs">call completed event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.GetSyncStatusAsynchronously(Intuit.Ipp.Services.DataServices,Intuit.Ipp.Data.Qbd.SyncStatusRequest)">
+            <summary>
+            Gets the Status object containing information about the sync status of Quickbooks entities.
+            </summary>
+            <param name="dataServices">Data Services object.</param>
+            <param name="syncStatusRequest">Sync status request.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.SyncStatusResults(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Call Back method for GetSyncStatus
+            </summary>
+            <param name="sender">Sender object</param>
+            <param name="asyncCallCompletedEventArgs">asyncCallCompletedEventArgs object</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.GetSyncActivityAsync(Intuit.Ipp.Services.DataServices,Intuit.Ipp.Data.Qbd.SyncActivityRequest)">
+            <summary>
+            Gets the Activity object containing information about the sync activity  Asynchronously.
+            </summary>
+            <param name="dataServices">Refers to the object calling the method.It is passed implicitly.</param>
+            <param name="syncActivityRequest">List of sync activity response.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.SyncActivityResults(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Call Back method for GetSyncActivity
+            </summary>
+            <param name="sender">Instance of RestRequestHandler.</param>
+            <param name="asyncCallCompletedEventArgs">Call Completed EventArgs</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.AccountBalancesReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportAccountBalances)">
+            <summary>
+            Returns all accounts along with their balances.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.BalanceSheetStandardReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.BalanceSheetStd)">
+            <summary>
+            This report provides a financial snapshot of your company for a specified date.
+            The report calculates how much your business is worth (your business's equity) by subtracting all the money your company owes (liabilities) from everything it owns (assets). The total for equity includes your company's net income for the fiscal year to date.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.CustomersWhoOwesMeReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportCustomersWhoOweMe)">
+            <summary>
+            Returns a list of customers who owe a balance, the amount owed, and the due date.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.IncomeBreakdownReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportIncomeBreakdown)">
+            <summary>
+            Returns income accounts and current balances. With POSTs you can use optional filtering by start and end dates.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.ProfitAndLossReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportProfitAndLoss)">
+            <summary>
+            A profit and loss report can be defined as your income statement. 
+            This report summarizes the income and expenses for a selected duration and helps you determine the profit or loss status.
+            The report also displays the subtotals of each income or expense account in your chart-of-accounts.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.SalesSummaryReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportSalesSummary)">
+            <summary>
+            Returns the total sales data for all customers, with an optional date filter for POSTs.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.TopCustomersBySalesReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.ReportTopCustomersBySales)">
+            <summary>
+            Returns customers and sales data, with an optional date filter for POSTS.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.Summary1099ReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.Summary1099)">
+            <summary>
+            The Summary 1099 report displays the amounts spent with each vendor that your company has specified as a 1099 vendor. 
+            This report helps you to fill the 1099-MISC tax form. The report summarizes the cash outflows to each vendor for whom your company files a 1099-MISC form.
+            The report shows the vendors who are specified as 1099 vendors.
+            Summary1099 report contains sensitive information about a tax Id, which is specified in the Social Security number (SSN) or the VendorTaxID element.
+            The sensitive information is visible based on the role that is assigned to you. 
+            If you are assigned the Sensitive Report role, you can view the Summary1099 report but sensitive information in the report remains hidden from you. 
+            However, if you need to access sensitive information, you require permission from the Realm admin. 
+            If you are assigned the Confidential Data role, you can view both the Summary1099 report and sensitive information. 
+            If you are not assigned any of the above role, you cannot query for the Summary1099 report. 
+            Realm admin can access sensitive information present in the report, but the App admin and other users require permission from the Realm admin to view or to access this information.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.CustomTxnDetailsReportAsync(Intuit.Ipp.Services.ReportingServices,Intuit.Ipp.Data.Qbd.CustomTxnDetail)">
+            <summary>
+            This report lists individual transactions. If a transaction involves multiple accounts, each account is listed a separate line. 
+            For example, a check written to the telephone company would have two lines in the report.
+            One line will show that the check was written from your checking account. 
+            The other line will show that you assigned the amount in your check to your telephone expense account.
+            </summary>
+            <param name="reportingServices">Reporting Services Object.</param>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncExtensions.ReportAsyncCompleted(System.Object,Intuit.Ipp.Core.ReportCompletedEventArgs)">
+            <summary>
+            Asynchronous Report Generation completed.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="eventArgs">Report Completed Event Arguments.</param>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.IQbdAsyncService">
+            <summary>
+            Intuit Partner Platform Services specifically for QB.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.FindAllAsync``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of all entities of type T under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type </typeparam>
+            <param name="entity">The entity for which the data is required.</param>
+            <param name="pageNumber">The Page number to retrieve.</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBO is 100 and QBD is 999.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.AddAsync``1(``0)">
+            <summary>
+            Adds specified new entity
+            </summary>
+            <typeparam name="T">Entity to be added</typeparam>
+            <param name="entity">Instance of entity to be added</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.UpdateAsync``1(``0)">
+            <summary>
+            Updates an entity under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Returns an updated version of the entity with updated identifier and sync token</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.DeleteAsync``1(``0)">
+            <summary>
+            Deletes an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Instance of entity to Delete</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.FindByIdAsync``1(``0)">
+            <summary>
+            Call the Asynchronous methods to get a particular entity details.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Instance of entity to find</param> 
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.IQbdAsyncService.RevertAsync``1(``0)">
+            <summary>
+            Asynchrnosly Reverts an entity under the specified realm. 
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Revert</param>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.ReportingServicesAsync">
+            <summary>
+            Intuit Partner Platform Reporting Services.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.ReportingServicesAsync.serviceContext">
+            <summary>
+            Service Context.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.ReportingServicesAsync.restRequestHandler">
+            <summary>
+            The Rest request handler object.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the ReportingServicesAsync class.
+            </summary>
+            <param name="serviceContext">IPP Service Context.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.#ctor">
+            <summary>
+            Prevents a default instance of the ReportingServicesAsync class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.AccountBalancesReportAsync(Intuit.Ipp.Data.Qbd.ReportAccountBalances)">
+            <summary>
+            Returns all accounts along with their balances.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.BalanceSheetStandardReportAsync(Intuit.Ipp.Data.Qbd.BalanceSheetStd)">
+            <summary>
+            This report provides a financial snapshot of your company for a specified date.
+            The report calculates how much your business is worth (your business's equity) by subtracting all the money your company owes (liabilities) from everything it owns (assets). The total for equity includes your company's net income for the fiscal year to date.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.CustomersWhoOwesMeReportAsync(Intuit.Ipp.Data.Qbd.ReportCustomersWhoOweMe)">
+            <summary>
+            Returns a list of customers who owe a balance, the amount owed, and the due date.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.IncomeBreakdownReportAsync(Intuit.Ipp.Data.Qbd.ReportIncomeBreakdown)">
+            <summary>
+            Returns income accounts and current balances. With POSTs you can use optional filtering by start and end dates.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.ProfitAndLossReportAsync(Intuit.Ipp.Data.Qbd.ReportProfitAndLoss)">
+            <summary>
+            A profit and loss report can be defined as your income statement. 
+            This report summarizes the income and expenses for a selected duration and helps you determine the profit or loss status.
+            The report also displays the subtotals of each income or expense account in your chart-of-accounts.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.SalesSummaryReportAsync(Intuit.Ipp.Data.Qbd.ReportSalesSummary)">
+            <summary>
+            Returns the total sales data for all customers, with an optional date filter for POSTs.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.TopCustomersBySalesReportAsync(Intuit.Ipp.Data.Qbd.ReportTopCustomersBySales)">
+            <summary>
+            Returns customers and sales data, with an optional date filter for POSTS.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.Summary1099ReportAsync(Intuit.Ipp.Data.Qbd.Summary1099)">
+            <summary>
+            The Summary 1099 report displays the amounts spent with each vendor that your company has specified as a 1099 vendor. 
+            This report helps you to fill the 1099-MISC tax form. The report summarizes the cash outflows to each vendor for whom your company files a 1099-MISC form.
+            The report shows the vendors who are specified as 1099 vendors.
+            Summary1099 report contains sensitive information about a tax Id, which is specified in the Social Security number (SSN) or the VendorTaxID element.
+            The sensitive information is visible based on the role that is assigned to you. 
+            If you are assigned the Sensitive Report role, you can view the Summary1099 report but sensitive information in the report remains hidden from you. 
+            However, if you need to access sensitive information, you require permission from the Realm admin. 
+            If you are assigned the Confidential Data role, you can view both the Summary1099 report and sensitive information. 
+            If you are not assigned any of the above role, you cannot query for the Summary1099 report. 
+            Realm admin can access sensitive information present in the report, but the App admin and other users require permission from the Realm admin to view or to access this information.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.CustomTxnDetailsReportAsync(Intuit.Ipp.Data.Qbd.CustomTxnDetail)">
+            <summary>
+            This report lists individual transactions. If a transaction involves multiple accounts, each account is listed a separate line. 
+            For example, a check written to the telephone company would have two lines in the report.
+            One line will show that the check was written from your checking account. 
+            The other line will show that you assigned the amount in your check to your telephone expense account.
+            </summary>
+            <param name="searchQuery">The search query to apply.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.ReportingServicesAsync.OnCallCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Event Handler for Call Completed.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="asyncCallCompletedEventArgs">Async Call Completed Event Arguments.</param>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.ReportingServicesAsync.OnReportAsynCompleted">
+            <summary>
+            call back event for Revert asynchronously.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.QbdAsyncService">
+            <summary>
+            Intuit Partner Platform Services specifically for QB.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QbdAsyncService.serviceContext">
+            <summary>
+            The Service context object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QbdAsyncService.restRequestHandler">
+            <summary>
+            The Rest request handler object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.QbdAsyncService.requestedEntity">
+            <summary>
+            Entity type requested
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the QbdAsyncService class.
+            </summary>
+            <param name="serviceContext">IPP Service Context</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.#ctor(Intuit.Ipp.Core.ServiceContext,Intuit.Ipp.AsyncServices.RestRequestHandler)">
+            <summary>
+            Initializes a new instance of the QbdAsyncService class.
+            </summary>
+            <param name="serviceContext">Service Context</param>
+            <param name="restRequestHandler">Instance of RestRequestHandler</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.FindAllAsync``1(``0,System.Int32,System.Int32)">
+            <summary>
+             Gets a list of all entities of type T asynchronously under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T</typeparam>
+            <param name="entity">Entity to find</param>
+            <param name="pageNumber">The Page number to retrieve</param>
+            <param name="pageSize">The number of record fetch in one call. Max size supported by QBD is 999.</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.FindAllAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Find Asynchronous Call back method
+            </summary>
+            <param name="sender">Rest handler class</param>
+            <param name="eventArgs">callback event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.AddAsync``1(``0)">
+            <summary>
+            Adds an entity asynchronously under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T</typeparam>
+            <param name="entity">Entity to Add</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.AddAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Call back for Add
+            </summary>
+            <param name="sender">Instance of RestRequestHandler</param>
+            <param name="eventArgs">Event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.UpdateAsync``1(``0)">
+            <summary>
+            Updates an entity (asynchronously) under the specified realm. The realm must be set in the context.
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to update</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.UpdateAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Update entity asynchronously callback event
+            </summary>
+            <param name="sender">sender - RESTRequestHandler</param>
+            <param name="eventArgs">asynchronous call completed event args</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.DeleteAsync``1(``0)">
+            <summary>
+             Deletes an entity Asynchronously under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Delete</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.DeleteAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Call back event for Delete Asynchronously
+            </summary>
+            <param name="sender">Instance of RestRequestHandler </param>
+            <param name="eventArgs">Event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.FindByIdAsync``1(``0)">
+            <summary>
+            Asynchronously Gets an entity under the specified realm. The realm must be set in the context
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity type to Find</param>    
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.FindByIdAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            call back event for findbyid asynchronous API.
+            </summary>
+            <param name="sender">Instance of RestRequestHandler</param>
+            <param name="eventArgs">Event arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.RevertAsync``1(``0)">
+            <summary>
+            Asynchronously Reverts an entity under the specified realm. 
+            </summary>
+            <typeparam name="T">Generic Type T.</typeparam>
+            <param name="entity">Entity to Revert</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.RevertAsyncCompleted(System.Object,Intuit.Ipp.Core.AsyncCallCompletedEventArgs)">
+            <summary>
+            Call back method for Revert
+            </summary>
+            <param name="sender">Instance of RestRequestHandler</param>
+            <param name="eventArgs">Event Arguments</param>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.QbdAsyncService.CreateIdsException(System.Exception)">
+            <summary>
+            Converts the system exception to IDS exception
+            </summary>
+            <param name="applicationException">The system exception</param>
+            <returns>IDS Exception</returns>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnFindAllAsynCompleted">
+            <summary>
+             call back event for FindAll asynchronously.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnAddAsynCompleted">
+            <summary>
+            call back event for Add asynchronously.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnUpdateAsynCompleted">
+            <summary>
+            call back event for Update asynchronously.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnDeleteAsynCompleted">
+            <summary>
+            call back event for Delete asynchronously.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnFindByIdAsynCompleted">
+            <summary>
+            call back event for FindById asynchronously.
+            </summary>
+        </member>
+        <member name="E:Intuit.Ipp.AsyncServices.QbdAsyncService.OnRevertAsynCompleted">
+            <summary>
+            call back event for Revert asynchronously.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.AsyncServices.QbdAsyncService.IdsLogger">
+            <summary>
+            Gets or sets the ids logger.
+            </summary>
+            <value>
+            The ids logger.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.IdsReportResource">
+            <summary>
+            A list of Domain entities supported by IPS. Used by the REST infrastructure
+            to construct the relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.accountbalances">
+            <summary>
+            accountbalances Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.balancesheet">
+            <summary>
+            balancesheet Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.customerswhooweme">
+            <summary>
+            customerswhooweme Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.advancedreport">
+            <summary>
+            advancedreport Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.incomebreakdown">
+            <summary>
+            incomebreakdown Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.profitandloss">
+            <summary>
+            profitandloss Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.salessummary">
+            <summary>
+            salessummary Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsReportResource.topcustomersbysales">
+            <summary>
+            topcustomersbysales Resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.IdsQbdResource">
+            <summary>
+            A list of Domain entities supported by IDS QBD. Used by the REST infrastructure
+            to construct the relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.user">
+            <summary>
+            user Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.account">
+            <summary>
+            account Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.bill">
+            <summary>
+            bill Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.billpayment">
+            <summary>
+            billpayment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.billpaymentcreditcard">
+            <summary>
+            billpaymentcreditcard Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.bomcomponent">
+            <summary>
+            bomcomponent Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.buildassembly">
+            <summary>
+            buildassembly Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.charge">
+            <summary>
+            charge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.check">
+            <summary>
+            check Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.creditcardcharge">
+            <summary>
+            creditcardcharge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.creditcardcredit">
+            <summary>
+            creditcardcredit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.creditmemo">
+            <summary>
+            creditmemo Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.currencyinfo">
+            <summary>
+            currencyinfo Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.customer">
+            <summary>
+            customer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.customermsg">
+            <summary>
+            customermsg Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.customertype">
+            <summary>
+            customertyp Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.deposit">
+            <summary>
+            deposit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.discount">
+            <summary>
+            discount Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.employee">
+            <summary>
+            employee Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.estimate">
+            <summary>
+            estimate Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.fixedasset">
+            <summary>
+            fixedasset Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.incomebreakdown">
+            <summary>
+            incomebreakdown Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.inventoryadjustment">
+            <summary>
+            inventoryadjustment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.inventorysite">
+            <summary>
+            inventorysite Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.inventorytransfer">
+            <summary>
+            inventorytransfer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.invoice">
+            <summary>
+            invoice Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.item">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.itemconsolidated">
+            <summary>
+            itemconsolidated Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.itemreceipt">
+            <summary>
+            itemreceipt Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.job">
+            <summary>
+            job Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.jobtype">
+            <summary>
+            jobtype Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.journalentry">
+            <summary>
+            journalentry Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.othername">
+            <summary>
+            othername Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.payment">
+            <summary>
+            payment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.paymentmethod">
+            <summary>
+            paymentmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.payrollitem">
+            <summary>
+            payrollitem Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.payrollnonwageitem">
+            <summary>
+            payrollnonwageitem Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.purchaseorder">
+            <summary>
+            purchaseorder Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salesorder">
+            <summary>
+            salesorder Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salesreceipt">
+            <summary>
+            salesreceipt object.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salesrep">
+            <summary>
+            salesrep Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salestax">
+            <summary>
+            salestax Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salestaxcode">
+            <summary>
+            salestaxcode Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salestaxgroup">
+            <summary>
+            salestaxgroup Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.shipmethod">
+            <summary>
+            shipmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.status">
+            <summary>
+            status Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.task">
+            <summary>
+            task Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.templatename">
+            <summary>
+            templatename Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.timeactivity">
+            <summary>
+            timeactivity Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.uom">
+            <summary>
+            unitofmeasure Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.vendor">
+            <summary>
+            vendor Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.vendorcredit">
+            <summary>
+            vendorcredit Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.vendortype">
+            <summary>
+            vendortype Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.preferences">
+            <summary>
+            preferences Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.syncactivityrequest">
+            <summary>
+            syncactivityrequest Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.salesterm">
+            <summary>
+            salesterm Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.Class">
+            <summary>
+            class Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.creditcardrefund">
+            <summary>
+            creditcardrefun Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.companymetadata">
+            <summary>
+            companymetadata Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.namevalue">
+            <summary>
+            namevalue Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQbdResource.recordcount">
+            <summary>
+            recordcount Resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.IdsQboResource">
+            <summary>
+            A list of Domain entities supported by IDS QBO. Used by the REST infrastructure
+            to construct the relevant calls.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.none">
+            <summary>
+            none Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.user">
+            <summary>
+            user Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.account">
+            <summary>
+            account Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.bill">
+            <summary>
+            bill Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.changedatadeleted">
+            <summary>
+            changedatadeleted Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.check">
+            <summary>
+            check Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.companymetadata">
+            <summary>
+            companymetadata Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.customer">
+            <summary>
+            customer Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.employee">
+            <summary>
+            employee Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.entitlements">
+            <summary>
+            entitlements Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.estimate">
+            <summary>
+            estimate Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.invoice">
+            <summary>
+            invoice Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.item">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.job">
+            <summary>
+            job Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.payment">
+            <summary>
+            payment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.preferences">
+            <summary>
+            preferences Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.vendor">
+            <summary>
+            venodor Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.Class">
+            <summary>
+            class Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.billpayment">
+            <summary>
+            billpayment Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.cashpurchase">
+            <summary>
+            cashpurchase Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.creditcardcharge">
+            <summary>
+            creditcardcharge Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.journalentry">
+            <summary>
+            journalentry Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.paymentmethod">
+            <summary>
+            paymentmethod Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.salesreceipt">
+            <summary>
+            salesreceipt Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.salesterm">
+            <summary>
+            term Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.timeactivity">
+            <summary>
+            timeactivity Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.accounts">
+            <summary>
+            accounts Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.bills">
+            <summary>
+            bills Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.checks">
+            <summary>
+            checks Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.customers">
+            <summary>
+            customers Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.employees">
+            <summary>
+            employees Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.estimates">
+            <summary>
+            estimates Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.invoices">
+            <summary>
+            invoices Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.items">
+            <summary>
+            item Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.jobs">
+            <summary>
+            jobs Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.payments">
+            <summary>
+            payments Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.vendors">
+            <summary>
+            vendors Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.Classes">
+            <summary>
+            classes Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.billpayments">
+            <summary>
+            billpayments Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.cashpurchases">
+            <summary>
+            cashpurchases Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.creditcardcharges">
+            <summary>
+            creditcardcharges Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.journalentries">
+            <summary>
+            journalentries Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.paymentmethods">
+            <summary>
+            paymentmethods Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.salesreceipts">
+            <summary>
+            salesreceipts Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.salesterms">
+            <summary>
+            terms Resource
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.AsyncServices.IdsQboResource.timeactivities">
+            <summary>
+            timeactivities Resource
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.AsyncServices.AsyncServicesHelper">
+            <summary>
+            Class contains Helper Methods for Services.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncServicesHelper.#ctor">
+            <summary>
+            Prevents a default instance of the AsyncServicesHelper class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncServicesHelper.IsTypeNull(Intuit.Ipp.Data.IEntity)">
+            <summary>
+            Check whether the entity passed has a type or not.
+            </summary>
+            <param name="entity">CDM Entity.</param>
+            <returns>True if the type exists or else false.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncServicesHelper.GetResourceStringForQBD(Intuit.Ipp.AsyncServices.IdsQbdResource)">
+            <summary>
+            Gets the resource string for QBD Enum.
+            </summary>
+            <param name="qbdResource">The Qbd Resource</param>
+            <returns>String representation of Qbd Resource.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncServicesHelper.GetResourceStringForQBO(Intuit.Ipp.AsyncServices.IdsQboResource)">
+            <summary>
+            Gets the resource string for QBO Enum.
+            </summary>
+            <param name="qboResource">The Qbo Resource</param>
+            <returns>String representation of Qbo Resource.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.AsyncServices.AsyncServicesHelper.GetPluralResourceStringForQBO(Intuit.Ipp.AsyncServices.IdsQboResource)">
+            <summary>
+            Gets the plural resource for QBO Enum.
+            </summary>
+            <param name="qboResource">The QBO Resoruce</param>
+            <returns>IdsQboResource for Plural entity name.</returns>
+        </member>
+    </members>
+</doc>

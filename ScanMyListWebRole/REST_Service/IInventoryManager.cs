@@ -49,10 +49,10 @@ namespace SynchWebRole.REST_Service
             Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
             UriTemplate = "new_product"
         )]
-        string NewProduct(Product newProduct);
+        string NewProduct(Product newProduct, int aid, string sessionId);
 
         [OperationContract]
         [WebInvoke(
@@ -116,5 +116,15 @@ namespace SynchWebRole.REST_Service
             UriTemplate = "page_inventory?bid={bid}&aid={aid}&session={sessionId}&page_size={pageSize}&offset={offset}"
         )]
         List<Product> PageInventory(int bid, int aid, string sessionId, int pageSize, int offset);
+
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "update_product_upc?bid={bid}&aid={aid}&session={sessionId}&old_upc={old_upc}&new_upc={new_upc}"
+        )]
+        void UpdateProductUpc(int bid, int aid, string sessionId, string old_upc, string new_upc);
     }
 }

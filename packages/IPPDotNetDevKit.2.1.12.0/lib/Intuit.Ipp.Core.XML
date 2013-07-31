@@ -1,0 +1,1214 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intuit.Ipp.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Intuit.Ipp.Core.ServiceConstants">
+            <summary>
+            Constants whose values do not change.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.SLASH_CHAR">
+            <summary>
+            Slash character.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.VERSION">
+            <summary>
+            The Intuit Services Version.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.RESOURCE">
+            <summary>
+            The Resource.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.CONTENTTYPE_TEXTXML">
+            <summary>
+            Content type: text/xml.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.CONTENTTYPE_APPLICATIONXML">
+            <summary>
+            Content type: application/xml.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.CONTENTTYPE_URLFORMENCODED">
+            <summary>
+            Content type: application/x-www-form-urlencoded.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.QB_COMMON_NAMESPACE">
+            <summary>
+            Intuit Ipp namespace for Common entities.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.QBD_NAMESPACE">
+            <summary>
+            Intuit Ipp namespace for QBD entities.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.QBD_BASEURL">
+            <summary>
+            The Base Url for QBD.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.IPS_BASEURL">
+            <summary>
+            The Base Url for QBD.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.QBO_BASEURL">
+            <summary>
+            The Base Url for QBO.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.QBO_NAMESPACE">
+            <summary>
+            The QBO Namespace.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.INTUIT_WORKPLACE">
+            <summary>
+            Intuit Workplace Uri. 
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.OAUTHACCESSTOKENURL">
+            <summary>
+            Intuit O Auth Access token Uri. 
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.Id">
+            <summary>
+            Id Parameter Name.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.SYNC_TOKEN">
+            <summary>
+            Sync Token Parameter Name.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.ID_DOMAIN_QUERY">
+            <summary>
+            Id Domain Query Parameter.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.PAGE_NUM">
+            <summary>
+            Page Number Query Parameter.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.RESULTS_PERPAGE">
+            <summary>
+            Results Per page Query Parameter.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.APIACTIONHEADER">
+            <summary>
+            API Action Header Key.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.ISQBOXPATH">
+            <summary>
+            XPath for IsQbo tag.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.REALMXPATH">
+            <summary>
+            XPath for realm tag.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.API_GETISREALMQBO">
+            <summary>
+            Api for API_GetIsRealmQBO
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.API_GETIDSREALM">
+            <summary>
+            Api for API_GetIDSRealm
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.AUTHORIZATIONSTRING_FORHEADER">
+            <summary>
+            Authorization String For Header.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.INTUITAUTH_HEADERFORMAT">
+            <summary>
+            Intuit Auth header format.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.REQUESTFILENAME_FORMAT">
+            <summary>
+            Request File Name Format.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.RESPONSEFILENAME_FORMAT">
+            <summary>
+            Response File Name Format.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.ERRORRESPONSEFILENAME_FORMAT">
+            <summary>
+            Error Response File Name Format.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.XOAUTHAUTHIDPSEUDONYM">
+            <summary>
+            The o auth auth id pseudonym
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.XOAUTHREALMIDPSEUDONYM">
+            <summary>
+            The o auth realm id pseudonym
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.XOAUTHSERVICEPROVIDERID">
+            <summary>
+            The o auth service provider id
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.CONTENTENCODING">
+            <summary>
+            The Compression format of the request data.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.ACCEPTENCODING">
+            <summary>
+            The Compression format of the response data.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.REQUESTSOURCEHEADER">
+            <summary>
+            The Request source header value.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceConstants.CUSTOMHEADER">
+            <summary>
+            The Request source header name.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.HttpVerbType">
+            <summary>
+            Enumeration for the different values that can be used as value for HttpWebRequest method property. 
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.HttpVerbType.GET">
+            <summary>
+            Http Get verb.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.HttpVerbType.PUT">
+            <summary>
+            Http Put verb.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.HttpVerbType.DELETE">
+            <summary>
+            Http Delete verb.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.HttpVerbType.POST">
+            <summary>
+            Http Post verb.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1">
+            <summary>
+            Contains event handlers for call back events.
+            </summary>
+            <typeparam name="T">Generic Constraint </typeparam>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1.CallCompletedEventHandler">
+            <summary>
+            Generic event handler to handle multiple call backs.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="callCompletedEventArgs">Call Completed Event Args.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1.FindAllCallCompletedEventHandler">
+            <summary>
+            Event handler to handle FindAll asynchronous call back.
+            </summary>
+            <param name="sender">Sender of this event.</param>
+            <param name="findAllCallCompletedEventArgs">FindAll Call Completed Event Args.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1.AsyncCallCompletedEventHandler">
+            <summary>
+            Generic Event handler to handle asynchronous call back.
+            </summary>
+            <param name="sender">Sender of this event.</param>
+            <param name="asyncCallCompletedEventArgs">Async Call Completed Event Args.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1.SyncStatusCallCompletedEventHandler">
+            <summary>
+            Event handler to handle sync status asynchronous call back.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="syncStatusCallCompletedEventArgs">Event Args</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataServiceCallback`1.SyncActivityCallCompletedEventHandler">
+            <summary>
+            Event handler to handle sync activity asynchronous call back.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="syncActivityCallCompletedEventArgs">Event Args</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.AppDbidParameterName">
+            <summary>
+              Looks up a localized string similar to appDbid.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.AppTokenParameterName">
+            <summary>
+              Looks up a localized string similar to appToken.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.BaseUriNullMessage">
+            <summary>
+              Looks up a localized string similar to Could not retrieve BaseURI property. The given realm might not be part of QBO..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.CurrentCompanyNullMessage">
+            <summary>
+              Looks up a localized string similar to The CurrentCompany property of Quickbase Online User is null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ErrorCodeMissing">
+            <summary>
+              Looks up a localized string similar to API response without Error code element..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ErrorCodeNonNemeric">
+            <summary>
+              Looks up a localized string similar to Error code &quot;{0}&quot; not numeric!.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ErrorDetails0">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}, Detail: {2}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ErrorDetails1">
+            <summary>
+              Looks up a localized string similar to {0} (Error {1}).
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ErrorWithNoText">
+            <summary>
+              Looks up a localized string similar to Error {0}.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ExceptionGeneratedMessage">
+            <summary>
+              Looks up a localized string similar to Exception has been generated: {0}..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ExceptionGeneratedMessageNoFormat">
+            <summary>
+              Looks up a localized string similar to Exception has been generated..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.InvalidValidatorMessage">
+            <summary>
+              Looks up a localized string similar to Cannot use the specified Validator with this constructor..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.NoServiceTypeResponseMessage">
+            <summary>
+              Looks up a localized string similar to The response did not contain the service type..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ParameterNotNullEmptyMessage">
+            <summary>
+              Looks up a localized string similar to Parameter Cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ParameterNotNullMessage">
+            <summary>
+              Looks up a localized string similar to Parameter cannot be null..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.RealmIdNotFoundMessage">
+            <summary>
+              Looks up a localized string similar to The realm id for the appToken could not be found..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.RealmIdParameterName">
+            <summary>
+              Looks up a localized string similar to realmId.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.RequestValidatorParameterName">
+            <summary>
+              Looks up a localized string similar to requestValidator.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ResponseStreamReadFailedMessage">
+            <summary>
+              Looks up a localized string similar to Failed to read the response stream..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.SerializationExceptionMessage">
+            <summary>
+              Looks up a localized string similar to The Deserialization to Quickbooks Online User failed..
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.TicketParameterName">
+            <summary>
+              Looks up a localized string similar to ticket.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.Properties.Resources.ValidDirectoryPathMessage">
+            <summary>
+              Looks up a localized string similar to Please specify a valid directory path..
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.ReportCompletedEventArgs">
+            <summary>
+            Event arguments for Report completed event.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ReportCompletedEventArgs.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.ReportCompletedEventArgs"/> class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ReportCompletedEventArgs.Result">
+            <summary>
+            Gets or sets the Report entity.
+            </summary>
+            <value>
+            The result.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ReportCompletedEventArgs.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Core.FindAllCallCompletedEventArgs">
+            <summary>
+            Event argument is class used to communicate after FindAll operation completed.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.FindAllCallCompletedEventArgs.#ctor">
+            <summary>
+            Initializes a new instance of the FindAllCallCompletedEventArgs class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.FindAllCallCompletedEventArgs.Entities">
+            <summary>
+            Gets or sets Entities from the result.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.FindAllCallCompletedEventArgs.Error">
+            <summary>
+            Gets or sets Ids Exception.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.SyncStatusCallCompletedEventArgs">
+            <summary>
+            Event arguments for Sync activity completed event.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.SyncStatusCallCompletedEventArgs.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.SyncStatusCallCompletedEventArgs"/> class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.SyncStatusCallCompletedEventArgs.Result">
+            <summary>
+            Gets or sets the SyncStatusResponse array.
+            </summary>
+            <value>
+            The result.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.SyncStatusCallCompletedEventArgs.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Core.IntuitServicesType">
+            <summary>
+            This Enumeration specifies which Intuit service to connect to. It is  Either QBO or QBD.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.IntuitServicesType.QBD">
+            <summary>
+            QuickBooks Desktop Data through IDS.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.IntuitServicesType.QBO">
+            <summary>
+            QuickBooks Online Data through IDS.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.IntuitServicesType.IPS">
+            <summary>
+            Intuit Platform services.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.ServiceContext">
+            <summary>
+            Intuit Partner Platform Service Context.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.realmId">
+            <summary>
+            The Realm Id.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.serviceType">
+            <summary>
+            Intuit Service Type(QBO/QB).
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.baseserviceURL">
+            <summary>
+            Base Uri for IDS Service Call.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.appDbid">
+            <summary>
+            Application Database Id.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.appToken">
+            <summary>
+            Application Token.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.serviceRequestLoggingLocation">
+            <summary>
+            Service Request Logging Location.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.ServiceContext.enableServiceRequestsLogging">
+            <summary>
+            Enable Service Requests Logging.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(Intuit.Ipp.Security.IRequestValidator,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.ServiceContext"/> class for Intuit Platform services only.
+            </summary>
+            <param name="requestValidator">The request validate.</param>
+            <param name="appToken">The app token.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.ServiceContext"/> class for Intuit Platform services only.
+            </summary>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <param name="appToken">The app token.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(Intuit.Ipp.Security.IRequestValidator,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.ServiceContext"/> class.
+            </summary>
+            <param name="requestValidator">The request validate.</param>
+            <param name="realmId">The realm id.</param>
+            <param name="serviceType">Service Type - QBO/QB.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(Intuit.Ipp.Security.IRequestValidator,System.String,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.ServiceContext"/> class.
+            </summary>
+            <param name="requestValidator">The request validate.</param>
+            <param name="appToken">Application Token.</param>
+            <param name="realmId">The realm id.</param>
+            <param name="serviceType">Service Type - QBO/QB.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Intuit.Ipp.Core.ServiceContext"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,Intuit.Ipp.Security.IRequestValidator)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="requestValidator">The request validate.</param>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String,Intuit.Ipp.Security.IRequestValidator)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="requestValidator">The request validate.</param>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.#ctor(System.String,System.String,System.String,Intuit.Ipp.Security.IRequestValidator,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Initializes a new instance of the ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="requestValidator">The request validate.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,Intuit.Ipp.Security.IRequestValidator)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="requestValidator">The request validate.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String,Intuit.Ipp.Security.IRequestValidator,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="requestValidator">The request validate.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String,Intuit.Ipp.Security.IRequestValidator)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="requestValidator">The request validate.</param>
+            <returns>Returns ServiceContext object.</returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.Create(System.String,System.String,System.String,System.String,Intuit.Ipp.Core.IntuitServicesType)">
+            <summary>
+            Creates a new instance of ServiceContext class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="appDbid">Application Database Identifier.</param>
+            <param name="realmId">The Realm Id.</param>
+            <param name="ticket">The Authenticated Ticket.</param>
+            <param name="serviceType">Service Type (QBO/QBD).</param>
+            <returns>
+            Returns ServiceContext object.
+            </returns>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If arguments are null or empty.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidRealmException">If realm id is invalid.</exception>
+            <exception cref="T:Intuit.Ipp.Exception.InvalidTokenException">If the token is invalid.</exception>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.GetBaseURL">
+            <summary>
+            Gets the base Uri for a QBO user.
+            </summary>
+            <returns>Returns the base Uri endpoint for a user.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.GetQBOPartitionedURL(System.String)">
+            <summary>
+            Gets the QBO partitioned URL.
+            </summary>
+            <param name="qboServiceEndpoint">The Qbo service endpoint.</param>
+            <returns>Returns QBO partitioned URL.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.GetIsRealmQbo">
+            <summary>
+            Gets whether the service type is Qbo or not.
+            </summary>
+            <returns>Returns true if the service type is Qbo or else false.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ServiceContext.GetIdsRealm">
+            <summary>
+            Gets the Ids Realm Id.
+            </summary>
+            <returns>Returns the realm id.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.RequestValidator">
+            <summary>
+            Gets or sets the request validate.
+            </summary>
+            <value>
+            The request validate.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.BaseUrl">
+            <summary>
+            Gets Base Uri for IDS Service Calls.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.RealmId">
+            <summary>
+            Gets Realm/Company Id.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.AppToken">
+            <summary>
+            Gets or Sets the Application Token.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.ServiceType">
+            <summary>
+            Gets Intuit Service Type.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.IdsLogger">
+            <summary>
+            Gets or sets IDS Logger.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.RetryPolicy">
+            <summary>
+            Gets or sets the Retry Policy used to retry service calls when Retry-able Exceptions are generated.
+            </summary>
+            <value>
+            The retry policy.
+            </value>
+            <exception>Throws RetryExceededException after retrying the service call for specified policy.</exception>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.Serializer">
+            <summary>
+            Gets or sets the Serialize Type. For V3 release Intuit supports JSON serialization.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.EnableServiceRequestsLogging">
+            <summary>
+            Gets or sets a value indicating whether or not to log API requests and responses to the local file system. 
+            Default value is false.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.ServiceRequestLoggingLocation">
+            <summary>
+            Gets or sets the Desired Location for files created on file system while logging API requests and responses (if <see cref="P:Intuit.Ipp.Core.ServiceContext.EnableServiceRequestsLogging"/> is set to true). 
+            Default Value is Temp directory. File name will be the request id + time stamp with a txt extension.
+            </summary>
+            <exception cref="T:Intuit.Ipp.Exception.IdsException">If the specified directory is not found.</exception>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.EnableResponseCompression">
+            <summary>
+            Gets or sets a value indicating whether response compression is to be used.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ServiceContext.CompressionType">
+            <summary>
+            Gets the value indicating compression type.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.RequestParameters">
+            <summary>
+            Parameters for calling Rest calls.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RequestParameters.#ctor(System.String,Intuit.Ipp.Core.HttpVerbType,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.RequestParameters"/> class.
+            </summary>
+            <param name="resourceUri">The resource URI.</param>
+            <param name="verb">The http verb.</param>
+            <param name="contentType">Type of the content.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RequestParameters.#ctor(System.String,Intuit.Ipp.Core.HttpVerbType,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.RequestParameters"/> class.
+            </summary>
+            <param name="resourceUri">The resource URI.</param>
+            <param name="verb">The http verb.</param>
+            <param name="contentType">Type of the content.</param>
+            <param name="apiName">Name of the API.</param>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RequestParameters.ResourceUri">
+            <summary>
+            Gets or sets the resource URI.
+            </summary>
+            <value>
+            The resource URI.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RequestParameters.Verb">
+            <summary>
+            Gets or sets the verb.
+            </summary>
+            <value>
+            The http verb.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RequestParameters.ContentType">
+            <summary>
+            Gets or sets the type of the content.
+            </summary>
+            <value>
+            The type of the content.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RequestParameters.ApiName">
+            <summary>
+            Gets or sets the name of the API.
+            </summary>
+            <value>
+            The name of the API.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Core.CallCompletedEventArgs`1">
+            <summary>
+            Contains events for call back methods and corresponding fields
+            </summary>
+            <typeparam name="T">Generic constraint of type IEntity.</typeparam>
+        </member>
+        <member name="M:Intuit.Ipp.Core.CallCompletedEventArgs`1.#ctor">
+            <summary>
+            Initializes a new instance of the CallCompletedEventArgs class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.CallCompletedEventArgs`1.Entity">
+            <summary>
+            Gets or sets the Entity of type T.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.CallCompletedEventArgs`1.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.SyncActivityCallCompletedEventArgs">
+            <summary>
+            Event arguments for Sync activity completed event.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.SyncActivityCallCompletedEventArgs.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.SyncActivityCallCompletedEventArgs"/> class.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.SyncActivityCallCompletedEventArgs.Result">
+            <summary>
+            Gets or sets the Sync activity response array.
+            </summary>
+            <value>
+            The result.
+            </value>
+        </member>
+        <member name="P:Intuit.Ipp.Core.SyncActivityCallCompletedEventArgs.Error">
+            <summary>
+            Gets or sets the IdsException.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Core.ReportCallBack">
+            <summary>
+            Contains event handlers for Report Callback.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.ReportCallBack.ReportCompletedEventHandler">
+            <summary>
+            Generic event handler to handle Report call backs.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="reportCompletedEventArgs">Report Call Completed Event Args.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.TicketRequestValidator">
+            <summary>
+            Ticket Request Validate.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.TicketRequestValidator.appToken">
+            <summary>
+            Application Token.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.TicketRequestValidator.ticket">
+            <summary>
+            Authenticated Ticket Value.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.TicketRequestValidator.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the TicketRequestValidator class.
+            </summary>
+            <param name="appToken">Application Token.</param>
+            <param name="ticket">Authenticated Ticket Value.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Core.TicketRequestValidator.Authorize(System.Net.WebRequest,System.String)">
+            <summary>
+            Authorizes the web request.
+            </summary>
+            <param name="webRequest">The webRequest.</param>
+            <param name="bodyIfFormEncodedParams">The body if form encoded parameters.</param>
+        </member>
+        <member name="T:Intuit.Ipp.Core.LogRequestsToDisk">
+            <summary>
+            Logs API Requests/Responses To Disk
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.LogRequestsToDisk.LogPlatformRequests(System.String,System.Boolean)">
+            <summary>
+            Logs the Platform Request to Disk.
+            </summary>
+            <param name="xml">The xml to log.</param>
+            <param name="isRequest">Specifies whether the xml is request or response.</param>
+        </member>
+        <member name="P:Intuit.Ipp.Core.LogRequestsToDisk.EnableServiceRequestsLogging">
+            <summary>
+            Gets or sets a value indicating whether Service Requests Logging should be enabled.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.LogRequestsToDisk.ServiceRequestLoggingLocation">
+            <summary>
+            Gets or sets the Service Request Logging Location.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.AsyncCallCompletedEventArgs">
+            <summary>
+            Asynchronous call completed event arguments
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.AsyncCallCompletedEventArgs.results">
+            <summary>
+            The result of the asynchronous operation.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.AsyncCallCompletedEventArgs.error">
+            <summary>
+            Ids Exception.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.AsyncCallCompletedEventArgs.#ctor(System.String,Intuit.Ipp.Exception.IdsException)">
+            <summary>
+            Initializes a new instance of the AsyncCallCompletedEventArgs class.
+            /// </summary>
+            <param name="result">Result of the asynchronous operation.</param>
+            <param name="error">Ids Exception.</param>
+        </member>
+        <member name="P:Intuit.Ipp.Core.AsyncCallCompletedEventArgs.Result">
+            <summary>
+            Gets Result returned from the Asynchronous call
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.AsyncCallCompletedEventArgs.Error">
+            <summary>
+            Gets Ids Exception.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.DataCompressionFormat">
+            <summary>
+            Format used to compress data.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.DataCompressionFormat.None">
+            <summary>
+            No compression.
+            </summary>
+        </member>
+        <member name="F:Intuit.Ipp.Core.DataCompressionFormat.GZip">
+            <summary>
+            GZip compression.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.RestRequestHandler">
+            <summary>
+            RestRequestHandler contains the logic for preparing the REST request, calls REST services and returns the response.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.#ctor(Intuit.Ipp.Core.ServiceContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intuit.Ipp.Core.RestRequestHandler"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Intuit.Ipp.Core.RestRequestHandler"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.PrepareRequest(Intuit.Ipp.Core.RequestParameters,System.Object,System.String)">
+            <summary>
+            Prepares the HttpWebRequest along with authentication header added to the request.
+            </summary>
+            <param name="parameters">The parameters.</param>
+            <param name="requestBody">The request entity.</param>
+            <param name="oauthRequestUri">The o auth request Uri, pass this parameter in case of getting the o auth access tokens.</param>
+            <returns>
+            Http web request object.
+            </returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.GetResponse(System.Net.HttpWebRequest,Intuit.Ipp.Retry.IntuitRetryPolicy)">
+            <summary>
+            Returns the response by calling REST service.
+            </summary>
+            <param name="request">The request.</param>
+            <param name="retryPolicy">The retry policy.</param>
+            <returns>Response from REST service.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.GetXmlResponse(System.Net.HttpWebRequest,Intuit.Ipp.Retry.IntuitRetryPolicy)">
+            <summary>
+            Gets the response by calling REST service.
+            </summary>
+            <param name="request">The request.</param>
+            <param name="retryPolicy">The retry policy.</param>
+            <returns>Response from REST service.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.StreamToByteArray(System.IO.Stream)">
+            <summary>
+            Reads the given stream byte by byte until it ends and then converts the content to a byte array. Doesn't close the stream.
+            </summary>
+            <param name="stream">The stream.</param>
+            <returns>Returns byte array.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.CallRestService(System.Net.HttpWebRequest)">
+            <summary>
+            Calls the rest service.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>Returns the response.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.CallService(System.Net.HttpWebRequest)">
+            <summary>
+            Calls the rest service.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>Returns the response.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.ParseResponse(System.Net.HttpWebResponse)">
+            <summary>
+            Parses the response object.
+            </summary>
+            <param name="httpWebResponse">The Http Web Response object.</param>
+            <returns>Returns the response by parsing httpWebResponse object.</returns>
+        </member>
+        <member name="M:Intuit.Ipp.Core.RestRequestHandler.ParseResponseToXml(System.Net.HttpWebResponse)">
+            <summary>
+            Parses the response object.
+            </summary>
+            <param name="httpWebResponse">The Http Web Response object.</param>
+            <returns>Returns the response by parsing httpWebResponse object.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RestRequestHandler.IDSLogger">
+            <summary>
+            Gets or sets IDS Logger.
+            </summary>
+        </member>
+        <member name="P:Intuit.Ipp.Core.RestRequestHandler.Context">
+            <summary>
+            Gets or sets the context.
+            </summary>
+            <value>
+            The context.
+            </value>
+        </member>
+        <member name="T:Intuit.Ipp.Core.ICompressor">
+            <summary>
+            Compression interface.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ICompressor.Compress(System.Byte[],System.IO.Stream)">
+            <summary>
+            Compresses the input byte array into stream.
+            </summary>
+            <param name="content">Input data.</param>
+            <param name="requestStream">Request stream.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Core.ICompressor.Decompress(System.IO.Stream)">
+            <summary>
+            Decompresses the output response stream.
+            </summary>
+            <param name="responseStream">Response stream.</param>
+            <returns>Decompressed stream.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Core.ICompressor.DataCompressionFormat">
+            <summary>
+            Gets the format of the data compression.
+            </summary>
+        </member>
+        <member name="T:Intuit.Ipp.Core.EncodingFixer">
+            <summary>
+            Helps repair encoding of QuickBase responses.
+            </summary>
+            <seealso cref="M:Intuit.Ipp.Core.EncodingFixer.FixQuickBaseEncoding(System.Byte[])"/>
+        </member>
+        <member name="F:Intuit.Ipp.Core.EncodingFixer.Replacements">
+            <summary>
+            A list of characters for which QuickBase always uses Windows-1252 encoding. For use in FixQuickBaseEncoding().
+            "LEFT DOUBLE QUOTATION MARK"
+            "RIGHT DOUBLE QUOTATION MARK"
+            "EN DASH"
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.EncodingFixer.FixQuickBaseEncoding(System.Byte[])">
+            <summary>
+            QuickBase has a unique feature which converts certain input characters into windows-1252 encoding and stores them in the database
+            (This assists Windows users when they use QuickBase HTML UI). When data containing such characters is queried, 
+            the windows-1252 encoding will not change and will remain surrounded by the usual UTF8-encoded XML.
+            If this data requires XML parsing, the windows-1252 encoded characters have to be re-encoded to UTF8 encoding.
+            This unique feature was recently removed from workplace, but still exists in QuickBase.
+            </summary>
+            <param name="encodedValue">a response from QuickBase that's mostly UTF8 encoded but has Windows-1252-encoded characters embedded in it</param>
+            <returns>Returns the encoded response.</returns>
+        </member>
+        <member name="T:Intuit.Ipp.Core.GZipCompressor">
+            <summary>
+            GZip Compression Mode.
+            </summary>
+        </member>
+        <member name="M:Intuit.Ipp.Core.GZipCompressor.Compress(System.Byte[],System.IO.Stream)">
+            <summary>
+            Compresses the input byte array into stream.
+            </summary>
+            <param name="content">Input data.</param>
+            <param name="requestStream">Request stream.</param>
+        </member>
+        <member name="M:Intuit.Ipp.Core.GZipCompressor.Decompress(System.IO.Stream)">
+            <summary>
+            Decompresses the output response stream.
+            </summary>
+            <param name="responseStream">Response stream.</param>
+            <returns>Decompressed stream.</returns>
+        </member>
+        <member name="P:Intuit.Ipp.Core.GZipCompressor.DataCompressionFormat">
+            <summary>
+            Gets Format of the data compression.
+            </summary>
+        </member>
+    </members>
+</doc>

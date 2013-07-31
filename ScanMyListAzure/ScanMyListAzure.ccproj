@@ -37,6 +37,14 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ERPIntegrationWorkerRole\ERPIntegrationWorkerRole.csproj">
+      <Name>ERPIntegrationWorkerRole</Name>
+      <Project>{39164707-3e2f-4585-b4ce-bc4633640896}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>ERPIntegrationWorkerRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
     <ProjectReference Include="..\ScanMyListWebRole\SynchWebRole.csproj">
       <Name>SynchWebRole</Name>
       <Project>{d7a3b297-0408-4975-928b-25f684da57eb}</Project>
