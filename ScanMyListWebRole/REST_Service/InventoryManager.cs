@@ -135,7 +135,7 @@ namespace SynchWebRole.REST_Service
             SessionManager.CheckSession(aid, sessionId);
 
             context.CreateProduct(newProduct.upc, newProduct.name, newProduct.detail);
-            context.AddProductToInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime);
+            context.CreateInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime, newProduct.price, newProduct.productCategory);
             return "New product created.";
         }
 

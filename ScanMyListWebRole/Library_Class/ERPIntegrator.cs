@@ -12,8 +12,14 @@ namespace SynchWebRole.Library_Class
     public class ERPIntegrator
     {
 
-        public static void testAzureStorageQueue(int rid)
+        public static void relayRecord(int bid, int rid)
         {
+            // check which ERP system to integrate first
+            string queueName = "";
+            if (bid != 76)
+                return;
+            else
+                queueName = "invoiceqbd";
             CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
             Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
 
@@ -21,14 +27,15 @@ namespace SynchWebRole.Library_Class
             CloudQueueClient queueClient = synchStorageAccount.CreateCloudQueueClient();
             
             // Retrieve a reference to a queue
-            CloudQueue queue = queueClient.GetQueueReference("invoice");
+            CloudQueue queue = queueClient.GetQueueReference(queueName);
 
             // Create the queue if it doesn't already exist
             queue.CreateIfNotExists();
 
-            // Create a message and add it to the queue.
-            CloudQueueMessage message = new CloudQueueMessage("new record id:4690");
-            queue.AddMessage(message);
+            // Create a message and add it to the queue
+            string messageString = "rid:" + rid + ":" + bid;
+            CloudQueueMessage message = new CloudQueueMessage(messageString);
+            // queue.AddMessage(message);
         }
     }
 }

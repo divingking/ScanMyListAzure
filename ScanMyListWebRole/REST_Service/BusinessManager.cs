@@ -11,12 +11,20 @@ namespace SynchWebRole.REST_Service
 {
     public partial class SynchDataService : IBusinessManager
     {
+        /// <summary>
+        /// deprecated for now
+        /// </summary>
+        /// <param name="upc"></param>
+        /// <param name="bid"></param>
+        /// <param name="aid"></param>
+        /// <param name="sessionId"></param>
+        /// <returns></returns>
         public List<Business> GetSuppliers(string upc, int bid, int aid, string sessionId)
         {
             SessionManager.CheckSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.GetSuppliers(upc, bid);
+            var results = context.GetAllSuppliers(bid);
             List<Business> suppliers = new List<Business>();
             foreach (var result in results)
             {
@@ -236,7 +244,7 @@ namespace SynchWebRole.REST_Service
             SessionManager.CheckSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            context.AddGeneralSupplier(bid, sid);
+            context.CreateSupplies(sid, bid, bid);
         }
 
         public void AddCustomer(int bid, int aid, string sessionId, int cid)
@@ -244,7 +252,7 @@ namespace SynchWebRole.REST_Service
             SessionManager.CheckSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            context.AddGeneralCustomer(bid, cid);
+            context.CreateSupplies(bid, cid, bid);
         }
     
     }

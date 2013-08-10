@@ -8,6 +8,7 @@ namespace SynchWebRole.REST_Service
     [ServiceContract]
     public interface IBusinessManager
     {
+        /* deprecated for now
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -16,6 +17,7 @@ namespace SynchWebRole.REST_Service
             UriTemplate = "suppliers?upc={upc}&bid={bid}&aid={aid}&session={sessionId}"
         )]
         List<Business> GetSuppliers(string upc, int bid, int aid, string sessionId);
+        */
 
         [OperationContract]
         [WebInvoke(

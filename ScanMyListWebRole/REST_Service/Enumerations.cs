@@ -9,7 +9,13 @@ namespace SynchWebRole.REST_Service
     {
         Order,
         Receipt,
-        Change
+	    PhysicalInventory,
+	    CycleCount,
+	    Return,
+	    QualityIssue,
+	    PhysicalDamage,
+        SalesSample,
+        Stolen
     }
 
     public enum RecordStatus

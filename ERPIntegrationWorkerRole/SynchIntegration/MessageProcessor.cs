@@ -13,7 +13,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
     class MessageProcessor
     {
 
-        public static int RetrieveMessageFromSynchStorage()
+        public static string RetrieveMessageFromSynchStorage()
         {
             // Retrieve storage account from connection string
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
@@ -23,7 +23,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
             // Retrieve a reference to a queue
-            CloudQueue queue = queueClient.GetQueueReference("invoice");
+            CloudQueue queue = queueClient.GetQueueReference("invoiceqbd");
 
             CloudQueueMessage retrievedMessage = queue.GetMessage();
 
@@ -32,12 +32,10 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
                 //Process the message in less than 30 seconds, and then delete the message
                 string message = retrievedMessage.AsString;
                 queue.DeleteMessage(retrievedMessage);
-                int rid = Convert.ToInt32(message.Split(':')[1]);
-                return rid;
-
+                return message;
             }
             else
-                return -1;
+                return null;
         }
     }
 }

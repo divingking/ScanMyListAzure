@@ -33,5 +33,16 @@ namespace ERPIntegrationWorkerRole.Properties {
                 return ((string)(this["SynchTestDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=iml0mpyqrb.database.windows.net;Initial Catalog=SynchDevelopmentDB;Us" +
+            "er ID=smladmin;Password=SCANmyLIST2012")]
+        public string SynchDevelopmentDBConnectionString {
+            get {
+                return ((string)(this["SynchDevelopmentDBConnectionString"]));
+            }
+        }
     }
 }

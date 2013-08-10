@@ -18,6 +18,8 @@
         public string email;
         [DataMember]
         public string category;
+        [DataMember]
+        public int integration;
     }
 
     [DataContract]
@@ -41,6 +43,10 @@
         public int leadTime { get; set; }
         [DataMember]
         public string location { get; set; }
+        [DataMember]
+        public double price { get; set; }
+        [DataMember]
+        public int productCategory { get; set; }
     }
 
     [DataContract]

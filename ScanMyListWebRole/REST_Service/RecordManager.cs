@@ -261,10 +261,9 @@ namespace SynchWebRole.REST_Service
                         return GetOrderDetails(context, bid, rid);
                     case (int)RecordCategory.Receipt:
                         return GetReceiptDetails(context, bid, rid);
-                    case (int)RecordCategory.Change:
-                        return GetChangeDetails(context, bid, rid);
                     default:
-                        return null;
+                        return GetChangeDetails(context, bid, rid);
+
                 }
             }
             else
@@ -336,6 +335,19 @@ namespace SynchWebRole.REST_Service
             return products;
         }
 
+        public List<string> GetRecordCategoryList(int bid, int aid, string sessionId)
+        {
+            SessionManager.CheckSession(aid, sessionId);
+
+            List<string> result = new List<string>();
+            foreach (string currentCategory in Enum.GetNames(typeof(RecordCategory)))
+            {
+                result.Add(currentCategory);
+            }
+
+            return result;
+        }
+
         public string CreateRecord(Record newRecord)
         {
             SessionManager.CheckSession(newRecord.account, newRecord.sessionId);
@@ -351,11 +363,11 @@ namespace SynchWebRole.REST_Service
 
                 foreach (RecordProduct product in newRecord.products)
                 {
-                    context.AddProductToRecord(
-                        rid, product.upc, product.supplier, product.customer, product.quantity, product.note);
+                    context.CreateProductInRecord(
+                        rid, product.upc, product.supplier, product.customer, product.quantity, product.note, product.price);
                 }
 
-                if (newRecord.category == (int)RecordCategory.Change)
+                if (newRecord.category != (int)RecordCategory.Order && newRecord.category != (int)RecordCategory.Receipt)
                 {
                     this.IncrementInventories(newRecord.products, newRecord.business);
                     return string.Format("Inventory changed by Record {0}", newRecord.id);
@@ -366,11 +378,6 @@ namespace SynchWebRole.REST_Service
                     {
                         string result = string.Format(
                             "{0} id=_{1}", this.SendRecord(newRecord.business, rid, newRecord.account, newRecord.sessionId), rid);
-
-                        // check with database to see if we need to relay this new record to ERP system
-                        // TO-DO
-                        //ERPIntegrator.testAzureStorageQueue(rid);
-
                         return result;
                     }
                     else
@@ -405,12 +412,12 @@ namespace SynchWebRole.REST_Service
                         // Update Record's products
                         if (newRecord.products != null || newRecord.products.Count != 0)
                         {
-                            context.ClearProductsFromRecord(newRecord.id);
+                            context.DeleteProductsInRecord(newRecord.id);
 
                             foreach (RecordProduct product in newRecord.products)
                             {
-                                context.AddProductToRecord(
-                                    newRecord.id, product.upc, product.supplier, product.customer, product.quantity, product.note);
+                                context.CreateProductInRecord(
+                                    newRecord.id, product.upc, product.supplier, product.customer, product.quantity, product.note, product.price);
                             }
                         }
 
@@ -435,7 +442,7 @@ namespace SynchWebRole.REST_Service
 
         private void ValidateRecord(Record record)
         {
-            if (record.category == (int)RecordCategory.Change)
+            if (record.category != (int)RecordCategory.Order && record.category != (int)RecordCategory.Receipt)
             {
                 if (record.id != -1)
                 {
@@ -524,16 +531,24 @@ namespace SynchWebRole.REST_Service
 
             if (enumerator.MoveNext())
             {
+                string res = "";
                 switch (enumerator.Current.category)
                 {
                     case (int)RecordCategory.Order:
-                        return this.SendOrder(context, bid, rid, aid);
+                        res = this.SendOrder(context, bid, rid, aid);
+                        // check with database to see if we need to relay this new record to ERP system
+                        ERPIntegrator.relayRecord(bid, rid);
+                        return res;
                     case (int)RecordCategory.Receipt:
-                        return this.SendReceipt(context, bid, rid, aid);
-                    case (int)RecordCategory.Change:
-                        return this.SendChange(context, bid, rid, aid);
+                        res = this.SendReceipt(context, bid, rid, aid);
+                        // check with database to see if we need to relay this new record to ERP system
+                        ERPIntegrator.relayRecord(bid, rid);
+                        return res;
                     default:
-                        throw new FaultException("Invalid Record type! ");
+                        res = this.SendChange(context, bid, rid, aid);
+                        // check with database to see if we need to relay this new record to ERP system
+                        ERPIntegrator.relayRecord(bid, rid);
+                        return res;
                 }
             }
             else
@@ -707,7 +722,7 @@ namespace SynchWebRole.REST_Service
                     change.id = product.record_id;
                     change.title = product.record_title;
                     change.date = (long)product.record_date;
-                    change.category = (int)RecordCategory.Change;
+                    change.category = (int)product.record_category;
                 }
 
                 RecordProduct p = new RecordProduct()

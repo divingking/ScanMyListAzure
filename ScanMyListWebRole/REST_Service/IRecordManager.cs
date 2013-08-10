@@ -63,6 +63,15 @@ namespace SynchWebRole.REST_Service
 
         [OperationContract]
         [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "record_category_list?bid={bid}&aid={aid}&session={sessionId}"
+        )]
+        List<string> GetRecordCategoryList(int bid, int aid, string sessionId);
+
+        [OperationContract]
+        [WebInvoke(
             Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,

@@ -111,8 +111,26 @@
                 case (int)RecordCategory.Receipt:
                     builder.AppendLine(string.Format("Receipt for {0}", involved[bid].name));
                     break;
-                case (int)RecordCategory.Change:
-                    builder.AppendLine("Inventory change");
+                case (int)RecordCategory.PhysicalDamage:
+                    builder.AppendLine("Inventory Change (Physical Damange)");
+                    break;
+                case (int)RecordCategory.PhysicalInventory:
+                    builder.AppendLine("Inventory Change (Physical Inventory)");
+                    break;
+                case (int)RecordCategory.QualityIssue:
+                    builder.AppendLine("Inventory Change (Quality Issue)");
+                    break;
+                case (int)RecordCategory.CycleCount:
+                    builder.AppendLine("Inventory Change (Cycle Count)");
+                    break;
+                case (int)RecordCategory.Return:
+                    builder.AppendLine("Inventory Change (Return)");
+                    break;
+                case (int)RecordCategory.SalesSample:
+                    builder.AppendLine("Inventory Change (Sales Sample)");
+                    break;
+                case (int)RecordCategory.Stolen:
+                    builder.AppendLine("Inventory Change (Stolen)");
                     break;
                 default:
                     break;

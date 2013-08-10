@@ -60,7 +60,7 @@ namespace SynchWebRole.REST_Service
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
             int bid = context.RegisterBusiness(
-                business.name, business.address, business.zip, business.email, business.category);
+                business.name, business.address, business.zip, business.email, business.category, business.integration);
 
             return bid;
         }

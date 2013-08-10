@@ -17,20 +17,45 @@ namespace ERPIntegrationWorkerRole
     {
         public override void Run()
         {
-            // This is a sample worker implementation. Replace with your logic.
-            Trace.WriteLine("ERPIntegrationWorkerRole entry point called", "Information");
-
             while (true)
             {
                 Thread.Sleep(10000);
-                int rid = MessageProcessor.RetrieveMessageFromSynchStorage();
+                //updateERPFromSynch();
+            }
+        }
 
-                // QuickBookIntegration.QBDIntegrator.createInvoiceInQBD(rid);
+        private void updateSynchFromERP()
+        {
+            // try to do the auto-sync
+            string realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
+            accessToken = "lvprdsHdmwhxqxhwReuLgYSJyUtpUTTDBuMPS3frqLKRE5og";
+            accessTokenSecret = "t9m89H4myvEvVq3oi3uac91jwV4r8sjSeWJZ3HFh";
+            consumerKey = "qyprdChIG6ax7TK3OWyp6ZIygWNJwj";
+            consumerSecret = "gFNdGdTaye35jSd9AYEeqqHY68KXdyEFD7p5x352";
+            dataSourcetype = "QBD";
+            realmId = "738592490";
 
-                if (rid != -1)
-                {
-                    //QuickBookIntegration.QBDIntegrator.createInvoiceInQBD(rid);
-                }
+        }
+
+        private void updateERPFromSynch()
+        {
+            string message = MessageProcessor.RetrieveMessageFromSynchStorage();
+            if (message != null)
+            {
+                string[] elements = message.Split(':');
+                int rid = Convert.ToInt32(elements[1]);
+                int bid = Convert.ToInt32(elements[2]);
+                string realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
+                accessToken = "lvprdsHdmwhxqxhwReuLgYSJyUtpUTTDBuMPS3frqLKRE5og";
+                accessTokenSecret = "t9m89H4myvEvVq3oi3uac91jwV4r8sjSeWJZ3HFh";
+                consumerKey = "qyprdChIG6ax7TK3OWyp6ZIygWNJwj";
+                consumerSecret = "gFNdGdTaye35jSd9AYEeqqHY68KXdyEFD7p5x352";
+                dataSourcetype = "QBD";
+                realmId = "738592490";
+
+                QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype);
+
+                qbdIntegrator.createInvoiceInQBD(rid);
             }
         }
 

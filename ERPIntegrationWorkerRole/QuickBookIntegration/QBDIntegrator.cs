@@ -17,27 +17,48 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 {
     class QBDIntegrator
     {
+        // QBD side of fields
+        string realmId;
+        string accessToken;
+        string accessTokenSecret;
+        string consumerKey;
+        string consumerSecret;
+        string dataSourcetype;
 
-        public static void createInvoiceInQBD(int rid)
+        Dictionary<String, String> itemNameToIdMap;
+
+        // Synch side of fields
+        int synchBusinessId;
+
+        public QBDIntegrator(int bid, string realmId, string accessToken, string accessTokenSecret, string consumerKey, string consumerSecret, string dataSourcetype)
         {
-            // credentials for connecting with QuickBooks database
-            string realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
-            accessToken = "lvprdsHdmwhxqxhwReuLgYSJyUtpUTTDBuMPS3frqLKRE5og";
-            accessTokenSecret = "t9m89H4myvEvVq3oi3uac91jwV4r8sjSeWJZ3HFh";
-            consumerKey = "qyprdChIG6ax7TK3OWyp6ZIygWNJwj";
-            consumerSecret = "gFNdGdTaye35jSd9AYEeqqHY68KXdyEFD7p5x352";
-            dataSourcetype = "QBD";
-            realmId = "738592490";
+            this.synchBusinessId = bid;
 
+            this.realmId = realmId;
+            this.accessToken = accessToken;
+            this.accessTokenSecret = accessTokenSecret;
+            this.consumerKey = consumerKey;
+            this.consumerSecret = consumerSecret;
+            this.dataSourcetype = dataSourcetype;
+
+            itemNameToIdMap = new Dictionary<string, string>();
+        }
+
+        public void updateInvoiceFromQBD()
+        {
+
+        }
+
+        public void createInvoiceInQBD(int rid)
+        {
             // validating
             OAuthRequestValidator oauthValidator = Initializer.InitializeOAuthValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
             ServiceContext context = Initializer.InitializeServiceContext(oauthValidator, realmId, string.Empty, string.Empty, dataSourcetype);
             DataServices commonService = new DataServices(context);
 
             // get invoice information from Synch database
-            int synchBusinessId = 76;
             SynchDatabaseDataContext synchDataContext = new SynchDatabaseDataContext();
-            var results = synchDataContext.GetOrderDetails(synchBusinessId, 1500);
+            var results = synchDataContext.GetOrderDetails(synchBusinessId, rid);
 
             List<RecordProduct> products = new List<RecordProduct>();
 
@@ -46,6 +67,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 products.Add(
                     new RecordProduct()
                     {
+                        name = product.product_name,
                         upc = product.product_upc,
                         customer = product.customer_id,
                         quantity = (int)product.product_quantity,
@@ -77,7 +99,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             string[] customerAddress = customerInSynch.address.Split(',');
             string customerEmail = customerInSynch.email;
             string zipCode = customerInSynch.zip.ToString();
-            string stateCode = customerAddress[customerAddress.Length - 1].Split(' ')[0];
+            string stateCode = customerAddress[customerAddress.Length - 1].Split(' ')[1];
 
             // creates actual invoice
             Intuit.Ipp.Data.Qbd.PhysicalAddress physicalAddress = new Intuit.Ipp.Data.Qbd.PhysicalAddress();
@@ -111,16 +133,36 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
             List<Intuit.Ipp.Data.Qbd.InvoiceLine> listLine = new List<Intuit.Ipp.Data.Qbd.InvoiceLine>();
 
+            createItemNameToItemIdMap();
             // add all the items in the record into inovice lines
             foreach (RecordProduct curProduct in products)
             {
-                Intuit.Ipp.Data.Qbd.ItemsChoiceType2[] invoiceItemAttributes = { Intuit.Ipp.Data.Qbd.ItemsChoiceType2.ItemId, Intuit.Ipp.Data.Qbd.ItemsChoiceType2.UnitPrice, Intuit.Ipp.Data.Qbd.ItemsChoiceType2.Qty };
-                // original code : object[] invoiceItemValues = { new IdType() { idDomain = idDomainEnum.QB, Value = "5" }, new decimal(33), new decimal(2) };
-                object[] invoiceItemValues = { new Intuit.Ipp.Data.Qbd.IdType() { idDomain = Intuit.Ipp.Data.Qbd.idDomainEnum.QB, Value = "1" }, new decimal(33), new decimal(2) };
+                // get item id by querying QBD
+                string itemIdString = "-1";
+                if (itemNameToIdMap.ContainsKey(curProduct.name))
+                    itemIdString = itemNameToIdMap[curProduct.name];
+
+                Intuit.Ipp.Data.Qbd.ItemsChoiceType2[] invoiceItemAttributes =
+                { 
+                    Intuit.Ipp.Data.Qbd.ItemsChoiceType2.ItemId,
+                    Intuit.Ipp.Data.Qbd.ItemsChoiceType2.UnitPrice,
+                    Intuit.Ipp.Data.Qbd.ItemsChoiceType2.Qty 
+                };
+                object[] invoiceItemValues =
+                {
+                    new Intuit.Ipp.Data.Qbd.IdType() 
+                    {
+                        idDomain = Intuit.Ipp.Data.Qbd.idDomainEnum.QB,
+                        Value = itemIdString
+                    },
+                    new decimal(curProduct.price),
+                    new decimal(curProduct.quantity) 
+                };
+
                 var invoiceLine = new Intuit.Ipp.Data.Qbd.InvoiceLine();
-                invoiceLine.Amount = 66;
+                invoiceLine.Amount = (Decimal)curProduct.price * curProduct.quantity;
                 invoiceLine.AmountSpecified = true;
-                invoiceLine.Desc = "test " + DateTime.Now.ToShortDateString();
+                invoiceLine.Desc = curProduct.note;
                 invoiceLine.ItemsElementName = invoiceItemAttributes;
                 invoiceLine.Items = invoiceItemValues;
                 invoiceLine.ServiceDate = DateTime.Now;
@@ -133,6 +175,39 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             invoice.Line = listLine.ToArray();
 
             Intuit.Ipp.Data.Qbd.Invoice addedInvoice = commonService.Add(invoice);
+        }
+
+        private void createItemNameToItemIdMap()
+        {
+            OAuthRequestValidator oauthValidator = Initializer.InitializeOAuthValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
+            ServiceContext context = Initializer.InitializeServiceContext(oauthValidator, realmId, string.Empty, string.Empty, dataSourcetype);
+
+            int pageNumber = 1;
+            int chunkSize = 500;
+            Intuit.Ipp.Data.Qbd.ItemQuery qbdItemQuery = new Intuit.Ipp.Data.Qbd.ItemQuery();
+            qbdItemQuery.ItemElementName = Intuit.Ipp.Data.Qbd.ItemChoiceType4.StartPage;
+            qbdItemQuery.Item = pageNumber.ToString();
+            qbdItemQuery.ChunkSize = chunkSize.ToString();
+
+            // use a while loop to page all the items from QBD
+            int curItemCount = 1;
+            while (curItemCount > 0)
+            {
+                qbdItemQuery.Item = pageNumber.ToString();
+                IEnumerable<Intuit.Ipp.Data.Qbd.Item> items = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>
+                                    (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Item>;
+                IEnumerator<Intuit.Ipp.Data.Qbd.Item> itemEnum = items.GetEnumerator();
+                while (itemEnum.MoveNext())
+                {
+                    if (itemEnum.Current.Name != null)
+                    {
+                        itemNameToIdMap.Add(itemEnum.Current.Name, itemEnum.Current.Id.Value);
+                    }
+
+                }
+                curItemCount = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>(context).Count;
+                pageNumber++;
+            }
         }
     }
 }
