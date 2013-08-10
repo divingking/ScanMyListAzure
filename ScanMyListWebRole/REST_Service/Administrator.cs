@@ -106,7 +106,8 @@ namespace SynchWebRole.REST_Service
                         address = business.address,
                         zip = (int)business.zip,
                         email = business.email,
-                        category = business.category
+                        category = business.category,
+                        integration = (int)business.integration
                     });
             }
 
