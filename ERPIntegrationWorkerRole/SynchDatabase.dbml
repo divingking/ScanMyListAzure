@@ -17,12 +17,22 @@
       <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.CreateAccount" Method="CreateAccount">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.CreateBusiness" Method="CreateBusiness">
     <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="address" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="zip" Type="System.Int32" DbType="Int" />
     <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="category" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="integration" Type="System.Int32" DbType="Int" />
+    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.CreateInventory" Method="CreateInventory">
@@ -65,7 +75,7 @@
     <Parameter Name="inventory_id" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.DeleteProductFromRecord" Method="DeleteProductFromRecord">
+  <Function Name="dbo.DeleteProductsInRecord" Method="DeleteProductsInRecord">
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
@@ -122,6 +132,7 @@
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetChangeDetails" Method="GetChangeDetails">
@@ -129,6 +140,19 @@
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetChangeDetailsResult">
       <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetCompleteChange" Method="GetCompleteChange">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetCompleteChangeResult">
+      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="record_category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
@@ -442,23 +466,6 @@
       <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.RegisterAccount" Method="RegisterAccount">
-    <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
-    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="tier" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.RegisterBusiness" Method="RegisterBusiness">
-    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="address" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="zip" Type="System.Int32" DbType="Int" />
-    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="category" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="integration" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.SearchBusinessByName" Method="SearchBusinessByName">
     <Parameter Name="name" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="SearchBusinessByNameResult">
@@ -469,6 +476,7 @@
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.SearchCustomerOrSupplier" Method="SearchCustomerOrSupplier">
@@ -546,18 +554,5 @@
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.GetCompleteChange" Method="GetCompleteChange">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="rid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetCompleteChangeResult">
-      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="record_category" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
   </Function>
 </Database>

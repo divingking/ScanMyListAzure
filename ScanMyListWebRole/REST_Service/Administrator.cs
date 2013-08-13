@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Web.Script.Serialization;
 
 namespace SynchWebRole.REST_Service
@@ -59,8 +60,8 @@ namespace SynchWebRole.REST_Service
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
-            int bid = context.RegisterBusiness(
-                business.name, business.address, business.zip, business.email, business.category, business.integration);
+            int bid = context.CreateBusiness(
+                business.name, business.address, business.zip, business.email, business.category, business.integration, business.tier);
 
             return bid;
         }
@@ -68,9 +69,13 @@ namespace SynchWebRole.REST_Service
         public User RegisterAccount(User user)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var result = context.GetAccountByLogin(user.login);
+            if (result.GetEnumerator().MoveNext())
+                throw new WebFaultException(HttpStatusCode.Conflict);
+
             string passwordHash = Encryptor.Generate512Hash(user.pass);
 
-            context.RegisterAccount(
+            context.CreateAccount(
                 user.login,
                 passwordHash,
                 user.email,
@@ -92,7 +97,8 @@ namespace SynchWebRole.REST_Service
             SessionManager.CheckSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.SearchBusinessByName(name);
+            string searchString = "%" + name + "%";
+            var results = context.SearchBusinessByName(searchString);
 
             List<Business> retrievedBusiness = new List<Business>();
 
@@ -124,7 +130,7 @@ namespace SynchWebRole.REST_Service
 
             if (accountBusinessEnumerator.MoveNext())
             {
-                if (accountBusinessEnumerator.Current.business == 0)
+                if (accountBusinessEnumerator.Current.business == 1)
                 {
                     var requestBusinessResult = context.GetBusiness(bid);
                     IEnumerator<GetBusinessResult> requestBusinessEnumerator = requestBusinessResult.GetEnumerator();

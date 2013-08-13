@@ -25,6 +25,8 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public string category;
         [DataMember]
         public int integration;
+        [DataMember]
+        public int tier;
     }
 
     [DataContract]
