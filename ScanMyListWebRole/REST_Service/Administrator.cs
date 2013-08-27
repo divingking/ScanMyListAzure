@@ -71,30 +71,34 @@ namespace SynchWebRole.REST_Service
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var result = context.GetAccountByLogin(user.login);
             if (result.GetEnumerator().MoveNext())
+            {
                 throw new WebFaultException(HttpStatusCode.Conflict);
+            }
+            else
+            {
+                string passwordHash = Encryptor.Generate512Hash(user.pass);
 
-            string passwordHash = Encryptor.Generate512Hash(user.pass);
+                context.CreateAccount(
+                    user.login,
+                    passwordHash,
+                    user.email,
+                    1,
+                    user.tier);
 
-            context.CreateAccount(
-                user.login,
-                passwordHash,
-                user.email,
-                1,
-                user.tier);
+                LoginUser loginUser = new LoginUser();
+                loginUser.login = user.login;
+                loginUser.pass = user.pass;
+                loginUser.device = (int)DeviceType.website;
 
-            LoginUser loginUser = new LoginUser();
-            loginUser.login = user.login;
-            loginUser.pass = user.pass;
-            loginUser.device = (int)DeviceType.website;
+                User newUser = this.Login(loginUser);
 
-            User newUser = this.Login(loginUser);
-
-            return newUser;
+                return newUser;
+            }
         }
 
         public List<Business> SearchBusinessByName(string name, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             string searchString = "%" + name + "%";
@@ -122,7 +126,7 @@ namespace SynchWebRole.REST_Service
 
         public string LinkAccountToBusiness(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var acountBusinessResult = context.GetAccountBusiness(aid);
@@ -222,7 +226,7 @@ namespace SynchWebRole.REST_Service
         {
             try
             {
-                SessionManager.CheckSession(aid, sessionId);
+                SessionManager.checkSession(aid, sessionId);
             }
             catch (FaultException)
             {

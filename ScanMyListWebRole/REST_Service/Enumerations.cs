@@ -31,4 +31,18 @@ namespace SynchWebRole.REST_Service
         Android,
         website
     }
+
+    public enum AccountTier
+    {
+        sales,
+        manager,
+        ceo
+    }
+
+    public enum BusinessTier
+    {
+        free,
+        standard,
+        pro
+    }
 }

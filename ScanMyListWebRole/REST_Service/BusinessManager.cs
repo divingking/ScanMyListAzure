@@ -21,7 +21,7 @@ namespace SynchWebRole.REST_Service
         /// <returns></returns>
         public List<Business> GetSuppliers(string upc, int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetAllSuppliers(bid);
@@ -44,7 +44,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> GetAllSuppliers(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetAllSuppliers(bid);
@@ -67,7 +67,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> GetAllCustomers(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetAllCustomers(bid);
@@ -91,7 +91,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> SearchCustomer(int bid, int aid, string sessionId, string query)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             query = "%" + query + "%";
@@ -115,7 +115,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> SearchSupplier(int bid, int aid, string sessionId, string query)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             query = "%" + query + "%";
@@ -139,7 +139,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> PageCustomer(int bid, int aid, string sessionId, int pageSize, int offset)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.PageBusinessForBusiness(bid, pageSize, offset, "customer");
@@ -162,7 +162,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Business> PageSupplier(int bid, int aid, string sessionId, int pageSize, int offset)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.PageBusinessForBusiness(bid, pageSize, offset, "supplier");
@@ -185,7 +185,7 @@ namespace SynchWebRole.REST_Service
 
         public Business GetCustomerById(int bid, int aid, string sessionId, int cid)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var result = context.GetCustomerById(bid, cid);
@@ -213,7 +213,7 @@ namespace SynchWebRole.REST_Service
 
         public Business GetSupplierById(int bid, int aid, string sessionId, int sid)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var result = context.GetSupplierById(bid, sid);
@@ -241,7 +241,7 @@ namespace SynchWebRole.REST_Service
 
         public void AddSupplier(int bid, int aid, string sessionId, int sid)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             context.CreateSupplies(sid, bid, bid);
@@ -249,7 +249,7 @@ namespace SynchWebRole.REST_Service
 
         public void AddCustomer(int bid, int aid, string sessionId, int cid)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             context.CreateSupplies(bid, cid, bid);

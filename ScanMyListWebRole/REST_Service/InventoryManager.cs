@@ -13,14 +13,14 @@ namespace SynchWebRole.REST_Service
     {
         public Product GetProductByUPC(string upc, int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.GetProductByUPC(bid, upc);
-            IEnumerator<GetProductByUPCResult> productEnumerator = results.GetEnumerator();
+            var results = context.GetInventoryByUpc(bid, upc);
+            IEnumerator<GetInventoryByUpcResult> productEnumerator = results.GetEnumerator();
             if (productEnumerator.MoveNext())
             {
-                GetProductByUPCResult target = productEnumerator.Current;
+                GetInventoryByUpcResult target = productEnumerator.Current;
                 return new Product()
                 {
                     upc = target.upc,
@@ -71,7 +71,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Product> GetProductByName(string name, int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetProductByName(bid, name);
@@ -96,7 +96,7 @@ namespace SynchWebRole.REST_Service
 
         public string UpdateLeadTime(string upc, int bid, int lead_time, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             if (context.HasInventory(bid, upc) == 0)
@@ -114,7 +114,7 @@ namespace SynchWebRole.REST_Service
 
         public string UpdateProductLocation(string upc, int bid, string location, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             if (context.HasInventory(bid, upc) == 0)
@@ -132,16 +132,24 @@ namespace SynchWebRole.REST_Service
         public string NewProduct(Product newProduct, int aid, string sessionId)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
-            context.CreateProduct(newProduct.upc, newProduct.name, newProduct.detail);
-            context.CreateInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime, newProduct.price, newProduct.productCategory);
-            return "New product created.";
+            var result = context.GetProductByUpc(newProduct.upc);
+            if (result.GetEnumerator().MoveNext())
+            {
+                throw new WebFaultException(HttpStatusCode.Conflict);
+            }
+            else
+            {
+                context.CreateProduct(newProduct.upc, newProduct.name, newProduct.detail);
+                context.CreateInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime, newProduct.price, newProduct.productCategory);
+                return "New product created.";
+            }
         }
 
         public List<Product> SearchInventoryByUpc(int bid, int aid, string sessionId, string query)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
             query = "%" + query + "%";
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
@@ -169,7 +177,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Product> SearchInventoryByName(int bid, int aid, string sessionId, string query)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
             query = "%" + query + "%";
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
@@ -197,7 +205,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Product> PageInventory(int bid, int aid, string sessionId, int pageSize, int offset)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.PageInventoryForBusiness(bid, pageSize, offset);
@@ -225,7 +233,7 @@ namespace SynchWebRole.REST_Service
         
         public List<Product> GetInventory(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetAllInventory(bid);
@@ -252,7 +260,7 @@ namespace SynchWebRole.REST_Service
 
         public string GetProductSummaryForBusiness(int bid, string upc, int aid, int other_bid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             long start = -1;
             long end = -1;
@@ -289,7 +297,7 @@ namespace SynchWebRole.REST_Service
 
         public string GetProductSummary(int bid, string upc, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             long start = -1;
             long end = -1;
@@ -322,7 +330,7 @@ namespace SynchWebRole.REST_Service
 
         public List<RecordProduct> GetProductSummaryData(int bid, string upc, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
@@ -347,7 +355,7 @@ namespace SynchWebRole.REST_Service
 
         public void UpdateProductUpc(int bid, int aid, string sessionId, string old_upc, string new_upc)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 

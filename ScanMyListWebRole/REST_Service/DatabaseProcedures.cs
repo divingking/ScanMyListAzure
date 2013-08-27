@@ -7,7 +7,7 @@ namespace SynchWebRole
 {
     public class DatabaseProcedures
     {
-        public static GetProductByUPCResult GetProductByUPC(string upc, int cid)
+        public static GetProductByUpcResult GetProductByUPC(string upc, int cid)
         {
             /*ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             try

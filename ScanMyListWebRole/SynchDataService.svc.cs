@@ -13,7 +13,7 @@
     {
         public int CountItemForBusiness(int bid, int aid, string sessionId, string item)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.CountItemForBusiness(bid, item);

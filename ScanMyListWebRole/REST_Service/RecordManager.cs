@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Web.Script.Serialization;
 
 namespace SynchWebRole.REST_Service
@@ -13,7 +14,7 @@ namespace SynchWebRole.REST_Service
         
         public List<Record> GetOrders(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetOrders(bid);
@@ -27,8 +28,10 @@ namespace SynchWebRole.REST_Service
                     current = new Record()
                     {
                         id = result.record_id,
+                        account = (int)result.record_account,
                         title = result.record_title,
                         date = (long)result.record_date,
+                        comment = result.record_comment,
                         products = new List<RecordProduct>()
                     };
                 }
@@ -38,8 +41,10 @@ namespace SynchWebRole.REST_Service
                     current = new Record()
                     {
                         id = result.record_id,
+                        account = (int)result.record_account,
                         title = result.record_title,
                         date = (long)result.record_date,
+                        comment = result.record_comment,
                         products = new List<RecordProduct>()
                     };
                 }
@@ -50,19 +55,19 @@ namespace SynchWebRole.REST_Service
                         name = result.product_name,
                         quantity = (int)result.product_quantity,
                         customer = result.customer_id,
-                        note = result.item_note
-                        //price = (double)result.product_price
+                        note = result.item_note,
+                        price = (double)result.product_price
                     });
             }
 
             orders.Add(current);
 
-            return orders;
+            return TierController.filterRecordWithAccountTier(orders, aid);
         }
 
         public List<Record> SearchRecordByTitle(int bid, int aid, string sessionId, string query)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             query = "%" + query + "%";
@@ -76,20 +81,22 @@ namespace SynchWebRole.REST_Service
                     new Record()
                     {
                         id = record.id,
+                        account = (int)record.account,
                         title = record.title,
                         date = (long)record.date,
                         business = (int)record.business,
                         category = (int)record.category,
-                        status = (int)record.status
+                        status = (int)record.status,
+                        comment = record.comment
                     });
             }
 
-            return records;
+            return TierController.filterRecordWithAccountTier(records, aid);
         }
 
         public List<Record> PageRecord(int bid, int aid, string sessionId, int pageSize, int offset)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.PageRecordForBusiness(bid, pageSize, offset);
@@ -101,20 +108,22 @@ namespace SynchWebRole.REST_Service
                     new Record()
                     {
                         id = record.id,
+                        account = (int)record.account,
                         title = record.title,
                         date = (long)record.date,
                         business = (int)record.business,
                         category = (int)record.category,
-                        status = (int)record.status
+                        status = (int)record.status,
+                        comment = record.comment
                     });
             }
 
-            return records;
+            return TierController.filterRecordWithAccountTier(records, aid);
         }
 
         public List<Record> GetReceipts(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetReceipts(bid);
@@ -128,8 +137,10 @@ namespace SynchWebRole.REST_Service
                     current = new Record()
                     {
                         id = result.record_id,
+                        account = (int)result.record_account,
                         title = result.record_title,
                         date = (long)result.record_date,
+                        comment = result.record_comment,
                         products = new List<RecordProduct>()
                     };
                 }
@@ -139,8 +150,10 @@ namespace SynchWebRole.REST_Service
                     current = new Record()
                     {
                         id = result.record_id,
+                        account = (int)result.record_account,
                         title = result.record_title,
                         date = (long)result.record_date,
+                        comment = result.record_comment,
                         products = new List<RecordProduct>()
                     };
                 }
@@ -158,12 +171,12 @@ namespace SynchWebRole.REST_Service
 
             receipts.Add(current);
 
-            return receipts;
+            return TierController.filterRecordWithAccountTier(receipts, aid);
         }
 
         public List<Record> GetRecordsByDate(int bid, long start, long end, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetRecordsByTimeRange(bid, start, end);
@@ -176,20 +189,22 @@ namespace SynchWebRole.REST_Service
                     new Record()
                     {
                         id = record.id,
+                        account = (int)record.account,
                         title = record.title,
                         date = (long)record.date,
                         business = (int)record.business,
                         category = (int)record.category,
-                        status = (int)record.status
+                        status = (int)record.status,
+                        comment = record.comment
                     });
             }
 
-            return records;
+            return TierController.filterRecordWithAccountTier(records, aid);
         }
 
         public List<Order> GetOrdersByRange(int bid, int start, int end, int aid, string sessionId)
         {
-            /*if (CheckSession(bid, sessionId))
+            /*if (checkSession(bid, sessionId))
             {
                 ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
                 var results = context.GetOrdersByRange(bid, start, end);
@@ -219,7 +234,7 @@ namespace SynchWebRole.REST_Service
 
         public List<Record> GetNRecordsFromLast(int bid, int last, int n, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var results = context.GetNRecordsFromLast(bid, last, n);
@@ -232,20 +247,22 @@ namespace SynchWebRole.REST_Service
                     new Record()
                     {
                         id = result.id,
+                        account = (int)result.account,
                         title = result.title,
                         date = (long)result.date,
                         business = (int)result.business,
                         category = (int)result.category,
-                        status = (int)result.status
+                        status = (int)result.status,
+                        comment = result.comment
                     });
             }
 
-            return records;
+            return TierController.filterRecordWithAccountTier(records, aid);
         }
 
         public List<RecordProduct> GetRecordDetails(int bid, int rid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var record = context.GetRecord(bid, rid);
@@ -253,6 +270,7 @@ namespace SynchWebRole.REST_Service
 
             if (recordEnumerator.MoveNext())
             {
+                TierController.validateAccessToRecord((int)recordEnumerator.Current.account, (int)recordEnumerator.Current.business, aid, bid);
                 int category = (int)recordEnumerator.Current.category;
 
                 switch (category)
@@ -268,7 +286,7 @@ namespace SynchWebRole.REST_Service
             }
             else
             {
-                throw new FaultException(string.Format("Record with id {0} is not found! ", rid));
+                throw new WebFaultException<string>(string.Format("Record with id {0} is not found! ", rid), HttpStatusCode.NotFound);
             }
         }
 
@@ -276,7 +294,7 @@ namespace SynchWebRole.REST_Service
         {
             List<RecordProduct> products = new List<RecordProduct>();
 
-            var results = context.GetOrderDetails(bid, rid);
+            var results = context.GetCompleteOrder(bid, rid);
 
             foreach (var product in results)
             {
@@ -287,7 +305,7 @@ namespace SynchWebRole.REST_Service
                         customer = product.customer_id,
                         quantity = (int)product.product_quantity,
                         price = (double)product.product_price,
-                        note = product.item_note
+                        note = product.product_note
                     });
             }
 
@@ -298,7 +316,7 @@ namespace SynchWebRole.REST_Service
         {
             List<RecordProduct> products = new List<RecordProduct>();
 
-            var results = context.GetReceiptDetails(bid, rid);
+            var results = context.GetCompleteReceipt(bid, rid);
 
             foreach (var product in results)
             {
@@ -309,7 +327,7 @@ namespace SynchWebRole.REST_Service
                         supplier = product.supplier_id,
                         quantity = (int)product.product_quantity,
                         price = (double)product.product_price,
-                        note = product.item_note
+                        note = product.product_note
                     });
             }
 
@@ -320,7 +338,7 @@ namespace SynchWebRole.REST_Service
         {
             List<RecordProduct> products = new List<RecordProduct>();
 
-            var results = context.GetChangeDetails(bid, rid);
+            var results = context.GetCompleteChange(bid, rid);
 
             foreach (var product in results)
             {
@@ -337,7 +355,7 @@ namespace SynchWebRole.REST_Service
 
         public List<string> GetRecordCategoryList(int bid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             List<string> result = new List<string>();
             foreach (string currentCategory in Enum.GetNames(typeof(RecordCategory)))
@@ -350,7 +368,7 @@ namespace SynchWebRole.REST_Service
 
         public string CreateRecord(Record newRecord)
         {
-            SessionManager.CheckSession(newRecord.account, newRecord.sessionId);
+            SessionManager.checkSession(newRecord.account, newRecord.sessionId);
 
             this.ValidateRecord(newRecord);
 
@@ -359,7 +377,7 @@ namespace SynchWebRole.REST_Service
             {
                 // Create a new record
                 int rid = context.CreateRecord(
-                        newRecord.business, newRecord.title, newRecord.category, newRecord.status, newRecord.comment);
+                        newRecord.business, newRecord.title, newRecord.category, newRecord.status, newRecord.comment, newRecord.account);
 
                 foreach (RecordProduct product in newRecord.products)
                 {
@@ -396,6 +414,8 @@ namespace SynchWebRole.REST_Service
                 if (recordEnumerator.MoveNext())
                 {
                     GetRecordResult retrievedRecord = recordEnumerator.Current;
+
+                    TierController.validateAccessToRecord((int)retrievedRecord.account, (int)retrievedRecord.business, newRecord.account, newRecord.business);
 
                     if (retrievedRecord.status != (int)RecordStatus.saved)
                     {
@@ -496,7 +516,7 @@ namespace SynchWebRole.REST_Service
 
         public string UpdateRecordTitle(int bid, int rid, string title, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var result = context.GetRecord(bid, rid);
@@ -504,6 +524,8 @@ namespace SynchWebRole.REST_Service
             if (enumerator.MoveNext())
             {
                 GetRecordResult record = enumerator.Current;
+                TierController.validateAccessToRecord((int)record.account, (int)record.business, aid, bid);
+
                 if (record.status == (int)RecordStatus.sent || record.status == (int)RecordStatus.closed)
                 {
                     throw new FaultException("Sent or Closed Record's title cannot be updated! ");
@@ -523,7 +545,7 @@ namespace SynchWebRole.REST_Service
 
         public string SendRecord(int bid, int rid, int aid, string sessionId)
         {
-            SessionManager.CheckSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             var result = context.GetRecord(bid, rid);
@@ -531,6 +553,7 @@ namespace SynchWebRole.REST_Service
 
             if (enumerator.MoveNext())
             {
+                TierController.validateAccessToRecord((int)enumerator.Current.account, (int)enumerator.Current.business, aid, bid);
                 string res = "";
                 switch (enumerator.Current.category)
                 {

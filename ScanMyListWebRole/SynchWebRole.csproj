@@ -88,6 +88,7 @@
     <Compile Include="Library_Class\ERPIntegrator.cs" />
     <Compile Include="Library_Class\SessionManager.cs" />
     <Compile Include="Library_Class\ExcelGenerator.cs" />
+    <Compile Include="Library_Class\TierController.cs" />
     <Compile Include="REST_Service\BusinessManager.cs" />
     <Compile Include="REST_Service\IBusinessManager.cs" />
     <Compile Include="REST_Service\IRecordManager.cs" />

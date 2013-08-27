@@ -5,20 +5,21 @@ using System.IO;
 using System.Net;
 using System.ServiceModel;
 using System.Web.Script.Serialization;
+using System.ServiceModel.Web;
+
 
 namespace SynchWebRole.Library_Class
 {
     public class SessionManager
     {
-        public static void CheckSession(int aid, string sessionId)
+        public static void checkSession(int aid, string sessionId)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            string retrievedSessionId = null;
-            context.GetSessionId(aid, ref retrievedSessionId);
+            GetAccountByIdResult result = (GetAccountByIdResult) context.GetAccountById(aid);
 
-            if (!sessionId.Equals(retrievedSessionId))
+            if (!sessionId.Equals(result.session_id))
             {
-                throw new FaultException("Session Expired! Should be " + retrievedSessionId + "; instead we get " + sessionId);
+                throw new WebFaultException<string>("session expired", HttpStatusCode.Unauthorized);
             }
         }
     }

@@ -58,7 +58,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
             // get invoice information from Synch database
             SynchDatabaseDataContext synchDataContext = new SynchDatabaseDataContext();
-            var results = synchDataContext.GetOrderDetails(synchBusinessId, rid);
+            var results = synchDataContext.GetCompleteOrder(synchBusinessId, rid);
 
             List<RecordProduct> products = new List<RecordProduct>();
 
@@ -72,7 +72,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                         customer = product.customer_id,
                         quantity = (int)product.product_quantity,
                         price = (double)product.product_price,
-                        note = product.item_note
+                        note = product.product_note
                     });
             }
             
