@@ -15,12 +15,19 @@ namespace SynchWebRole.Library_Class
         public static void checkSession(int aid, string sessionId)
         {
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            GetAccountByIdResult result = (GetAccountByIdResult) context.GetAccountById(aid);
-
-            if (!sessionId.Equals(result.session_id))
+            var results = context.GetAccountById(aid);
+            IEnumerator<GetAccountByIdResult> accountEnumerator = results.GetEnumerator();
+            if (accountEnumerator.MoveNext())
             {
-                throw new WebFaultException<string>("session expired", HttpStatusCode.Unauthorized);
+                GetAccountByIdResult result = accountEnumerator.Current;
+                if (!sessionId.Equals(result.session_id))
+                {
+                    throw new WebFaultException<string>("session expired", HttpStatusCode.Unauthorized);
+                }
             }
+            else
+                throw new WebFaultException<string>("account does not exist", HttpStatusCode.Unauthorized);
+
         }
     }
 }
