@@ -13,16 +13,9 @@
     {
         public int CountItemForBusiness(int bid, int aid, string sessionId, string item)
         {
-            SessionManager.checkSession(aid, sessionId);
+            SessionManager.checkSession(aid, sessionId);            
 
-            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.CountItemForBusiness(bid, item);
-            int count = 0;
-            foreach (var result in results)
-            {
-                count = (int) result.Column1;
-            }
-
+            int count = TierController.countItemForBusinessWithAccount(bid, aid, item);
             return count;
         }
 

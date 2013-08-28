@@ -17,6 +17,14 @@
       <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.CountItemForBusinessWithAccount" Method="CountItemForBusinessWithAccount">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="item" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="account" Type="System.Int32" DbType="Int" />
+    <ElementType Name="CountItemForBusinessWithAccountResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.CreateAccount" Method="CreateAccount">
     <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="password" Type="System.String" DbType="VarChar(128)" />
@@ -86,6 +94,19 @@
       <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetAccountById" Method="GetAccountById">
+    <Parameter Name="aid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAccountByIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="login" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UUID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.GetAccountByLogin" Method="GetAccountByLogin">
     <Parameter Name="login" Type="System.String" DbType="VarChar(255)" />
     <ElementType Name="GetAccountByLoginResult">
@@ -124,6 +145,7 @@
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAllSuppliers" Method="GetAllSuppliers">
@@ -224,6 +246,7 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetNRecordsFromLast" Method="GetNRecordsFromLast">
@@ -241,6 +264,25 @@
       <Column Name="account" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetOrders" Method="GetOrders">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetOrdersResult">
+      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="record_comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+      <Column Name="record_account" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="product_detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="item_note" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="product_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="customer_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="customer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="customer_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.GetProductByName" Method="GetProductByName">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
@@ -251,6 +293,7 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetProductByUpc" Method="GetProductByUpc">
@@ -270,6 +313,7 @@
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetProductSummary" Method="GetProductSummary">
@@ -281,6 +325,7 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="supplier" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="customer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetReceipts" Method="GetReceipts">
@@ -302,10 +347,10 @@
       <Column Name="supplier_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetRecord" Method="GetRecord">
+  <Function Name="dbo.GetRecordById" Method="GetRecordById">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetRecordResult">
+    <ElementType Name="GetRecordByIdResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
@@ -326,6 +371,7 @@
       <Column Name="upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetRecordsAfter" Method="GetRecordsAfter">
@@ -427,6 +473,7 @@
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.PageItemForBusiness" Method="PageItemForBusiness">
@@ -449,6 +496,22 @@
     <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
     <Parameter Name="offset" Type="System.Int32" DbType="Int" />
     <ElementType Name="PageRecordForBusinessResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+      <Column Name="account" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.PageRecordForBusinessWithAccount" Method="PageRecordForBusinessWithAccount">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <Parameter Name="account" Type="System.Int32" DbType="Int" />
+    <ElementType Name="PageRecordForBusinessWithAccountResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
@@ -495,6 +558,7 @@
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.SearchRecordByTitle" Method="SearchRecordByTitle">
@@ -548,37 +612,5 @@
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" />
     <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.GetAccountById" Method="GetAccountById">
-    <Parameter Name="aid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetAccountByIdResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="login" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="password" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UUID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
-      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetOrders" Method="GetOrders">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetOrdersResult">
-      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="record_comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
-      <Column Name="record_account" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="product_detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="item_note" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="product_price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="customer_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="customer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="customer_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-    </ElementType>
   </Function>
 </Database>

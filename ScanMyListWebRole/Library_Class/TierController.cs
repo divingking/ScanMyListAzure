@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq;
 using System.Web;
 using SynchWebRole.REST_Service;
 using System.ServiceModel.Web;
@@ -12,12 +13,11 @@ namespace SynchWebRole.Library_Class
     {
 
         public static List<Record> filterRecordWithAccountTier(List<Record> originalList, int aid)
-        {
-            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            GetAccountByIdResult result = (GetAccountByIdResult) context.GetAccountById(aid);
-            switch ((int)result.tier)
+        {            
+            int tier = getAccountTier(aid);
+            switch (tier)
             {
-                case (int) AccountTier.sales:
+                case (int)AccountTier.sales:
                     List<Record> resultList = new List<Record>();
                     foreach (Record r in originalList)
                     {
@@ -32,6 +32,7 @@ namespace SynchWebRole.Library_Class
                 default:
                     return null;
             }
+
         }
 
         public static void validateAccessToRecord(int recordAid, int recordBid, int aid, int bid)
@@ -41,12 +42,11 @@ namespace SynchWebRole.Library_Class
                 throw new WebFaultException<string>("record does not belong to business", HttpStatusCode.Unauthorized);
 
             // validate account access
-            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            GetAccountByIdResult result = (GetAccountByIdResult)context.GetAccountById(aid);
+            int tier = getAccountTier(aid);
 
             if (recordAid != aid)
             {
-                switch ((int)result.tier)
+                switch (tier)
                 {
                     case (int)AccountTier.sales:
                         throw new WebFaultException<string>("record does not belong to account", HttpStatusCode.Unauthorized);
@@ -56,7 +56,79 @@ namespace SynchWebRole.Library_Class
                         return;
                     default:
                         return;
-                }
+                }   // end of switch
+            }   // end of recordAid != aid
+        }
+
+        public static int countItemForBusinessWithAccount(int bid, int aid, string item)
+        {
+            int tier = getAccountTier(aid);
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            switch (tier)
+            {
+                case (int)AccountTier.sales:
+                    var salesResults = context.CountItemForBusinessWithAccount(bid, item, aid);
+                    int count = 0;
+                    foreach (var result in salesResults)
+                    {
+                        count = (int)result.Column1;
+                    }
+                    return count;
+                case (int)AccountTier.manager:
+                    var managerResults = context.CountItemForBusiness(bid, item);
+                    count = 0;
+                    foreach (var result in managerResults)
+                    {
+                        count = (int)result.Column1;
+                    }
+                    return count;
+                case (int)AccountTier.ceo:
+                    var ceoResults = context.CountItemForBusiness(bid, item);
+                    count = 0;
+                    foreach (var result in ceoResults)
+                    {
+                        count = (int)result.Column1;
+                    }
+                    return count;
+                default:
+                    return 0;
+            }
+        }
+
+        public static ISingleResult<PageRecordForBusinessResult> pageRecordForBusinessWithAccount(int bid, int aid, int offset, int pageSize)
+        {
+            int tier = getAccountTier(aid);
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            switch (tier)
+            {
+                case (int)AccountTier.sales:
+                    var salesResults = context.PageRecordForBusinessWithAccount(bid, pageSize, offset, aid);
+                    return (ISingleResult<PageRecordForBusinessResult>)salesResults;
+                case (int)AccountTier.manager:
+                    var managerResults = context.PageRecordForBusiness(bid, pageSize, offset);
+                    return managerResults;
+                case (int)AccountTier.ceo:
+                    var ceoResults = context.PageRecordForBusiness(bid, pageSize, offset);
+                    return ceoResults;
+                default:
+                    return null;
+            }
+        }
+
+        private static int getAccountTier(int aid)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.GetAccountById(aid);
+            IEnumerator<GetAccountByIdResult> accountEnumerator = results.GetEnumerator();
+            if (accountEnumerator.MoveNext())
+            {
+                GetAccountByIdResult result = accountEnumerator.Current;
+                return (int)result.tier;
+            }
+            else
+            {
+                // no account found
+                throw new WebFaultException<string>("account does not exist", HttpStatusCode.NotFound);
             }
         }
     }

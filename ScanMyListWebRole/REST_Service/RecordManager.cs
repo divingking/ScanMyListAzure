@@ -99,8 +99,7 @@ namespace SynchWebRole.REST_Service
             SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = context.PageRecordForBusiness(bid, pageSize, offset);
-
+            var results = TierController.pageRecordForBusinessWithAccount(bid, aid, offset, pageSize);
             List<Record> records = new List<Record>();
             foreach (PageRecordForBusinessResult record in results)
             {
@@ -118,7 +117,9 @@ namespace SynchWebRole.REST_Service
                     });
             }
 
-            return TierController.filterRecordWithAccountTier(records, aid);
+            //return TierController.filterRecordWithAccountTier(records, aid);
+            // already filtered
+            return records;
         }
 
         public List<Record> GetReceipts(int bid, int aid, string sessionId)
@@ -265,8 +266,8 @@ namespace SynchWebRole.REST_Service
             SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var record = context.GetRecord(bid, rid);
-            IEnumerator<GetRecordResult> recordEnumerator = record.GetEnumerator();
+            var record = context.GetRecordById(bid, rid);
+            IEnumerator<GetRecordByIdResult> recordEnumerator = record.GetEnumerator();
 
             if (recordEnumerator.MoveNext())
             {
@@ -408,12 +409,12 @@ namespace SynchWebRole.REST_Service
             else
             {
                 // Update an existing record
-                var result = context.GetRecord(newRecord.business, newRecord.id);
-                IEnumerator<GetRecordResult> recordEnumerator = result.GetEnumerator();
+                var result = context.GetRecordById(newRecord.business, newRecord.id);
+                IEnumerator<GetRecordByIdResult> recordEnumerator = result.GetEnumerator();
 
                 if (recordEnumerator.MoveNext())
                 {
-                    GetRecordResult retrievedRecord = recordEnumerator.Current;
+                    GetRecordByIdResult retrievedRecord = recordEnumerator.Current;
 
                     TierController.validateAccessToRecord((int)retrievedRecord.account, (int)retrievedRecord.business, newRecord.account, newRecord.business);
 
@@ -519,11 +520,11 @@ namespace SynchWebRole.REST_Service
             SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var result = context.GetRecord(bid, rid);
-            IEnumerator<GetRecordResult> enumerator = result.GetEnumerator();
+            var result = context.GetRecordById(bid, rid);
+            IEnumerator<GetRecordByIdResult> enumerator = result.GetEnumerator();
             if (enumerator.MoveNext())
             {
-                GetRecordResult record = enumerator.Current;
+                GetRecordByIdResult record = enumerator.Current;
                 TierController.validateAccessToRecord((int)record.account, (int)record.business, aid, bid);
 
                 if (record.status == (int)RecordStatus.sent || record.status == (int)RecordStatus.closed)
@@ -548,8 +549,8 @@ namespace SynchWebRole.REST_Service
             SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var result = context.GetRecord(bid, rid);
-            IEnumerator<GetRecordResult> enumerator = result.GetEnumerator();
+            var result = context.GetRecordById(bid, rid);
+            IEnumerator<GetRecordByIdResult> enumerator = result.GetEnumerator();
 
             if (enumerator.MoveNext())
             {

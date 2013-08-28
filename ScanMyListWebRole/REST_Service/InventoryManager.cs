@@ -29,12 +29,13 @@ namespace SynchWebRole.REST_Service
                     quantity = (int)target.quantity,
                     location = target.location,
                     owner = bid,
-                    leadTime = (int)target.lead_time
+                    leadTime = (int)target.lead_time,
+                    price = (double)target.default_price
                 };
             }
             else
             {
-                throw new FaultException("Product with given UPC not found in your Inventory! ");
+                throw new WebFaultException<string>("Product with given UPC not found in your Inventory", HttpStatusCode.NotFound);
             }
 
             // Ask for search upc to find the info of the product scanned
@@ -87,7 +88,8 @@ namespace SynchWebRole.REST_Service
                         quantity = (int)result.quantity,
                         location = result.location,
                         owner = bid,
-                        leadTime = (int)result.lead_time
+                        leadTime = (int)result.lead_time,
+                        price = (double)result.default_price
                     }
                 );
             }
@@ -137,7 +139,7 @@ namespace SynchWebRole.REST_Service
             var result = context.GetProductByUpc(newProduct.upc);
             if (result.GetEnumerator().MoveNext())
             {
-                throw new WebFaultException(HttpStatusCode.Conflict);
+                throw new WebFaultException<string>("a product with the same UPC already exists", HttpStatusCode.Conflict);
             }
             else
             {
@@ -166,7 +168,8 @@ namespace SynchWebRole.REST_Service
                     leadTime = (int)p.lead_time,
                     quantity = (int)p.quantity,
                     location = p.location,
-                    owner = bid
+                    owner = bid,
+                    price = (double)p.default_price
                 };
 
                 inventory.Add(product);
@@ -194,7 +197,8 @@ namespace SynchWebRole.REST_Service
                     leadTime = (int)p.lead_time,
                     quantity = (int)p.quantity,
                     location = p.location,
-                    owner = bid
+                    owner = bid,
+                    price = (double)p.default_price
                 };
 
                 inventory.Add(product);
@@ -221,7 +225,8 @@ namespace SynchWebRole.REST_Service
                     leadTime = (int)p.lead_time,
                     quantity = (int)p.quantity,
                     location = p.location,
-                    owner = bid
+                    owner = bid,
+                    price = (double)p.default_price
                 };
 
                 inventory.Add(product);
@@ -249,7 +254,8 @@ namespace SynchWebRole.REST_Service
                     leadTime = (int)p.lead_time,
                     quantity = (int)p.quantity,
                     location = p.location,
-                    owner = bid
+                    owner = bid,
+                    price = (double)p.default_price
                 };
 
                 inventory.Add(product);

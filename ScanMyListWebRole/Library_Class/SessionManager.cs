@@ -26,7 +26,7 @@ namespace SynchWebRole.Library_Class
                 }
             }
             else
-                throw new WebFaultException<string>("account does not exist", HttpStatusCode.Unauthorized);
+                throw new WebFaultException<string>("account does not exist", HttpStatusCode.NotFound);
 
         }
     }
