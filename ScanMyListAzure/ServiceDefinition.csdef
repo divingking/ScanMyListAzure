@@ -3,18 +3,19 @@
   <WebRole name="SynchWebRole" vmsize="Small">
     <Certificates>
       <!--Certificate name="SMLTest" storeLocation="LocalMachine" storeName="CA"/-->
+      <Certificate name="SynchEntrust" storeLocation="LocalMachine" storeName="CA"/>
     </Certificates>
     <Sites>
       <Site name="Web">
         <Bindings>
-          <!--Binding name="HttpsIn" endpointName="HttpsIn" /-->
+          <Binding name="HttpsIn" endpointName="HttpsIn" />
           <Binding name="Http" endpointName="Http" />
         </Bindings>
       </Site>
     </Sites>
     <Endpoints>
       <InputEndpoint name="Http" protocol="http" port="80" />
-      <!--InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="SMLTest" /-->
+      <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="SynchEntrust" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />

@@ -56,6 +56,15 @@ namespace SynchWebRole.REST_Service
             Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "get_business_by_id?aid={aid}&bid={bid}&session={sessionId}"
+        )]
+        Business GetBusinessById(int aid, int bid, string sessionId);
+       
+        [OperationContract]
+        [WebInvoke(
+            Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "business?name={name}&aid={aid}&session={sessionId}"
         )]
         List<Business> SearchBusinessByName(string name, int aid, string sessionId);

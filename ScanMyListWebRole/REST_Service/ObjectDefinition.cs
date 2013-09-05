@@ -22,6 +22,8 @@
         public int integration;
         [DataMember]
         public int tier;
+        [DataMember]
+        public string phoneNumber;
     }
 
     [DataContract]
@@ -133,6 +135,12 @@
         public string email { get; set; }
         [DataMember]
         public string sessionId { get; set; }
+        [DataMember]
+        public string firstName { get; set; }
+        [DataMember]
+        public string lastName { get; set; }
+        [DataMember]
+        public string phoneNumber { get; set; }
     }
 
     [DataContract]

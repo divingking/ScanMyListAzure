@@ -95,21 +95,67 @@ namespace SynchWebRole.Library_Class
             }
         }
 
-        public static ISingleResult<PageRecordForBusinessResult> pageRecordForBusinessWithAccount(int bid, int aid, int offset, int pageSize)
+        public static List<Record> pageRecordForBusinessWithAccount(int bid, int aid, int offset, int pageSize)
         {
             int tier = getAccountTier(aid);
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            List<Record> records = new List<Record>();
             switch (tier)
             {
                 case (int)AccountTier.sales:
                     var salesResults = context.PageRecordForBusinessWithAccount(bid, pageSize, offset, aid);
-                    return (ISingleResult<PageRecordForBusinessResult>)salesResults;
+                    foreach (PageRecordForBusinessWithAccountResult record in salesResults)
+                    {
+                        records.Add(
+                            new Record()
+                            {
+                                id = record.id,
+                                account = (int)record.account,
+                                title = record.title,
+                                date = (long)record.date,
+                                business = (int)record.business,
+                                category = (int)record.category,
+                                status = (int)record.status,
+                                comment = record.comment
+                            });
+                    }
+                    return records;
                 case (int)AccountTier.manager:
                     var managerResults = context.PageRecordForBusiness(bid, pageSize, offset);
-                    return managerResults;
+                    foreach (PageRecordForBusinessResult record in managerResults)
+                    {
+                        records.Add(
+                            new Record()
+                            {
+                                id = record.id,
+                                account = (int)record.account,
+                                title = record.title,
+                                date = (long)record.date,
+                                business = (int)record.business,
+                                category = (int)record.category,
+                                status = (int)record.status,
+                                comment = record.comment
+                            });
+                    }
+                    return records;
                 case (int)AccountTier.ceo:
                     var ceoResults = context.PageRecordForBusiness(bid, pageSize, offset);
-                    return ceoResults;
+                    foreach (PageRecordForBusinessResult record in ceoResults)
+                    {
+                        records.Add(
+                            new Record()
+                            {
+                                id = record.id,
+                                account = (int)record.account,
+                                title = record.title,
+                                date = (long)record.date,
+                                business = (int)record.business,
+                                category = (int)record.category,
+                                status = (int)record.status,
+                                comment = record.comment
+                            });
+                    }
+                    return records;
                 default:
                     return null;
             }

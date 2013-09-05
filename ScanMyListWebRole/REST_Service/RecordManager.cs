@@ -99,26 +99,7 @@ namespace SynchWebRole.REST_Service
             SessionManager.checkSession(aid, sessionId);
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            var results = TierController.pageRecordForBusinessWithAccount(bid, aid, offset, pageSize);
-            List<Record> records = new List<Record>();
-            foreach (PageRecordForBusinessResult record in results)
-            {
-                records.Add(
-                    new Record()
-                    {
-                        id = record.id,
-                        account = (int)record.account,
-                        title = record.title,
-                        date = (long)record.date,
-                        business = (int)record.business,
-                        category = (int)record.category,
-                        status = (int)record.status,
-                        comment = record.comment
-                    });
-            }
-
-            //return TierController.filterRecordWithAccountTier(records, aid);
-            // already filtered
+            List<Record> records = TierController.pageRecordForBusinessWithAccount(bid, aid, offset, pageSize);
             return records;
         }
 

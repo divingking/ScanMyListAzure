@@ -30,7 +30,40 @@ namespace SynchWebRole.REST_Service
                     address = retrievedBusiness.address,
                     zip = (int)retrievedBusiness.zip,
                     category = retrievedBusiness.category,
-                    email = retrievedBusiness.email
+                    email = retrievedBusiness.email,
+                    tier = (int)retrievedBusiness.tier,
+                    phoneNumber = retrievedBusiness.phone_number
+                };
+            }
+            else
+            {
+                throw new FaultException(
+                    string.Format("Failed to fetch information for Business {0}", bid));
+            }
+        }
+
+        public Business GetBusinessById(int aid, int bid, string sessionId)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            SessionManager.checkSession(aid, sessionId);
+
+            var result = context.GetBusiness(bid);
+            IEnumerator<GetBusinessResult> businessEnumerator = result.GetEnumerator();
+
+            if (businessEnumerator.MoveNext())
+            {
+                GetBusinessResult retrievedBusiness = businessEnumerator.Current;
+
+                return new Business()
+                {
+                    id = retrievedBusiness.id,
+                    name = retrievedBusiness.name,
+                    address = retrievedBusiness.address,
+                    zip = (int)retrievedBusiness.zip,
+                    category = retrievedBusiness.category,
+                    email = retrievedBusiness.email,
+                    tier = (int)retrievedBusiness.tier,
+                    phoneNumber = retrievedBusiness.phone_number
                 };
             }
             else
@@ -61,7 +94,7 @@ namespace SynchWebRole.REST_Service
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
 
             int bid = context.CreateBusiness(
-                business.name, business.address, business.zip, business.email, business.category, business.integration, business.tier);
+                business.name, business.address, business.zip, business.email, business.category, business.integration, business.tier, business.phoneNumber);
 
             return bid;
         }
@@ -82,14 +115,22 @@ namespace SynchWebRole.REST_Service
                     user.login,
                     passwordHash,
                     user.email,
-                    1,
-                    user.tier);
+                    1,  // dummy Business ID
+                    user.tier,
+                    user.firstName,
+                    user.lastName,
+                    user.phoneNumber);
 
                 LoginUser loginUser = new LoginUser();
                 loginUser.login = user.login;
                 loginUser.pass = user.pass;
                 loginUser.device = (int)DeviceType.website;
 
+                // 1. create temp session ID (6 char long)
+                // 2. send out temp session ID to email address provided
+                // 3.
+
+                //User newUser = this.firstLogin(loginUser);
                 User newUser = this.Login(loginUser);
 
                 return newUser;
@@ -117,7 +158,9 @@ namespace SynchWebRole.REST_Service
                         zip = (int)business.zip,
                         email = business.email,
                         category = business.category,
-                        integration = (int)business.integration
+                        integration = (int)business.integration,
+                        tier = (int)business.tier,
+                        phoneNumber = business.phone_number
                     });
             }
 
@@ -191,6 +234,48 @@ namespace SynchWebRole.REST_Service
                 {
                     throw new FaultException("The account has already logged in! ");
                 }*/
+                // Changed logic to allow multiple logins into same account (not Singleton anymore)
+                // by CH
+                string sessionId = "";
+                if (user.device != (int)DeviceType.website || loggedIn.Current.session_id == null)
+                {
+                    Random rand = new Random();
+                    string sessionValue = string.Format("{0}", rand.Next());
+                    sessionId = Encryptor.GenerateSimpleHash(sessionValue);
+
+                    context.UpdateSessionId(loggedIn.Current.id, sessionId);
+                }
+                else
+                {
+                    sessionId = loggedIn.Current.session_id;
+                }
+
+                return new User()
+                {
+                    id = loggedIn.Current.id,
+                    business = (int)loggedIn.Current.business,
+                    tier = (int)loggedIn.Current.tier,
+                    sessionId = sessionId
+                };
+
+            }
+            else
+            {
+                throw new FaultException("Invalid username or password. ");
+            }
+        }
+
+        // log in for the firs time -- create a temp session ID that is 6 char long
+        public User firstLogin(LoginUser user)
+        {
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            string passwordHash = Encryptor.Generate512Hash(user.pass);
+
+            var results = context.Login(user.login, passwordHash);
+
+            IEnumerator<LoginResult> loggedIn = results.GetEnumerator();
+            if (loggedIn.MoveNext())
+            {
                 // Changed logic to allow multiple logins into same account (not Singleton anymore)
                 // by CH
                 string sessionId = "";

@@ -31,6 +31,9 @@
     <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="tier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="phone_number" Type="System.String" DbType="VarChar(20)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.CreateBusiness" Method="CreateBusiness">
@@ -41,6 +44,7 @@
     <Parameter Name="category" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="integration" Type="System.Int32" DbType="Int" />
     <Parameter Name="tier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="phone_number" Type="System.String" DbType="VarChar(20)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.CreateInventory" Method="CreateInventory">
@@ -105,6 +109,9 @@
       <Column Name="UUID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
       <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAccountByLogin" Method="GetAccountByLogin">
@@ -118,6 +125,9 @@
       <Column Name="UUID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="session_id" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
       <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAccountEmail" Method="GetAccountEmail">
@@ -169,6 +179,7 @@
       <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetCompleteChange" Method="GetCompleteChange">
@@ -293,6 +304,7 @@
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="location" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="lead_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="default_price" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetProductByUpc" Method="GetProductByUpc">
@@ -505,6 +517,22 @@
       <Column Name="account" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.PageRecordForBusinessWithAccount" Method="PageRecordForBusinessWithAccount">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="page_size" Type="System.Int32" DbType="Int" />
+    <Parameter Name="offset" Type="System.Int32" DbType="Int" />
+    <Parameter Name="account" Type="System.Int32" DbType="Int" />
+    <ElementType Name="PageRecordForBusinessWithAccountResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+      <Column Name="account" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.SearchBusinessByName" Method="SearchBusinessByName">
     <Parameter Name="name" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="SearchBusinessByNameResult">
@@ -516,6 +544,7 @@
       <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.SearchCustomerOrSupplier" Method="SearchCustomerOrSupplier">

@@ -7,8 +7,8 @@
     </ConfigurationSettings>
     <Certificates>
       <Certificate
-        name="SMLTest"
-        thumbprint="926e08f62a8cf64ac8edc4583edf9fed3012f294"
+        name="SynchEntrust"
+        thumbprint="A682B0D890CCCA87D4F6CB42E755D45C9946E2A9"
         thumbprintAlgorithm="sha1"/>
     </Certificates>
   </Role>
