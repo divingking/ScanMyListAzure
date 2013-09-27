@@ -127,6 +127,8 @@ namespace SynchWebRole.REST_Service
             else
             {
                 context.UpdateInventoryLocation(bid, upc, location);
+                // update location in ERP system
+                //ERPIntegrator.relayInventoryManagement(bid, upc, "01");
             }
             return string.Format("Product location for {0} of {1} updated", bid, upc);
         }
@@ -145,6 +147,7 @@ namespace SynchWebRole.REST_Service
             {
                 context.CreateProduct(newProduct.upc, newProduct.name, newProduct.detail);
                 context.CreateInventory(newProduct.owner, newProduct.upc, newProduct.location, newProduct.quantity, newProduct.leadTime, newProduct.price, newProduct.productCategory);
+                ERPIntegrator.relayInventoryManagement(newProduct.owner, newProduct.upc, "00");
                 return "New product created.";
             }
         }

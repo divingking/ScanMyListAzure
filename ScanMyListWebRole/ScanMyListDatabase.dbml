@@ -144,6 +144,10 @@
       <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAllInventory" Method="GetAllInventory">
@@ -166,6 +170,10 @@
       <Column Name="address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="zip" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetBusiness" Method="GetBusiness">
@@ -623,6 +631,38 @@
   <Function Name="dbo.UpdateSessionId" Method="UpdateSessionId">
     <Parameter Name="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="session_id" Type="System.String" DbType="VarChar(512)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteBusinessById" Method="DeleteBusinessById">
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateBusinessById" Method="UpdateBusinessById">
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="zip" Type="System.Int32" DbType="Int" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="category" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="phone_number" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteSupplies" Method="DeleteSupplies">
+    <Parameter Name="sid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="inventoryId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateInventoryByUpc" Method="UpdateInventoryByUpc">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="price" Type="System.Double" DbType="Float" />
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteInventoryByUpc" Method="DeleteInventoryByUpc">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -7,7 +7,6 @@ using System.Threading;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.StorageClient;
 
 using ERPIntegrationWorkerRole.SynchIntegration;
 
@@ -20,42 +19,18 @@ namespace ERPIntegrationWorkerRole
             while (true)
             {
                 Thread.Sleep(10000);
-                //updateERPFromSynch();
-            }
-        }
+                DataflowWorkers.IntegrationInitializer initializer = new DataflowWorkers.IntegrationInitializer();
 
-        private void updateSynchFromERP()
-        {
-            // try to do the auto-sync
-            string realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
-            accessToken = "lvprdsHdmwhxqxhwReuLgYSJyUtpUTTDBuMPS3frqLKRE5og";
-            accessTokenSecret = "t9m89H4myvEvVq3oi3uac91jwV4r8sjSeWJZ3HFh";
-            consumerKey = "qyprdChIG6ax7TK3OWyp6ZIygWNJwj";
-            consumerSecret = "gFNdGdTaye35jSd9AYEeqqHY68KXdyEFD7p5x352";
-            dataSourcetype = "QBD";
-            realmId = "738592490";
+                /*
+                 * What is missing:
+                 * 1. does not delete inactive inventory on Synch
+                 * 2. does not create new inventory on Synch
+                 * 3. does not fully check if product is legitimate (not dummy product)
+                 * 4. does not use barcode/upc as primary key to reference products; uses product names instead, which have duplicates
+                */
 
-        }
-
-        private void updateERPFromSynch()
-        {
-            string message = MessageProcessor.RetrieveMessageFromSynchStorage();
-            if (message != null)
-            {
-                string[] elements = message.Split(':');
-                int rid = Convert.ToInt32(elements[1]);
-                int bid = Convert.ToInt32(elements[2]);
-                string realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
-                accessToken = "lvprdsHdmwhxqxhwReuLgYSJyUtpUTTDBuMPS3frqLKRE5og";
-                accessTokenSecret = "t9m89H4myvEvVq3oi3uac91jwV4r8sjSeWJZ3HFh";
-                consumerKey = "qyprdChIG6ax7TK3OWyp6ZIygWNJwj";
-                consumerSecret = "gFNdGdTaye35jSd9AYEeqqHY68KXdyEFD7p5x352";
-                dataSourcetype = "QBD";
-                realmId = "738592490";
-
-                QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype);
-
-                qbdIntegrator.createInvoiceInQBD(rid);
+                initializer.updateERPFromSynch();
+                initializer.updateSynchFromERP();
             }
         }
 

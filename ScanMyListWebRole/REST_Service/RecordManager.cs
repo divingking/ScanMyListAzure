@@ -542,17 +542,17 @@ namespace SynchWebRole.REST_Service
                     case (int)RecordCategory.Order:
                         res = this.SendOrder(context, bid, rid, aid);
                         // check with database to see if we need to relay this new record to ERP system
-                        ERPIntegrator.relayRecord(bid, rid);
+                        ERPIntegrator.relayRecordManagement(bid, rid);
                         return res;
                     case (int)RecordCategory.Receipt:
                         res = this.SendReceipt(context, bid, rid, aid);
                         // check with database to see if we need to relay this new record to ERP system
-                        ERPIntegrator.relayRecord(bid, rid);
+                        ERPIntegrator.relayRecordManagement(bid, rid);
                         return res;
                     default:
                         res = this.SendChange(context, bid, rid, aid);
                         // check with database to see if we need to relay this new record to ERP system
-                        ERPIntegrator.relayRecord(bid, rid);
+                        ERPIntegrator.relayRecordManagement(bid, rid);
                         return res;
                 }
             }
@@ -621,17 +621,22 @@ namespace SynchWebRole.REST_Service
 
             customers.Add(business.id, business);
 
+            /*
             if (!MailHelper.SendRecord(bid, overallOrder, customers))
                 throw new FaultException("Failed to send confirmation email! ");
             if (!MailHelper.SendRecordBackup(accountEmail, bid, overallOrder, customers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
-
             foreach (int customer in orders.Keys)
             {
                 if (!MailHelper.SendRecord(customer, orders[customer], customers))
                     throw new FaultException(
                         string.Format("Failed to send confirmation email to Customer {0}! ", customers[customer].name));
             }
+            */
+
+            // silent fail for now
+            MailHelper.SendRecord(bid, overallOrder, customers);
+            MailHelper.SendRecordBackup(accountEmail, bid, overallOrder, customers);
 
             this.DecrementInventories(overallOrder.products, bid);
 

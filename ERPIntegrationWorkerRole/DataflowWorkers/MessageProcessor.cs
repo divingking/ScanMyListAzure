@@ -8,12 +8,11 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace ERPIntegrationWorkerRole.SynchIntegration
+namespace ERPIntegrationWorkerRole.DataflowWorkers
 {
     class MessageProcessor
     {
-
-        public static string RetrieveMessageFromSynchStorage()
+        public static string retrieveMessageFromSynchStorage(string queueName)
         {
             // Retrieve storage account from connection string
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
@@ -23,8 +22,8 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
             // Retrieve a reference to a queue
-            CloudQueue queue = queueClient.GetQueueReference("invoiceqbd");
-
+            CloudQueue queue = queueClient.GetQueueReference(queueName);
+            queue.CreateIfNotExists();
             CloudQueueMessage retrievedMessage = queue.GetMessage();
 
             if (retrievedMessage != null)
@@ -37,5 +36,6 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             else
                 return null;
         }
+
     }
 }

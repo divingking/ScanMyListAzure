@@ -245,6 +245,7 @@ namespace SynchWebRole.REST_Service
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             context.CreateSupplies(sid, bid, bid);
+            ERPIntegrator.relayBusinessManagement(bid, sid, false);
         }
 
         public void AddCustomer(int bid, int aid, string sessionId, int cid)
@@ -253,6 +254,7 @@ namespace SynchWebRole.REST_Service
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
             context.CreateSupplies(bid, cid, bid);
+            ERPIntegrator.relayBusinessManagement(bid, cid, true);
         }
     
     }

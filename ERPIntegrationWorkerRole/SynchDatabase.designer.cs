@@ -475,6 +475,41 @@ namespace ERPIntegrationWorkerRole
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, session_id);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteBusinessById")]
+		public int DeleteBusinessById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> bid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), bid);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateBusinessById")]
+		public int UpdateBusinessById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> bid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> zip, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string category, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string phone_number)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), bid, address, zip, email, category, phone_number);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteSupplies")]
+		public int DeleteSupplies([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> sid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> inventoryId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sid, cid, inventoryId);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteInventoryByUpc")]
+		public int DeleteInventoryByUpc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> bid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, bid);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateInventoryByUpc")]
+		public int UpdateInventoryByUpc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string upc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string detail, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> price, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> bid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), upc, detail, quantity, price, bid);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class CountItemForBusinessResult
@@ -1006,6 +1041,14 @@ namespace ERPIntegrationWorkerRole
 		
 		private string _email;
 		
+		private string _category;
+		
+		private System.Nullable<int> _integration;
+		
+		private System.Nullable<int> _tier;
+		
+		private string _phone_number;
+		
 		public GetAllCustomersResult()
 		{
 		}
@@ -1086,6 +1129,70 @@ namespace ERPIntegrationWorkerRole
 				if ((this._email != value))
 				{
 					this._email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(50)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_integration", DbType="Int")]
+		public System.Nullable<int> integration
+		{
+			get
+			{
+				return this._integration;
+			}
+			set
+			{
+				if ((this._integration != value))
+				{
+					this._integration = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tier", DbType="Int")]
+		public System.Nullable<int> tier
+		{
+			get
+			{
+				return this._tier;
+			}
+			set
+			{
+				if ((this._tier != value))
+				{
+					this._tier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone_number", DbType="VarChar(20)")]
+		public string phone_number
+		{
+			get
+			{
+				return this._phone_number;
+			}
+			set
+			{
+				if ((this._phone_number != value))
+				{
+					this._phone_number = value;
 				}
 			}
 		}
@@ -1238,6 +1345,14 @@ namespace ERPIntegrationWorkerRole
 		
 		private string _email;
 		
+		private string _category;
+		
+		private System.Nullable<int> _integration;
+		
+		private System.Nullable<int> _tier;
+		
+		private string _phone_number;
+		
 		public GetAllSuppliersResult()
 		{
 		}
@@ -1318,6 +1433,70 @@ namespace ERPIntegrationWorkerRole
 				if ((this._email != value))
 				{
 					this._email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(50)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_integration", DbType="Int")]
+		public System.Nullable<int> integration
+		{
+			get
+			{
+				return this._integration;
+			}
+			set
+			{
+				if ((this._integration != value))
+				{
+					this._integration = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tier", DbType="Int")]
+		public System.Nullable<int> tier
+		{
+			get
+			{
+				return this._tier;
+			}
+			set
+			{
+				if ((this._tier != value))
+				{
+					this._tier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone_number", DbType="VarChar(20)")]
+		public string phone_number
+		{
+			get
+			{
+				return this._phone_number;
+			}
+			set
+			{
+				if ((this._phone_number != value))
+				{
+					this._phone_number = value;
 				}
 			}
 		}

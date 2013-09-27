@@ -7,17 +7,14 @@
       <Setting name="SynchStorageConnection" value="DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate
-        name="SynchEntrust"
-        thumbprint="A682B0D890CCCA87D4F6CB42E755D45C9946E2A9"
-        thumbprintAlgorithm="sha1"/>
+      <Certificate name="SynchEntrust" thumbprint="A682B0D890CCCA87D4F6CB42E755D45C9946E2A9" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
   <Role name="ERPIntegrationWorkerRole">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="SynchStorageConnection" value="DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
+      <Setting name="SynchStorageConnection" value="DefaultEndpointsProtocol=https;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
