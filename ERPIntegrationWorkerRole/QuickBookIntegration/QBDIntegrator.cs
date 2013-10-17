@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 using System.Configuration;
 using System.Web;
@@ -15,6 +16,13 @@ using Intuit.Ipp.Diagnostics;
 using Intuit.Ipp.Exception;
 using Intuit.Ipp.Retry;
 using Intuit.Ipp.Utility;
+
+// for table storage
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Table;
+
 
 using ERPIntegrationWorkerRole.QuickBookIntegration.Utils;
 using ERPIntegrationWorkerRole.SynchIntegration;
@@ -35,6 +43,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
         // Synch side of fields
         int synchBusinessId;
+        int autoUpcCounter;
 
         public QBDIntegrator(int bid, string realmId, string accessToken, string accessTokenSecret, string consumerKey, string consumerSecret, string dataSourcetype)
         {
@@ -52,7 +61,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
 
         #region Update QuickBooks Desktop from Synch
-		 
+
         public void createInvoiceInQBD(int rid)
         {
             // validating
@@ -65,7 +74,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             var results = synchDataContext.GetCompleteOrder(synchBusinessId, rid);
 
             List<RecordProduct> products = new List<RecordProduct>();
-            
+
             double balance = 0.0;
 
             foreach (var product in results)
@@ -82,7 +91,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                     });
                 balance += (double)product.product_price * (int)product.product_quantity;
             }
-            
+
             var result = synchDataContext.GetCustomerById(synchBusinessId, products[0].customer);
             IEnumerator<GetCustomerByIdResult> customerEnumerator = result.GetEnumerator();
             Business customerInSynch = null;
@@ -196,13 +205,13 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
             // get sales order information from Synch database
             SynchDatabaseDataContext synchDataContext = new SynchDatabaseDataContext();
-            var results = synchDataContext.GetCompleteOrder(synchBusinessId, rid);
+            var completeOrderResult = synchDataContext.GetCompleteOrder(synchBusinessId, rid);
 
             List<RecordProduct> products = new List<RecordProduct>();
 
             double balance = 0.0;
 
-            foreach (var product in results)
+            foreach (var product in completeOrderResult)
             {
                 products.Add(
                     new RecordProduct()
@@ -217,8 +226,23 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 balance += (double)product.product_price * (int)product.product_quantity;
             }
 
-            var result = synchDataContext.GetCustomerById(synchBusinessId, products[0].customer);
-            IEnumerator<GetCustomerByIdResult> customerEnumerator = result.GetEnumerator();
+            var getRecordResult = synchDataContext.GetRecordById(synchBusinessId, rid);
+            IEnumerator<GetRecordByIdResult> recordEnumerator = getRecordResult.GetEnumerator();
+            Record recordInSynch = null;
+            if (recordEnumerator.MoveNext())
+            {
+                recordInSynch = new Record()
+                {
+                    account = (int)recordEnumerator.Current.account,
+                    comment = recordEnumerator.Current.comment,
+                    date = (long)recordEnumerator.Current.date,
+                    status = (int)recordEnumerator.Current.status,
+                    title = recordEnumerator.Current.title
+                };
+            }
+
+            var getCustomerResult = synchDataContext.GetCustomerById(synchBusinessId, products[0].customer);
+            IEnumerator<GetCustomerByIdResult> customerEnumerator = getCustomerResult.GetEnumerator();
             Business customerInSynch = null;
             if (customerEnumerator.MoveNext())
             {
@@ -260,7 +284,8 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             // original code : invoiceHeader.CustomerId = new IdType() { idDomain = idDomainEnum.NG, Value = "3291253" };
             salesOrderHeader.CustomerName = customerName;
             //invoiceHeader.CustomerId = new Intuit.Ipp.Data.Qbd.IdType() { idDomain = Intuit.Ipp.Data.Qbd.idDomainEnum.QB, Value = "2" };
-
+            salesOrderHeader.Msg = recordInSynch.comment;
+            salesOrderHeader.Note = recordInSynch.comment;      // try out 2 different fields
             salesOrderHeader.Balance = (decimal)balance;
             salesOrderHeader.BillAddr = physicalAddress;
             salesOrderHeader.BillEmail = customerEmail;
@@ -268,10 +293,10 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             salesOrderHeader.DueDate = DateTime.Now;
             salesOrderHeader.ShipAddr = physicalAddress;
             salesOrderHeader.ShipDate = DateTime.Now;
-            salesOrderHeader.TaxRate = (decimal).09;
-            salesOrderHeader.TaxAmt = (decimal)balance * salesOrderHeader.TaxRate;
+            //salesOrderHeader.TaxRate = (decimal).09;
+            //salesOrderHeader.TaxAmt = (decimal)balance * salesOrderHeader.TaxRate;
             salesOrderHeader.ToBeEmailed = false;
-            salesOrderHeader.TotalAmt = salesOrderHeader.TaxAmt + salesOrderHeader.Balance;
+            salesOrderHeader.TotalAmt = salesOrderHeader.Balance;
 
             List<Intuit.Ipp.Data.Qbd.SalesOrderLine> listLine = new List<Intuit.Ipp.Data.Qbd.SalesOrderLine>();
 
@@ -281,10 +306,12 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             {
                 // get item id by querying QBD
                 string itemIdString = "-1";
+                string description = "";
                 if (itemNameToItemMap.ContainsKey(curProduct.name))
                 {
                     Intuit.Ipp.Data.Qbd.Item item = itemNameToItemMap[curProduct.name];
                     itemIdString = item.Id.Value;
+                    description = item.Desc;
                 }
                 Intuit.Ipp.Data.Qbd.ItemsChoiceType2[] salesOrderItemAttributes =
                 { 
@@ -306,7 +333,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 var salesOrderLine = new Intuit.Ipp.Data.Qbd.SalesOrderLine();
                 salesOrderLine.Amount = (Decimal)curProduct.price * curProduct.quantity;
                 salesOrderLine.AmountSpecified = true;
-                salesOrderLine.Desc = curProduct.note;
+                salesOrderLine.Desc = description;
                 salesOrderLine.ItemsElementName = salesOrderItemAttributes;
                 salesOrderLine.Items = salesOrderItemValues;
                 //salesOrderLine.ServiceDate = DateTime.Now;
@@ -361,7 +388,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 // create a customer in QBD
                 Intuit.Ipp.Data.Qbd.Customer newCustomer = new Intuit.Ipp.Data.Qbd.Customer();
                 newCustomer.Name = name;
-                
+
                 // add address
                 Intuit.Ipp.Data.Qbd.PhysicalAddress ippAddress = new Intuit.Ipp.Data.Qbd.PhysicalAddress();
                 ippAddress.Line1 = address[0];
@@ -458,7 +485,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 newItem.QtyOnHandSpecified = true;
                 newItem.Type = Intuit.Ipp.Data.Qbd.ItemTypeEnum.Inventory;
                 newItem.TypeSpecified = true;
-                
+
                 // assign income account
                 Intuit.Ipp.Data.Qbd.AccountRef incomeAccountRef = new Intuit.Ipp.Data.Qbd.AccountRef();
                 incomeAccountRef.AccountName = "AB Sales-Wholesale:Wines Sold:Importer Wines:Hand of God";
@@ -497,11 +524,11 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             SynchDatabaseDataContext synchDataContext = new SynchDatabaseDataContext();
             var result = synchDataContext.GetInventoryByUpc(synchBusinessId, upc);
             IEnumerator<GetInventoryByUpcResult> productEnumerator = result.GetEnumerator();
-            Product newItemInSynch = null;
+            Product itemInSynch = null;
             if (productEnumerator.MoveNext())
             {
                 GetInventoryByUpcResult target = productEnumerator.Current;
-                newItemInSynch = new Product()
+                itemInSynch = new Product()
                 {
                     upc = target.upc,
                     name = target.name,
@@ -514,15 +541,11 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 };
             }
 
-            if (newItemInSynch != null)
+            if (itemInSynch != null)
             {
                 createItemNameToItemMap();
-                Intuit.Ipp.Data.Qbd.Item currentItem = itemNameToItemMap[newItemInSynch.name];
-                Intuit.Ipp.Data.Qbd.InventoryTransfer inventoryTransfer = new Intuit.Ipp.Data.Qbd.InventoryTransfer();
-                
+                Intuit.Ipp.Data.Qbd.Item currentItem = itemNameToItemMap[itemInSynch.name];
 
-
-                Intuit.Ipp.Data.Qbd.Item addedItem = commonService.Update(currentItem);
             }
         }
 
@@ -552,7 +575,8 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                         || itemEnum.Current.Type == Intuit.Ipp.Data.Qbd.ItemTypeEnum.Product)
                         && itemEnum.Current.Name != null)
                     {
-                        itemNameToItemMap.Add(itemEnum.Current.Name, itemEnum.Current);
+                        if (!itemNameToItemMap.ContainsKey(itemEnum.Current.Name))
+                            itemNameToItemMap.Add(itemEnum.Current.Name, itemEnum.Current);
                     }
 
                 }
@@ -562,10 +586,28 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
         }
 
         #endregion
-        
+
         #region Update Synch from QuickBooks Desktop
 
-        public void updateInvoicesFromQBD() { }
+        public void updateInvoicesFromQBD()
+        {
+            OAuthRequestValidator oauthValidator = Initializer.InitializeOAuthValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
+            ServiceContext context = Initializer.InitializeServiceContext(oauthValidator, realmId, string.Empty, string.Empty, dataSourcetype);
+
+            // 2: get updated information from QBD side
+            int pageNumber = 1;
+            int chunkSize = 100;
+            int totalItemCount = 0;
+            Intuit.Ipp.Data.Qbd.InvoiceQuery qbdInvoiceQuery = new Intuit.Ipp.Data.Qbd.InvoiceQuery();
+            qbdInvoiceQuery.ItemElementName = Intuit.Ipp.Data.Qbd.ItemChoiceType4.StartPage;
+            qbdInvoiceQuery.Item = pageNumber.ToString();
+            qbdInvoiceQuery.ChunkSize = chunkSize.ToString();
+            //List<Intuit.Ipp.Data.Qbd.Customer> customers = (qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
+            //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>).ToList();
+            //IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrderQuery> salesOrdersFromQBD = qbdSalesOrderQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.SalesOrderQuery>
+            //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrderQuery>;
+            int curItemCount = qbdInvoiceQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>(context).Count;
+        }
 
         public void updateSalesOrdersFromQBD()
         {
@@ -594,6 +636,11 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
 
             // we store upc, name, detail/description, location, quantity, lead time, default price
             // so we only need to update these information
+            // steps are:
+            // 1. get current inventory list from Synch, with UPC as keys
+            // 2. get current item list from QBD, with item ID as keys
+            // 3. in Table Storage construct or retrieve mapping information
+            // 4. 
 
             // 1: get current inventory list
             SynchDatabaseDataContext synchDatabaseContext = new SynchDatabaseDataContext();
@@ -601,10 +648,10 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             Dictionary<string, Product> itemsFromSynch = new Dictionary<string, Product>();
             foreach (var result in results)
             {
-                if (!itemsFromSynch.ContainsKey(result.name))
+                if (!itemsFromSynch.ContainsKey(result.upc))
                 {
 
-                    itemsFromSynch.Add(result.name,
+                    itemsFromSynch.Add(result.upc,
                         new Product()
                         {
                             name = result.name,
@@ -617,39 +664,26 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                         }
                     );
                 }
-                /*
-                if (!itemsFromSynch.ContainsKey(result.name))
-                {
-                    
-                    itemsFromSynch.Add(result.name,
-                        new Product()
-                        {
-                            name = result.name,
-                            upc = result.upc,
-                            detail = result.detail,
-                            location = result.location,
-                            quantity = (int)result.quantity,
-                            leadTime = (int)result.lead_time,
-                            price = (double)result.default_price
-                        }
-                    );
-                }*/
             }
 
+            getAutoUpcCounter(itemsFromSynch.Keys);
+            Dictionary<string, Utilities.ERPProductMapEntity> itemIdToProductMapping = getProductMappingsFromTableStorage();
             // 2: get updated information from QBD side
             int pageNumber = 1;
-            int chunkSize = 100;
+            int chunkSize = 500;
             int totalItemCount = 0;
             Intuit.Ipp.Data.Qbd.ItemQuery qbdItemQuery = new Intuit.Ipp.Data.Qbd.ItemQuery();
             qbdItemQuery.ItemElementName = Intuit.Ipp.Data.Qbd.ItemChoiceType4.StartPage;
             qbdItemQuery.Item = pageNumber.ToString();
             qbdItemQuery.ChunkSize = chunkSize.ToString();
+            qbdItemQuery.ActiveOnly = true;
             //List<Intuit.Ipp.Data.Qbd.Customer> customers = (qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
             //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>).ToList();
             IEnumerable<Intuit.Ipp.Data.Qbd.Item> itemsFromQBD = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>
             (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Item>;
             int curItemCount = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>(context).Count;
-            matchItemInformation(synchDatabaseContext, ref itemsFromSynch, itemsFromQBD);
+            totalItemCount += curItemCount;
+            matchItemInformation(synchDatabaseContext, ref itemsFromSynch, itemsFromQBD, itemIdToProductMapping);
 
             while (curItemCount > 0)
             {
@@ -657,18 +691,60 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 qbdItemQuery.Item = pageNumber.ToString();
                 itemsFromQBD = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>
                                      (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Item>;
-                matchItemInformation(synchDatabaseContext, ref itemsFromSynch, itemsFromQBD);
+                matchItemInformation(synchDatabaseContext, ref itemsFromSynch, itemsFromQBD, itemIdToProductMapping);
                 totalItemCount += curItemCount;
                 curItemCount = qbdItemQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>(context).Count;
             }
 
 
-            // 3. After matching all the products from QBD, we delete excessive/inactive customers in Synch
-            foreach (string bname in itemsFromSynch.Keys)
+            // 3. After matching all the products from QBD, we delete excessive/inactive products in Synch
+            foreach (string upc in itemsFromSynch.Keys)
             {
-                Product curProduct = itemsFromSynch[bname];
+                
                 // synchDatabaseContext.DeleteInventoryByUpc(curProduct.upc, synchBusinessId);
             }
+        }
+
+        private Dictionary<string, Utilities.ERPProductMapEntity> getProductMappingsFromTableStorage()
+        {
+            Dictionary<string, Utilities.ERPProductMapEntity> result = new Dictionary<string, Utilities.ERPProductMapEntity>();
+            // make Table Storage Connection
+            // Retrieve the storage account from the connection string.
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erpproductmapping");
+
+            // Construct the query operation for all customer entities where PartitionKey="Smith".
+            TableQuery<Utilities.ERPProductMapEntity> query = new TableQuery<Utilities.ERPProductMapEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, synchBusinessId.ToString()));
+
+            // Print the fields for each customer.
+            foreach (Utilities.ERPProductMapEntity entity in table.ExecuteQuery(query))
+            {
+                result.Add(entity.RowKey, entity);
+            }
+            return result;
+        }
+
+        private void getAutoUpcCounter(Dictionary<string, Product>.KeyCollection keyCollection)
+        {
+            string[] upcs = keyCollection.ToArray<string>();
+            int maxCurrentCount = Int32.MinValue;
+            foreach (string upc in upcs)
+            {
+                if (upc.StartsWith("ANBWINE"))
+                {
+                    int curCount = 0;
+                    Int32.TryParse(upc.Split('E')[1], out curCount);
+                    if (curCount > maxCurrentCount)
+                        maxCurrentCount = curCount;
+                }
+            }
+            autoUpcCounter = maxCurrentCount;
         }
 
         /// <summary>
@@ -678,16 +754,19 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
         /// modify the reference passed as Synch's inventory
         /// </summary>
         /// <param name="synchDatabaseContext"></param>
-        /// <param name="itemsFromSynch"></param>
+        /// <param name="itemsFromSynchNameToItem"></param>
         /// <param name="itemsFromQBD"></param>
-        private void matchItemInformation(SynchDatabaseDataContext synchDatabaseContext, ref Dictionary<string, Product> itemsFromSynch, IEnumerable<Intuit.Ipp.Data.Qbd.Item> itemsFromQBD)
+        private void matchItemInformation(SynchDatabaseDataContext synchDatabaseContext, ref Dictionary<string, Product> itemsFromSynch,
+                                            IEnumerable<Intuit.Ipp.Data.Qbd.Item> itemsFromQBD, Dictionary<string, Utilities.ERPProductMapEntity> idToEntityMap)
         {
             IEnumerator<Intuit.Ipp.Data.Qbd.Item> itemEnum = itemsFromQBD.GetEnumerator();
             while (itemEnum.MoveNext())
             {
                 string nameFromQBD = itemEnum.Current.Name;
+                string itemId = itemEnum.Current.Id.Value;
                 // checks if this is a legitimate product we want to sync
                 if (nameFromQBD != null && itemEnum.Current.Active && itemEnum.Current.Desc != null &&
+                    itemEnum.Current.ItemParentId != null &&
                     (itemEnum.Current.Type == Intuit.Ipp.Data.Qbd.ItemTypeEnum.Product ||
                     itemEnum.Current.Type == Intuit.Ipp.Data.Qbd.ItemTypeEnum.Inventory))
                 {   // this is a legitimate product we want to sync
@@ -696,8 +775,6 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                     // 2. Description
                     // 3. sales price
                     // for now.
-
-                    //itemEnum.Current.i
 
                     string detailFromQBD = itemEnum.Current.Desc;
                     double priceFromQBD = 0.99;         // default price
@@ -708,27 +785,23 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                     if (costFromQBD != null)
                         priceFromQBD = Convert.ToDouble(costFromQBD.Amount);
 
-
-                    // now get current product from Synch or create new one
-                    Product itemFromSynch = null;
-                    if (!itemsFromSynch.TryGetValue(nameFromQBD, out itemFromSynch))
-                    {
-                        // this product does not exist in Synch, create one
-                        // synchDatabaseContext.CreateProduct("aa", nameFromQBD, detailFromQBD);
-                        // synchDatabaseContext.CreateInventory(synchBusinessId, "aa", "sample warehouse", quantityFromQBD,
-                        //                                        7, priceFromQBD, 0);
-                    }
+                    // now get current product linking information from Table Storage mapping,
+                    // or create a new mapping if no mapping exists.
+                    Utilities.ERPProductMapEntity mappingEntity = new Utilities.ERPProductMapEntity();
+                    if (!idToEntityMap.TryGetValue(itemEnum.Current.Id.Value, out mappingEntity))
+                        createNewItemFromQBD(synchDatabaseContext, itemEnum.Current);
                     else
                     {
+                        string upc = mappingEntity.upc;
                         // this product exists in Synch, update if needed
-                        itemsFromSynch.Remove(nameFromQBD);
-                        //createItemInQbd(itemFromSynch.upc);
-                        //tempUpdateCurrentItemInQBD(itemFromSynch, itemEnum.Current);
+                        Product itemFromSynch = itemsFromSynch[upc];
+                        itemsFromSynch.Remove(upc);
                         if (detailFromQBD != itemFromSynch.detail ||
                             priceFromQBD != itemFromSynch.price ||
-                            quantityFromQBD != itemFromSynch.quantity)
+                            quantityFromQBD != itemFromSynch.quantity ||
+                            nameFromQBD != itemFromSynch.name)
                         {
-                            synchDatabaseContext.UpdateInventoryByUpc(itemFromSynch.upc, detailFromQBD, quantityFromQBD, priceFromQBD, synchBusinessId);
+                            synchDatabaseContext.UpdateInventoryByUpc(itemFromSynch.upc, detailFromQBD, quantityFromQBD, priceFromQBD, synchBusinessId, nameFromQBD);
 
                         }
                     }
@@ -736,18 +809,47 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             }
         }
 
-        private void tempUpdateCurrentItemInQBD(Product itemInSynch, Intuit.Ipp.Data.Qbd.Item itemInQBD)
+        private void createNewItemFromQBD(SynchDatabaseDataContext context, Intuit.Ipp.Data.Qbd.Item item)
         {
-            // validating
-            OAuthRequestValidator oauthValidator = Initializer.InitializeOAuthValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
-            ServiceContext context = Initializer.InitializeServiceContext(oauthValidator, realmId, string.Empty, string.Empty, dataSourcetype);
-            DataServices commonService = new DataServices(context);
+            autoUpcCounter++;
+            string autoUpc = "ANBWINE" + autoUpcCounter;
 
-            string[] separator = {"---"};
-            string newName = itemInSynch.name.Split(separator, StringSplitOptions.None)[0];
-            itemInQBD.Name = "testNewName002";
-            itemInQBD.Desc = "test new description";
-            Intuit.Ipp.Data.Qbd.Item addedItem = commonService.Update(itemInQBD);
+            double priceFromQBD = 0.99;         // default price
+            int quantityFromQBD = Int32.MinValue;       // initialized to be an impossible value
+            if (item.QtyOnHandSpecified)
+                quantityFromQBD = Convert.ToInt32(item.QtyOnHand);
+            Intuit.Ipp.Data.Qbd.Money costFromQBD = (Intuit.Ipp.Data.Qbd.Money)item.Item1;
+            if (costFromQBD != null)
+                priceFromQBD = Convert.ToDouble(costFromQBD.Amount);
+            // create item in Synch Database
+            context.CreateProduct(autoUpc, item.Name, item.Desc);
+            context.CreateInventory(synchBusinessId, autoUpc, "temporary location",
+                                    quantityFromQBD, 7, priceFromQBD, 0);
+
+            // create item in Table Storage mapping
+            // make Table Storage Connection
+            // Retrieve the storage account from the connection string.
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erpproductmapping");
+            // Create a new customer entity.
+            Utilities.ERPProductMapEntity newProductMapping = new Utilities.ERPProductMapEntity(synchBusinessId, item.Id.Value);
+            newProductMapping.nameFromERP = item.Name;
+            newProductMapping.nameFromSynch = item.Name;
+            newProductMapping.upc = autoUpc;
+            newProductMapping.lastUpdateTime = DateTime.Now;
+
+            // Create the TableOperation that inserts the customer entity.
+            TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(newProductMapping);
+
+            // Execute the insert operation.
+            table.Execute(insertOrReplaceOperation);
+
         }
 
         public void updateBusinessesFromQBD()
@@ -765,7 +867,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             Dictionary<string, Business> customersFromSynch = new Dictionary<string, Business>();
             foreach (var result in results)
             {
-                customersFromSynch.Add(result.name, 
+                customersFromSynch.Add(result.name,
                     new Business()
                     {
                         id = result.id,

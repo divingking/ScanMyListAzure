@@ -52,6 +52,8 @@
 
         public static bool SendRecord(int bid, Record record, IDictionary<int, Business> involved)
         {
+            return true;
+            /*
             SendGrid message = SendGrid.GenerateInstance();
             message.From = new MailAddress("Synch Order Tracking Service <ordertracking@synchbi.com>");
             message.AddTo(string.Format("{0} <{1}>", involved[bid].name, involved[bid].email));
@@ -85,6 +87,8 @@
             {
                 return false;
             }
+            */
+
         }
 
         public static string FormatRecord(Record record, IDictionary<int, Business> involved, int bid)

@@ -64,7 +64,7 @@ namespace ERPIntegrationWorkerRole.Utilities
             // Execute the retrieve operation.
             TableResult retrievedResult = table.Execute(retrieveOperation);
 
-            // Print the phone number of the result.
+            // Print the phone number of the getCustomerResult.
             if (retrievedResult.Result != null)
             {
                 QuickBooksCredentialEntity retrievedCredential = (QuickBooksCredentialEntity)retrievedResult.Result;

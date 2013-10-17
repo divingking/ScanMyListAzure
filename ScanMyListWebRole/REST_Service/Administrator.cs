@@ -324,5 +324,12 @@ namespace SynchWebRole.REST_Service
 
             return string.Format("User {0} logged out. ", aid);
         }
+
+        public string ChangeUserInfo(int aid, LoginUser oldUserInfo, LoginUser newUserInfo)
+        {
+            // verifies user credential
+
+            return string.Format("User {0}'s info updated.", aid);
+        }
     }
 }

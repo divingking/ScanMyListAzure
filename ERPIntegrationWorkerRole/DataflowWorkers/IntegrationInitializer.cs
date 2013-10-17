@@ -16,6 +16,8 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
 
         public void updateSynchFromERP()
         {
+            SynchDatabaseDataContext context = new SynchDatabaseDataContext();
+            
             int bid = 1599;
 
             // try to do the auto-sync
@@ -23,6 +25,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
             QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
             QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
                 qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+            
             qbdIntegrator.updateBusinessesFromQBD();
             qbdIntegrator.updateItemsFromQBD();
             //qbdIntegrator.updateInvoicesFromQBD();

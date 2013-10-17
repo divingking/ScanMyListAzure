@@ -652,17 +652,18 @@
     <Parameter Name="inventoryId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.DeleteInventoryByUpc" Method="DeleteInventoryByUpc">
+    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.UpdateInventoryByUpc" Method="UpdateInventoryByUpc">
     <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="detail" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Parameter Name="price" Type="System.Double" DbType="Float" />
     <Parameter Name="bid" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.DeleteInventoryByUpc" Method="DeleteInventoryByUpc">
-    <Parameter Name="upc" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

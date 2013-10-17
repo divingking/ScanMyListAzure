@@ -119,6 +119,9 @@
     </Compile>
     <Compile Include="DataflowWorkers\MessageProcessor.cs" />
     <Compile Include="SynchIntegration\ObjectDefinition.cs" />
+    <Compile Include="Utilities\ERPBusinessMapEntity.cs" />
+    <Compile Include="Utilities\ERPProductMapEntity.cs" />
+    <Compile Include="Utilities\ERPRecordMapEntity.cs" />
     <Compile Include="Utilities\ICredentialHandler.cs" />
     <Compile Include="Utilities\QuickBooksCredentialHandler.cs" />
     <Compile Include="Utilities\QuickBooksCredentialEntity.cs" />
@@ -145,7 +148,17 @@
       <DependentUpon>SynchDatabase.dbml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="QBFC12Lib">
+      <Guid>{7BB6E3D2-F8F6-4509-84E2-62C95D444E35}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

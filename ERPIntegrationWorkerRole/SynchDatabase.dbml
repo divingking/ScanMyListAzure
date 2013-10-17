@@ -663,6 +663,7 @@
     <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
     <Parameter Name="price" Type="System.Double" DbType="Float" />
     <Parameter Name="bid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

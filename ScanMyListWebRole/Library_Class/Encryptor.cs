@@ -15,7 +15,6 @@
 
             return Encoding.ASCII.GetString(alg.ComputeHash(GenerateBytes(password)));
         }
-
         public static string GenerateSimpleHash(string password)
         {
             MD5 alg = MD5.Create();
