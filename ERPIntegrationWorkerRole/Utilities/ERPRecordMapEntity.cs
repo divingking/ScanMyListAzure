@@ -13,16 +13,15 @@ namespace ERPIntegrationWorkerRole.Utilities
 {
     class ERPRecordMapEntity : TableEntity
     {
-        public ERPRecordMapEntity(int bid, int rid)
+        public ERPRecordMapEntity(int bid, string invoiceId)
         {
             this.PartitionKey = bid.ToString();
-            this.RowKey = rid.ToString();
+            this.RowKey = invoiceId;
         }
 
         public ERPRecordMapEntity() { }
 
-        public string uniqueIdFromERP { get; set; }
+        public int rid { get; set; }
 
-        public bool synchronized { get; set; }
     }
 }

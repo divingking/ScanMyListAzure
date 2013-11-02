@@ -594,19 +594,198 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             OAuthRequestValidator oauthValidator = Initializer.InitializeOAuthValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
             ServiceContext context = Initializer.InitializeServiceContext(oauthValidator, realmId, string.Empty, string.Empty, dataSourcetype);
 
+            // get product mapping information from QBD
+            Dictionary<string, Utilities.ERPProductMapEntity> itemsFromTableStorage = getProductMappingsFromTableStorage();
+            Dictionary<string, Utilities.ERPBusinessMapEntity> customersFromTableStorage = getBusinessMappingsFromTableStorage();
+            Dictionary<string, Utilities.ERPRecordMapEntity> recordsFromTableStorage = getRecordMappingsFromTableStorage();
+
             // 2: get updated information from QBD side
             int pageNumber = 1;
-            int chunkSize = 100;
+            int chunkSize = 500;
             int totalItemCount = 0;
             Intuit.Ipp.Data.Qbd.InvoiceQuery qbdInvoiceQuery = new Intuit.Ipp.Data.Qbd.InvoiceQuery();
             qbdInvoiceQuery.ItemElementName = Intuit.Ipp.Data.Qbd.ItemChoiceType4.StartPage;
             qbdInvoiceQuery.Item = pageNumber.ToString();
             qbdInvoiceQuery.ChunkSize = chunkSize.ToString();
-            //List<Intuit.Ipp.Data.Qbd.Customer> customers = (qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
-            //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>).ToList();
-            //IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrderQuery> salesOrdersFromQBD = qbdSalesOrderQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.SalesOrderQuery>
-            //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrderQuery>;
-            int curItemCount = qbdInvoiceQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Item>(context).Count;
+            DateTime startTime = new DateTime(2013, 1, 1);
+            qbdInvoiceQuery.StartCreatedTMS = startTime;
+            IEnumerable<Intuit.Ipp.Data.Qbd.Invoice> invoicesFromQBD = qbdInvoiceQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Invoice>
+            (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Invoice>;
+            int curItemCount = invoicesFromQBD.ToArray().Length;
+            totalItemCount += curItemCount;
+
+            List<int[]> resultList = new List<int[]>(); 
+            int[] matchResult = matchInvoiceInformation(invoicesFromQBD, itemsFromTableStorage, customersFromTableStorage, recordsFromTableStorage);
+            resultList.Add(matchResult);
+
+            while (curItemCount > 0)
+            {
+                pageNumber++;
+                qbdInvoiceQuery.Item = pageNumber.ToString();
+                invoicesFromQBD = qbdInvoiceQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Invoice>
+                                     (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Invoice>;
+                
+                matchResult = matchInvoiceInformation(invoicesFromQBD, itemsFromTableStorage, customersFromTableStorage, recordsFromTableStorage);
+                resultList.Add(matchResult);
+                
+                totalItemCount += curItemCount;
+                curItemCount = invoicesFromQBD.ToArray().Length;
+            }
+
+            Console.Write(totalItemCount);
+
+            int totalSuccess, totalMissingInfo, totalNoUpc, totalNoCustomer;
+            totalSuccess = 0;
+            totalMissingInfo = 0;
+            totalNoUpc = 0;
+            totalNoCustomer = 0;
+
+            foreach (int[] arr in resultList)
+            {
+                // int[] result = { successCount, noCustomerCount, noUpcCount, missingInfoCount };
+                totalSuccess += arr[0];
+                totalNoCustomer += arr[1];
+                totalNoUpc += arr[2];
+                totalMissingInfo += arr[3];
+            }
+
+            Console.Write("here");
+
+        }
+
+        private int[] matchInvoiceInformation(IEnumerable<Intuit.Ipp.Data.Qbd.Invoice> invoicesFromQBD,
+            Dictionary<string, Utilities.ERPProductMapEntity> itemsFromTableStorage,
+            Dictionary<string, Utilities.ERPBusinessMapEntity> customersFromTableStorage,
+            Dictionary<string, Utilities.ERPRecordMapEntity> invoicesFromTableStorage)
+        {
+            int successCount = 0;
+            int noCustomerCount = 0;
+            int missingInfoCount = 0;
+            int noUpcCount = 0;
+
+            SynchDatabaseDataContext context = new SynchDatabaseDataContext();
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+            Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erprecordmapping");
+            table.CreateIfNotExists();
+
+            IEnumerator<Intuit.Ipp.Data.Qbd.Invoice> invoiceEnum = invoicesFromQBD.GetEnumerator();
+            while (invoiceEnum.MoveNext())
+            {
+                Intuit.Ipp.Data.Qbd.Invoice invoiceFromQBD = invoiceEnum.Current;
+
+                if (invoicesFromTableStorage.ContainsKey(invoiceFromQBD.Id.Value))
+                {
+                    // this invoice exists;
+                    // check if updates needed.
+                }
+                else
+                {
+                    string customerIdFromQBD = invoiceFromQBD.Header.CustomerId.Value;
+                    string invoiceTitle = "From QuickBooks: " + invoiceFromQBD.Header.CustomerName;
+                    string invoiceComment = "From QuickBooks: " + invoiceFromQBD.Header.Msg;
+                    string transactionDateString = "";
+                    if (invoiceFromQBD.Header.TxnDateSpecified)
+                    {
+                        transactionDateString = invoiceFromQBD.Header.TxnDate.Year.ToString();
+                        if (invoiceFromQBD.Header.TxnDate.Month > 9)
+                            transactionDateString += invoiceFromQBD.Header.TxnDate.Month.ToString();
+                        else
+                            transactionDateString += "0" + invoiceFromQBD.Header.TxnDate.Month.ToString();
+                        
+                        if (invoiceFromQBD.Header.TxnDate.Day > 9)
+                            transactionDateString += invoiceFromQBD.Header.TxnDate.Day.ToString();
+                        else
+                            transactionDateString += "0" + invoiceFromQBD.Header.TxnDate.Day.ToString();
+
+                        transactionDateString += "000000";
+                    }
+
+                    long transactionDateLong = (transactionDateString == "") ? 20111231000000 : long.Parse(transactionDateString);
+                    if (customersFromTableStorage.ContainsKey(customerIdFromQBD))
+                    {
+                        // this customer exists
+                        int customerIdFromSynch = customersFromTableStorage[customerIdFromQBD].idFromSynch;
+
+                        List<string> upcList = new List<string>();
+                        List<int> quantityList = new List<int>();
+                        List<double> priceList = new List<double>();
+                        foreach (Intuit.Ipp.Data.Qbd.InvoiceLine curLine in invoiceFromQBD.Line)
+                        {
+                            string upc = null;
+                            int quantity = 0;
+                            double price = 0.0;
+                            if (curLine.ItemsElementName != null && curLine.Items != null)
+                            {
+                                for (int i = 0; i < curLine.ItemsElementName.Length; i++)
+                                {
+                                    if (curLine.ItemsElementName[i].ToString() == "ItemId")
+                                    {
+                                        string itemId = ((Intuit.Ipp.Data.Qbd.IdType)curLine.Items[i]).Value;
+                                        if (itemsFromTableStorage.ContainsKey(itemId))
+                                            upc = itemsFromTableStorage[itemId].upc;
+                                        else
+                                            noUpcCount++;
+                                    }
+                                    if (curLine.ItemsElementName[i].ToString() == "UnitPrice")
+                                        price = Double.Parse(curLine.Items[i].ToString());
+
+                                    if (curLine.ItemsElementName[i].ToString() == "Qty")
+                                        quantity = Int32.Parse(curLine.Items[i].ToString());
+                                }
+
+                                if (upc != null && quantity != 0 && price != 0.0)
+                                {
+                                    // now create this line item in database
+                                    //context.CreateProductInRecord(rid, upc, synchBusinessId, customerIdFromSynch, quantity, note, price);
+                                    upcList.Add(upc);
+                                    quantityList.Add(quantity);
+                                    priceList.Add(price);
+                                }
+                                else
+                                {
+                                    missingInfoCount++;
+                                }
+                            }   // if item information exists
+                            else
+                            {
+                                missingInfoCount++;
+                            }
+                        }   // end foreach line item
+
+                        if (upcList.Count > 0)
+                        {
+                            successCount++;
+                            int rid = context.CreateHistoryRecord(synchBusinessId, invoiceTitle, 0, 2, invoiceComment, 42, transactionDateLong);
+                            for (int i = 0; i < upcList.Count; i++)
+                            {
+                                context.CreateProductInRecord(rid, upcList[i], 1, customerIdFromSynch, quantityList[i], "", priceList[i]);
+                            }
+
+                            // Create a new customer entity.
+                            Utilities.ERPRecordMapEntity newRecordMapping = new Utilities.ERPRecordMapEntity(synchBusinessId, invoiceFromQBD.Id.Value);
+                            newRecordMapping.rid = rid;
+
+                            // Create the TableOperation that inserts the customer entity.
+                            TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(newRecordMapping);
+
+                            // Execute the insert operation.
+                            table.Execute(insertOrReplaceOperation);
+                        }
+                    }   // if this customer exists
+                    else
+                        noCustomerCount++;
+
+                }   // end new invoice
+            }
+            // end while
+            int[] result = { successCount, noCustomerCount, noUpcCount, missingInfoCount };
+            return result;
         }
 
         public void updateSalesOrdersFromQBD()
@@ -722,8 +901,32 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             // Construct the query operation for all customer entities where PartitionKey="Smith".
             TableQuery<Utilities.ERPProductMapEntity> query = new TableQuery<Utilities.ERPProductMapEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, synchBusinessId.ToString()));
 
-            // Print the fields for each customer.
             foreach (Utilities.ERPProductMapEntity entity in table.ExecuteQuery(query))
+            {
+                result.Add(entity.RowKey, entity);
+            }
+            return result;
+        }
+
+        private Dictionary<string, Utilities.ERPRecordMapEntity> getRecordMappingsFromTableStorage()
+        {
+            Dictionary<string, Utilities.ERPRecordMapEntity> result = new Dictionary<string, Utilities.ERPRecordMapEntity>();
+            // make Table Storage Connection
+            // Retrieve the storage account from the connection string.
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erprecordmapping");
+            table.CreateIfNotExists();
+
+            // Construct the query operation for all customer entities where PartitionKey="Smith".
+            TableQuery<Utilities.ERPRecordMapEntity> query = new TableQuery<Utilities.ERPRecordMapEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, synchBusinessId.ToString()));
+
+            foreach (Utilities.ERPRecordMapEntity entity in table.ExecuteQuery(query))
             {
                 result.Add(entity.RowKey, entity);
             }
@@ -864,10 +1067,10 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             // 1: get current customer list
             SynchDatabaseDataContext synchDatabaseContext = new SynchDatabaseDataContext();
             var results = synchDatabaseContext.GetAllCustomers(synchBusinessId);
-            Dictionary<string, Business> customersFromSynch = new Dictionary<string, Business>();
+            Dictionary<int, Business> customersFromSynch = new Dictionary<int, Business>();
             foreach (var result in results)
             {
-                customersFromSynch.Add(result.name,
+                customersFromSynch.Add(result.id,
                     new Business()
                     {
                         id = result.id,
@@ -884,54 +1087,107 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                 );
             }
 
-            // 2: get updated information from QBD side
+            // 2: get information from table storage
+            Dictionary<string, Utilities.ERPBusinessMapEntity> customersFromTableStorage = getBusinessMappingsFromTableStorage();
+
+            // 3: get updated information from QBD side
             int pageNumber = 1;
-            int chunkSize = 100;
+            int chunkSize = 500;
             int totalCustomerCount = 0;
             Intuit.Ipp.Data.Qbd.CustomerQuery qbdCustomerQuery = new Intuit.Ipp.Data.Qbd.CustomerQuery();
             qbdCustomerQuery.ItemElementName = Intuit.Ipp.Data.Qbd.ItemChoiceType4.StartPage;
             qbdCustomerQuery.Item = pageNumber.ToString();
             qbdCustomerQuery.ChunkSize = chunkSize.ToString();
-            //List<Intuit.Ipp.Data.Qbd.Customer> customers = (qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
-            //(context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>).ToList();
             IEnumerable<Intuit.Ipp.Data.Qbd.Customer> customersFromQBD = qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
             (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>;
-            int curCustomerCount = qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>(context).Count;
-            matchBusinessInformation(synchDatabaseContext, ref customersFromSynch, customersFromQBD);
+            int curCustomerCount = customersFromQBD.ToArray().Length;
+            matchBusinessInformation(synchDatabaseContext, ref customersFromSynch, customersFromQBD, ref customersFromTableStorage);
 
             while (curCustomerCount > 0)
             {
                 pageNumber++;
                 qbdCustomerQuery.Item = pageNumber.ToString();
-
-                /*
-                customers.Concat(
-                    (qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
-                                     (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>).ToList());
-                */
                 customersFromQBD = qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>
                                      (context) as IEnumerable<Intuit.Ipp.Data.Qbd.Customer>;
-                matchBusinessInformation(synchDatabaseContext, ref customersFromSynch, customersFromQBD);
+                matchBusinessInformation(synchDatabaseContext, ref customersFromSynch, customersFromQBD, ref customersFromTableStorage);
                 totalCustomerCount += curCustomerCount;
-                curCustomerCount = qbdCustomerQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.Customer>(context).Count;
+                curCustomerCount = customersFromQBD.ToArray().Length;
             }
 
             // 3. After matching all the customers from QBD, we delete excessive/inactive customers in Synch
-            foreach (string bname in customersFromSynch.Keys)
+            foreach (int cid in customersFromSynch.Keys)
             {
-                Business curBusiness = customersFromSynch[bname];
-                synchDatabaseContext.DeleteSupplies(synchBusinessId, curBusiness.id, synchBusinessId);
-                synchDatabaseContext.DeleteBusinessById(curBusiness.id);
+                synchDatabaseContext.DeleteSupplies(synchBusinessId, cid, synchBusinessId);
+                synchDatabaseContext.DeleteBusinessById(cid);
+            }
+
+            // 4. Delete outdated mappings in table storage
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erpbusinessmapping");
+
+            foreach (Utilities.ERPBusinessMapEntity mapping in customersFromTableStorage.Values)
+            {
+                TableOperation retrieveOperation = TableOperation.Retrieve<Utilities.ERPBusinessMapEntity>(mapping.PartitionKey, mapping.RowKey);
+
+                // Execute the operation.
+                TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                // Assign the result to a CustomerEntity.
+                Utilities.ERPBusinessMapEntity deleteEntity = (Utilities.ERPBusinessMapEntity)retrievedResult.Result;
+
+                // Create the Delete TableOperation.
+                if (deleteEntity != null)
+                {
+                    TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
+
+                    // Execute the operation.
+                    table.Execute(deleteOperation);
+                }
             }
         }
 
+        private Dictionary<string, Utilities.ERPBusinessMapEntity> getBusinessMappingsFromTableStorage()
+        {
+            Dictionary<string, Utilities.ERPBusinessMapEntity> result = new Dictionary<string, Utilities.ERPBusinessMapEntity>();
+            // make Table Storage Connection
+            // Retrieve the storage account from the connection string.
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erpbusinessmapping");
+
+            table.CreateIfNotExists();
+
+            // Construct the query operation for all customer entities where PartitionKey="Smith".
+            TableQuery<Utilities.ERPBusinessMapEntity> query = new TableQuery<Utilities.ERPBusinessMapEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, synchBusinessId.ToString()));
+
+            foreach (Utilities.ERPBusinessMapEntity entity in table.ExecuteQuery(query))
+            {
+                result.Add(entity.RowKey, entity);
+            }
+            return result;
+        }
+
         // check each one of the customers to see if any updates exist
-        private void matchBusinessInformation(SynchDatabaseDataContext context, ref Dictionary<string, Business> businessesFromSynch, IEnumerable<Intuit.Ipp.Data.Qbd.Customer> businessesFromQBD)
+        private void matchBusinessInformation(SynchDatabaseDataContext context, ref Dictionary<int, Business> businessesFromSynch, 
+            IEnumerable<Intuit.Ipp.Data.Qbd.Customer> businessesFromQBD, ref Dictionary<string, Utilities.ERPBusinessMapEntity> customersFromTableStorage)
         {
             IEnumerator<Intuit.Ipp.Data.Qbd.Customer> businessEnum = businessesFromQBD.GetEnumerator();
             while (businessEnum.MoveNext())
             {
                 string nameFromQBD = businessEnum.Current.Name;
+                string idFromQBD = businessEnum.Current.Id.Value;
+
                 if (nameFromQBD != null)
                 {
                     string addressFromQBD = "";
@@ -968,28 +1224,74 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                     string phoneNumFromQBD = (businessEnum.Current.Phone == null) ? "206-407-9494" : businessEnum.Current.Phone[0].FreeFormNumber;
 
                     // compare information now
-                    Business currentBusinessFromSynch = null;
-                    if (!businessesFromSynch.TryGetValue(nameFromQBD, out currentBusinessFromSynch))
+                    // 1. try to get cid from table storage mapping
+                    if (!customersFromTableStorage.ContainsKey(idFromQBD))
                     {
-                        // this business does not exist, create new one in Synch
+                        // not in table storage right now, and considered not in Synch database
+                        // create new business in Synch and a new mapping
                         int newCustomerId = context.CreateBusiness(nameFromQBD, addressFromQBD, intZipFromQBD, emailFromQBD, categoryFromQBD, 0, 0, phoneNumFromQBD);
                         context.CreateSupplies(synchBusinessId, newCustomerId, synchBusinessId);
+                        createBusinessMappingInTableStorage(newCustomerId, businessEnum.Current);
                     }
                     else
                     {
-                        businessesFromSynch.Remove(nameFromQBD);
-                        if (addressFromQBD != currentBusinessFromSynch.address
-                            || intZipFromQBD != currentBusinessFromSynch.zip
-                            || emailFromQBD != currentBusinessFromSynch.email
-                            || phoneNumFromQBD != currentBusinessFromSynch.phoneNumber)
-                        {
-                            // update new info into Synch's database
-                            context.UpdateBusinessById(currentBusinessFromSynch.id, addressFromQBD, intZipFromQBD, emailFromQBD, categoryFromQBD, phoneNumFromQBD);
+                        // in table storage; get business info from Synch
+                        Business currentBusinessFromSynch = null;
 
+                        if (!businessesFromSynch.TryGetValue(customersFromTableStorage[idFromQBD].idFromSynch, out currentBusinessFromSynch))
+                        {
+                            // business mapping exists, but business id in Synch is outdated;
+                            // create new business in Synch and a new mapping; later on delete outdated ones
+                            int newCustomerId = context.CreateBusiness(nameFromQBD, addressFromQBD, intZipFromQBD, emailFromQBD, categoryFromQBD, 0, 0, phoneNumFromQBD);
+                            context.CreateSupplies(synchBusinessId, newCustomerId, synchBusinessId);
+                            createBusinessMappingInTableStorage(newCustomerId, businessEnum.Current);
                         }
-                    }
-                }
+                        else
+                        {
+                            // business mapping exist and business id is update;
+                            // check and update business information
+                            businessesFromSynch.Remove(customersFromTableStorage[idFromQBD].idFromSynch);
+                            customersFromTableStorage.Remove(idFromQBD);
+
+                            if (addressFromQBD != currentBusinessFromSynch.address
+                                || intZipFromQBD != currentBusinessFromSynch.zip
+                                || emailFromQBD != currentBusinessFromSynch.email
+                                || phoneNumFromQBD != currentBusinessFromSynch.phoneNumber)
+                            {
+                                // update new info into Synch's database
+                                context.UpdateBusinessById(currentBusinessFromSynch.id, addressFromQBD, intZipFromQBD, emailFromQBD, categoryFromQBD, phoneNumFromQBD);
+                            }
+                        }
+                    }   // end if mapping in storage
+
+                }   // end if name from QBD != null
             }   // end while loop
+        }
+
+        private void createBusinessMappingInTableStorage(int cid, Intuit.Ipp.Data.Qbd.Customer customerFromQBD)
+        {
+
+            // create item in Table Storage mapping
+            // make Table Storage Connection
+            // Retrieve the storage account from the connection string.
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference("erpbusinessmapping");
+            table.CreateIfNotExists();
+            // Create a new customer entity.
+            Utilities.ERPBusinessMapEntity newBusinessMapping = new Utilities.ERPBusinessMapEntity(synchBusinessId, customerFromQBD.Id.Value);
+            newBusinessMapping.idFromSynch = cid;
+
+            // Create the TableOperation that inserts the customer entity.
+            TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(newBusinessMapping);
+
+            // Execute the insert operation.
+            table.Execute(insertOrReplaceOperation);
         }
 
         #endregion

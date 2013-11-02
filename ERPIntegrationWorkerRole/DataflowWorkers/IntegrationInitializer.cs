@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ERPIntegrationWorkerRole.Utilities;
+using ERPIntegrationWorkerRole.SynchIntegration;
 
 namespace ERPIntegrationWorkerRole.DataflowWorkers
 {
@@ -17,18 +18,27 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
         public void updateSynchFromERP()
         {
             SynchDatabaseDataContext context = new SynchDatabaseDataContext();
-            
-            int bid = 1599;
 
-            // try to do the auto-sync
-            QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
-            QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
-            QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
-                qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
-            
-            qbdIntegrator.updateBusinessesFromQBD();
-            qbdIntegrator.updateItemsFromQBD();
-            //qbdIntegrator.updateInvoicesFromQBD();
+            var results = context.GetBusinessesWithIntegration(1);
+
+            List<Business> retrievedBusiness = new List<Business>();
+
+            foreach (var business in results)
+            {
+                int bid = business.id;
+                // try to do the auto-sync
+                QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
+                QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
+                if (qbCredential != null)
+                {
+                    QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
+                        qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+
+                    qbdIntegrator.updateBusinessesFromQBD();
+                    qbdIntegrator.updateItemsFromQBD();
+                    qbdIntegrator.updateInvoicesFromQBD();
+                }
+            }
 
         }
 

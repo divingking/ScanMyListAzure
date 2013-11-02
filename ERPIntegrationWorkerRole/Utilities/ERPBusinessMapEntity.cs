@@ -15,14 +15,13 @@ namespace ERPIntegrationWorkerRole.Utilities
     {
         public ERPBusinessMapEntity(int bid, string erpUniqueBusinessId)
         {
-            this.PartitionKey = bid.ToString();
+            this.PartitionKey = bid.ToString();     // the "owner", not the customer's bid
             this.RowKey = erpUniqueBusinessId;
         }
 
         public ERPBusinessMapEntity() { }
 
-        public string nameFromSynch { get; set; }
+        public int idFromSynch { get; set; }
 
-        public string nameFromERP { get; set; }
     }
 }

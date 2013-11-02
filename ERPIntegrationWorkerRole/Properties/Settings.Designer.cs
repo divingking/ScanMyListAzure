@@ -44,5 +44,49 @@ namespace ERPIntegrationWorkerRole.Properties {
                 return ((string)(this["SynchDevelopmentDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=omi6dwwsxk.database.windows.net;Initial Catalog=SynchDevelopmentDB2;U" +
+            "ser ID=smladmin;Password=SCANmyLIST2012")]
+        public string SynchDevelopmentDB2ConnectionString {
+            get {
+                return ((string)(this["SynchDevelopmentDB2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=omi6dwwsxk.database.windows.net;Initial Catalog=SynchProductionDB2;Us" +
+            "er ID=smladmin;Password=SCANmyLIST2012")]
+        public string SynchProductionDB2ConnectionString {
+            get {
+                return ((string)(this["SynchProductionDB2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=omi6dwwsxk.database.windows.net;Initial Catalog=SynchTestDB2;User ID=" +
+            "smladmin;Password=SCANmyLIST2012")]
+        public string SynchTestDB2ConnectionString {
+            get {
+                return ((string)(this["SynchTestDB2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=omi6dwwsxk.database.windows.net;Initial Catalog=SynchDevelopmentDB2;P" +
+            "ersist Security Info=True;User ID=smladmin;Password=SCANmyLIST2012")]
+        public string SynchDevelopmentDB2ConnectionString1 {
+            get {
+                return ((string)(this["SynchDevelopmentDB2ConnectionString1"]));
+            }
+        }
     }
 }

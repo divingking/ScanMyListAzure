@@ -167,6 +167,34 @@ namespace SynchWebRole.REST_Service
             return retrievedBusiness;
         }
 
+        public List<User> GetAccounts(int aid, int bid, string sessionId)
+        {
+            SessionManager.checkSession(aid, sessionId);
+
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            var results = context.GetAllAccounts(bid);
+
+            List<User> retrievedAccounts = new List<User>();
+
+            foreach (var user in results)
+            {
+                retrievedAccounts.Add(
+                    new User()
+                    {
+                        id = user.id,
+                        business = (int)user.business,
+                        email = user.email,
+                        firstName = user.firstname,
+                        lastName = user.lastname,
+                        login = user.login,
+                        phoneNumber = user.phone_number,
+                        sessionId = user.session_id
+                    });
+            }
+
+            return retrievedAccounts;
+        }
+
         public string LinkAccountToBusiness(int bid, int aid, string sessionId)
         {
             SessionManager.checkSession(aid, sessionId);

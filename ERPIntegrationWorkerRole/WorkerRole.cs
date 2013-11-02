@@ -29,8 +29,9 @@ namespace ERPIntegrationWorkerRole
                  * 4. does not use barcode/upc as primary key to reference products; uses product names instead, which have duplicates
                 */
 
-                initializer.updateERPFromSynch();
                 initializer.updateSynchFromERP();
+
+                initializer.updateERPFromSynch();
             }
         }
 
