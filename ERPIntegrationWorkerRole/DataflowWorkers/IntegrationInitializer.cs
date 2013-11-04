@@ -36,7 +36,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
 
                     qbdIntegrator.updateBusinessesFromQBD();
                     qbdIntegrator.updateItemsFromQBD();
-                    qbdIntegrator.updateInvoicesFromQBD();
+                    // qbdIntegrator.updateInvoicesFromQBD();
                 }
             }
 

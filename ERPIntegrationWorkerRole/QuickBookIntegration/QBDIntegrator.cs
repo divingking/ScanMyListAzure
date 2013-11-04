@@ -936,7 +936,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
         private void getAutoUpcCounter(Dictionary<string, Product>.KeyCollection keyCollection)
         {
             string[] upcs = keyCollection.ToArray<string>();
-            int maxCurrentCount = Int32.MinValue;
+            int maxCurrentCount = 0;
             foreach (string upc in upcs)
             {
                 if (upc.StartsWith("ANBWINE"))
@@ -947,6 +947,7 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
                         maxCurrentCount = curCount;
                 }
             }
+
             autoUpcCounter = maxCurrentCount;
         }
 

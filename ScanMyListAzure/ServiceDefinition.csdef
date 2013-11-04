@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="ScanMyListAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2012-10.1.8">
-  <WebRole name="SynchWebRole" vmsize="Small">
+  <WebRole name="SynchWebRole" vmsize="Medium">
     <Certificates>
       <!--Certificate name="SMLTest" storeLocation="LocalMachine" storeName="CA"/-->
       <Certificate name="SynchEntrust" storeLocation="LocalMachine" storeName="CA"/>
@@ -27,7 +27,7 @@
       <Setting name="SynchStorageConnection" />
     </ConfigurationSettings>
   </WebRole>
-  <WorkerRole name="ERPIntegrationWorkerRole" vmsize="Small">
+  <WorkerRole name="ERPIntegrationWorkerRole" vmsize="Medium">
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>

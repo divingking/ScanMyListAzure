@@ -18,7 +18,6 @@ namespace ERPIntegrationWorkerRole
         {
             while (true)
             {
-                Thread.Sleep(10000);
                 DataflowWorkers.IntegrationInitializer initializer = new DataflowWorkers.IntegrationInitializer();
 
                 /*
@@ -32,6 +31,9 @@ namespace ERPIntegrationWorkerRole
                 initializer.updateSynchFromERP();
 
                 initializer.updateERPFromSynch();
+
+                Thread.Sleep(10000);
+
             }
         }
 

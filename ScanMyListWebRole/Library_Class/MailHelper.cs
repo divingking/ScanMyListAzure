@@ -9,6 +9,8 @@
     using System.Net;
     using System.Net.Mail;
     using System.Text;
+    using System.Text.RegularExpressions;
+
 
     public class MailHelper
     {
@@ -20,7 +22,9 @@
         {
             SendGrid message = SendGrid.GenerateInstance();
             message.From = new MailAddress("Synch Order Tracking Service <ordertracking@synchbi.com>");
+            message.AddTo(string.Format("{0} <{1}>", involved[bid].name, involved[bid].email));
             message.AddTo(accountEmail);
+            message.AddTo("backup@synchbi.com");
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
             text.AppendLine(record.title);
@@ -141,25 +145,34 @@
             }
 
             builder.AppendLine();
-            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", "Customer", "UPC/Product#", "Product Name", "Quantity"));
+            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-20}{4,-20}", "Customer", "UPC/Product#", "Product Name", "Quantity", "Location"));
 
-            foreach (RecordProduct product in record.products)
+            ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
+            SortedList<string, RecordProduct> sortedProductList = sortProductsByLocation(bid, context, record.products);
+
+            IEnumerator<KeyValuePair<string, RecordProduct>> sortedEnum = sortedProductList.GetEnumerator();
+            while (sortedEnum.MoveNext())
             {
+                string location = sortedEnum.Current.Key;
+                RecordProduct product = sortedEnum.Current.Value;
                 switch (record.category)
                 {
                     case (int)RecordCategory.Order:
                         if (involved.ContainsKey(product.customer))
-                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", involved[product.customer].name,
+                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-20}{4,-20}", involved[product.customer].name,
                                                                                             product.upc,
                                                                                             product.name,
-                                                                                            product.quantity));
+                                                                                            product.quantity,
+                                                                                            location
+                                                                                            ));
                         break;
                     case (int)RecordCategory.Receipt:
                         if (involved.ContainsKey(product.supplier))
-                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-8}", involved[product.supplier].name,
+                            builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-20}{4,-20}", involved[product.supplier].name,
                                                                                             product.upc,
                                                                                             product.name,
-                                                                                            product.quantity));
+                                                                                            product.quantity,
+                                                                                            location));
                         break;
                     default:
                         break;
@@ -168,6 +181,40 @@
             }
 
             return builder.ToString();
+        }
+
+        private static SortedList<string, RecordProduct> sortProductsByLocation(int bid, ScanMyListDatabaseDataContext context, List<RecordProduct> products)
+        {
+            SortedList<string, RecordProduct> resultList = new SortedList<string,RecordProduct>();
+            string pattern = "\\W+";
+            string replacement = String.Empty;
+            Regex rgx = new Regex(pattern);
+            
+            foreach (RecordProduct product in products)
+            {
+                var results = context.GetInventoryByUpc(bid, product.upc);
+                IEnumerator<GetInventoryByUpcResult> productEnumerator = results.GetEnumerator();
+                if (productEnumerator.MoveNext())
+                {
+                    GetInventoryByUpcResult target = productEnumerator.Current;
+                    Product curProduct = new Product()
+                    {
+                        upc = target.upc,
+                        name = target.name,
+                        detail = target.detail,
+                        quantity = (int)target.quantity,
+                        location = target.location,
+                        owner = bid,
+                        leadTime = (int)target.lead_time,
+                        price = (double)target.default_price
+                    };
+                    
+
+                    resultList.Add(rgx.Replace(curProduct.location, replacement), product);
+                }
+            }
+
+            return resultList;
         }
     }
 }
