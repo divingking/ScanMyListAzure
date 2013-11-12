@@ -18,17 +18,17 @@
         //private const string password = "i6dvglzv";
 
         // send to the account email that has logged into this business user.
-        public static bool SendRecordBackup(string accountEmail, int bid, Record record, IDictionary<int, Business> involved)
+        public static bool SendRecordBackup(User account, int bid, Record record, IDictionary<int, Business> involved)
         {
             SendGrid message = SendGrid.GenerateInstance();
             message.From = new MailAddress("Synch Order Tracking Service <ordertracking@synchbi.com>");
             message.AddTo(string.Format("{0} <{1}>", involved[bid].name, involved[bid].email));
-            message.AddTo(accountEmail);
-            message.AddTo("backup@synchbi.com");
+            message.AddTo(account.email);
+            message.AddTo(" synchbiorder@gmail.com");
             message.Subject = "Order confirmation";
             StringBuilder text = new StringBuilder();
             text.AppendLine(record.title);
-            text.AppendLine(FormatRecord(record, involved, bid));
+            text.AppendLine(FormatRecord(account.login, record, involved, bid));
             text.AppendLine();
             text.AppendLine();
             text.AppendLine(
@@ -95,7 +95,7 @@
 
         }
 
-        public static string FormatRecord(Record record, IDictionary<int, Business> involved, int bid)
+        public static string FormatRecord(string login, Record record, IDictionary<int, Business> involved, int bid)
         {
             StringBuilder builder = new StringBuilder();
 
@@ -109,15 +109,15 @@
                 Convert.ToInt32(dateString.Substring(10, 2)),         // minute
                 Convert.ToInt32(dateString.Substring(12, 2)));        // second
            
-            builder.AppendLine(string.Format("Date: {0}", orderDate.ToString()));
+            builder.AppendLine(string.Format("Order Date: {0}", orderDate.ToString()));
 
             switch (record.category)
             {
                 case (int)RecordCategory.Order:
-                    builder.AppendLine(string.Format("Order from {0}", involved[bid].name));
+                    builder.AppendLine(string.Format("Order from {0}", login));
                     break;
                 case (int)RecordCategory.Receipt:
-                    builder.AppendLine(string.Format("Receipt for {0}", involved[bid].name));
+                    builder.AppendLine(string.Format("Receipt for {0}", login));
                     break;
                 case (int)RecordCategory.PhysicalDamage:
                     builder.AppendLine("Inventory Change (Physical Damange)");
@@ -148,13 +148,14 @@
             builder.AppendLine(string.Format("{0,-60}{1,-20}{2,-60}{3,-20}{4,-20}", "Customer", "UPC/Product#", "Product Name", "Quantity", "Location"));
 
             ScanMyListDatabaseDataContext context = new ScanMyListDatabaseDataContext();
-            SortedList<string, RecordProduct> sortedProductList = sortProductsByLocation(bid, context, record.products);
+            Product[] sortedProducts = sortProductsByLocation(bid, context, record.products);
 
-            IEnumerator<KeyValuePair<string, RecordProduct>> sortedEnum = sortedProductList.GetEnumerator();
-            while (sortedEnum.MoveNext())
+            for (int i = 0; i < sortedProducts.Length; i++)
             {
-                string location = sortedEnum.Current.Key;
-                RecordProduct product = sortedEnum.Current.Value;
+                string location = sortedProducts[i].location;
+                string upc = sortedProducts[i].upc;
+                RecordProduct product = getRecordProductByUpc(upc, record.products);
+                
                 switch (record.category)
                 {
                     case (int)RecordCategory.Order:
@@ -180,12 +181,26 @@
                 builder.AppendLine();
             }
 
+            builder.AppendLine(string.Format("Memo: {0}", record.comment));
             return builder.ToString();
         }
 
-        private static SortedList<string, RecordProduct> sortProductsByLocation(int bid, ScanMyListDatabaseDataContext context, List<RecordProduct> products)
+        private static RecordProduct getRecordProductByUpc(string upc, List<RecordProduct> products)
         {
-            SortedList<string, RecordProduct> resultList = new SortedList<string,RecordProduct>();
+            foreach (RecordProduct curProduct in products)
+            {
+                if (upc == curProduct.upc)
+                    return curProduct;
+            }
+
+            return null;
+        }
+
+        private static Product[] sortProductsByLocation(int bid, ScanMyListDatabaseDataContext context, List<RecordProduct> products)
+        {
+            List<string> locationList = new List<string>();
+            Product[] sortedProducts = new Product[products.Count];
+
             string pattern = "\\W+";
             string replacement = String.Empty;
             Regex rgx = new Regex(pattern);
@@ -208,13 +223,50 @@
                         leadTime = (int)target.lead_time,
                         price = (double)target.default_price
                     };
-                    
 
-                    resultList.Add(rgx.Replace(curProduct.location, replacement), product);
+                    string comparableLocation = rgx.Replace(curProduct.location, replacement);
+                    locationList.Add(comparableLocation);
+
                 }
             }
 
-            return resultList;
+            locationList.Sort();
+            foreach (RecordProduct product in products)
+            {
+                var results = context.GetInventoryByUpc(bid, product.upc);
+                IEnumerator<GetInventoryByUpcResult> productEnumerator = results.GetEnumerator();
+                if (productEnumerator.MoveNext())
+                {
+                    GetInventoryByUpcResult target = productEnumerator.Current;
+                    Product curProduct = new Product()
+                    {
+                        upc = target.upc,
+                        name = target.name,
+                        detail = target.detail,
+                        quantity = product.quantity,
+                        location = target.location,
+                        owner = bid,
+                        leadTime = (int)target.lead_time,
+                        price = product.price
+                    };
+
+                    string comparableLocation = rgx.Replace(curProduct.location, replacement);
+                    for (int i = 0; i < locationList.Count; i++)
+                    {
+                        if (comparableLocation == locationList[i])
+                        {
+                            while (sortedProducts[i] != null)
+                                i++;
+                            sortedProducts[i] = curProduct;
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+
+            return sortedProducts;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ERPIntegrationWorkerRole.Utilities;
 using ERPIntegrationWorkerRole.SynchIntegration;
 
-namespace ERPIntegrationWorkerRole.DataflowWorkers
+namespace ERPIntegrationWorkerRole.DataflowLogic
 {
     class IntegrationInitializer
     {
@@ -20,24 +20,25 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
             SynchDatabaseDataContext context = new SynchDatabaseDataContext();
 
             var results = context.GetBusinessesWithIntegration(1);
-
-            List<Business> retrievedBusiness = new List<Business>();
+            List<int> retrievedBusinessIDs = new List<int>();
 
             foreach (var business in results)
             {
-                int bid = business.id;
-                // try to do the auto-sync
-                QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
-                QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
-                if (qbCredential != null)
-                {
-                    QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
-                        qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+                retrievedBusinessIDs.Add(business.id);
+            }
 
-                    qbdIntegrator.updateBusinessesFromQBD();
-                    qbdIntegrator.updateItemsFromQBD();
-                    // qbdIntegrator.updateInvoicesFromQBD();
-                }
+            context.Dispose();
+
+            foreach (int bid in retrievedBusinessIDs)
+            {
+                // try to do the auto-sync
+
+                DataIntegratorQBD qbdIntegrator = new DataIntegratorQBD(bid);
+                qbdIntegrator.updateCustomersFromQBD();
+                qbdIntegrator.updateItemsFromQBD();
+                //qbdIntegrator.updateSalesRepsFromQBD();
+                qbdIntegrator.updateSalesOrdersFromQBD();
+                qbdIntegrator.updateInvoicesFromQBD();
             }
 
         }
@@ -47,7 +48,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
         /// </summary>
         public void updateERPFromSynch()
         {
-            string message = MessageProcessor.retrieveMessageFromSynchStorage("erp-qbd");
+            string message = MessageProcessor.retrieveMessageFromSynchStorage(ApplicationConstants.ERP_QBD_QUEUE);
             if (message != null)
             {
                 string[] elements = message.Split('-');
@@ -83,10 +84,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
             int bid = Convert.ToInt32(elements[2]);
             int rid = Convert.ToInt32(elements[4]);
 
-            QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
-            QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
-            QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
-                qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+            DataIntegratorQBD qbdIntegrator = new DataIntegratorQBD(bid);
 
             switch (operationCode)
             {
@@ -119,10 +117,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
             int bid = Convert.ToInt32(elements[2]);
             string upc = elements[4];
 
-            QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
-            QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
-            QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
-                qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+            DataIntegratorQBD qbdIntegrator = new DataIntegratorQBD(bid);
 
             switch (operationCode)
             {
@@ -156,10 +151,7 @@ namespace ERPIntegrationWorkerRole.DataflowWorkers
             int otherBid = Convert.ToInt32(elements[4]);
             bool isCustomer = (elements[5] == "customer");
 
-            QuickBooksCredentialHandler qbCredentialHandler = new QuickBooksCredentialHandler(bid);
-            QuickBooksCredentialEntity qbCredential = (QuickBooksCredentialEntity)qbCredentialHandler.getCredentialFromSynchServer();
-            QuickBookIntegration.QBDIntegrator qbdIntegrator = new QuickBookIntegration.QBDIntegrator(bid, qbCredential.realmId,
-                qbCredential.accessToken, qbCredential.accessTokenSecret, qbCredential.consumerKey, qbCredential.consumerSecret, qbCredential.dataSourcetype);
+            DataIntegratorQBD qbdIntegrator = new DataIntegratorQBD(bid);
 
             switch (operationCode)
             {

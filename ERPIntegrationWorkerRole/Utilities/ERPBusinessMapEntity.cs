@@ -11,7 +11,7 @@ using Microsoft.WindowsAzure;
 
 namespace ERPIntegrationWorkerRole.Utilities
 {
-    class ERPBusinessMapEntity : TableEntity
+    public class ERPBusinessMapEntity : TableEntity
     {
         public ERPBusinessMapEntity(int bid, string erpUniqueBusinessId)
         {

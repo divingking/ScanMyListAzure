@@ -3,7 +3,7 @@
   <WebRole name="SynchWebRole" vmsize="Medium">
     <Certificates>
       <!--Certificate name="SMLTest" storeLocation="LocalMachine" storeName="CA"/-->
-      <Certificate name="SynchEntrust" storeLocation="LocalMachine" storeName="CA"/>
+      <Certificate name="SynchEntrust" storeLocation="LocalMachine" storeName="CA" />
     </Certificates>
     <Sites>
       <Site name="Web">
@@ -19,6 +19,7 @@
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
     </Imports>
     <LocalResources>
       <LocalStorage name="SynchWebRole.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
@@ -30,6 +31,8 @@
   <WorkerRole name="ERPIntegrationWorkerRole" vmsize="Medium">
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
     </Imports>
     <ConfigurationSettings>
       <Setting name="SynchStorageConnection" />

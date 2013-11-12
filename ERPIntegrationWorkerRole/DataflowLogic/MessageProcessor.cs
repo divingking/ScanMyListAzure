@@ -8,7 +8,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace ERPIntegrationWorkerRole.DataflowWorkers
+namespace ERPIntegrationWorkerRole.DataflowLogic
 {
     class MessageProcessor
     {

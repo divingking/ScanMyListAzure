@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Queue;
 
+using SynchWebRole.Utilities;
 namespace SynchWebRole.Library_Class
 {
     public class ERPIntegrator
@@ -30,7 +31,7 @@ namespace SynchWebRole.Library_Class
 
             if (isIntegratedWithERP)
             {
-                string queueName = "erp-qbd";
+                string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
                 Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
 
@@ -68,7 +69,7 @@ namespace SynchWebRole.Library_Class
 
             if (isIntegratedWithERP)
             {
-                string queueName = "erp-qbd";
+                string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
                 Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
 
@@ -110,7 +111,7 @@ namespace SynchWebRole.Library_Class
 
             if (isIntegratedWithERP)
             {
-                string queueName = "erp-qbd";
+                string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
                 Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
 

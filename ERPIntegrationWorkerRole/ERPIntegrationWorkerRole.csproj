@@ -102,28 +102,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataflowWorkers\IntegrationInitializer.cs" />
+    <Compile Include="DataflowLogic\IntegrationInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="QuickBookIntegration\QBDIntegrator.cs" />
-    <Compile Include="QuickBookIntegration\Utils\ApplicationConstants.cs" />
+    <Compile Include="DataflowLogic\DataIntegratorQBD.cs" />
+    <Compile Include="QuickBookIntegration\QBDDataReader.cs" />
+    <Compile Include="QuickBookIntegration\QBDDataUpdater.cs" />
     <Compile Include="QuickBookIntegration\Utils\Initializer.cs" />
     <Compile Include="SynchDatabase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SynchDatabase.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DataflowWorkers\MessageProcessor.cs" />
+    <Compile Include="DataflowLogic\MessageProcessor.cs" />
     <Compile Include="SynchIntegration\ObjectDefinition.cs" />
+    <Compile Include="SynchIntegration\SynchDatabaseReader.cs" />
+    <Compile Include="SynchIntegration\SynchDatabaseUpdater.cs" />
+    <Compile Include="SynchIntegration\SynchStorageReader.cs" />
+    <Compile Include="SynchIntegration\SynchStorageUpdater.cs" />
+    <Compile Include="Utilities\ApplicationConstants.cs" />
+    <Compile Include="Utilities\Enumerations.cs" />
     <Compile Include="Utilities\ERPBusinessMapEntity.cs" />
     <Compile Include="Utilities\ERPProductMapEntity.cs" />
     <Compile Include="Utilities\ERPRecordMapEntity.cs" />
-    <Compile Include="Utilities\ICredentialHandler.cs" />
-    <Compile Include="Utilities\QuickBooksCredentialHandler.cs" />
     <Compile Include="Utilities\QuickBooksCredentialEntity.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>

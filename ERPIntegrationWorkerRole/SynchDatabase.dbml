@@ -237,25 +237,6 @@
       <Column Name="product_note" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetCompleteOrder" Method="GetCompleteOrder">
-    <Parameter Name="business" Type="System.Int32" DbType="Int" />
-    <Parameter Name="rid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetCompleteOrderResult">
-      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="record_account" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="record_comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
-      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="product_price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="product_note" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
-      <Column Name="customer_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="customer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="customer_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetCompleteReceipt" Method="GetCompleteReceipt">
     <Parameter Name="business" Type="System.Int32" DbType="Int" />
     <Parameter Name="rid" Type="System.Int32" DbType="Int" />
@@ -704,6 +685,26 @@
       <Column Name="integration" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetCompleteOrder" Method="GetCompleteOrder">
+    <Parameter Name="business" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetCompleteOrderResult">
+      <Column Name="record_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="record_title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="record_date" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="record_account" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="record_comment" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+      <Column Name="product_upc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="product_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="product_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="product_note" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="product_detail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="customer_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="customer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="customer_email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

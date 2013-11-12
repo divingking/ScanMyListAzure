@@ -18,7 +18,7 @@ namespace ERPIntegrationWorkerRole
         {
             while (true)
             {
-                DataflowWorkers.IntegrationInitializer initializer = new DataflowWorkers.IntegrationInitializer();
+                DataflowLogic.IntegrationInitializer initializer = new DataflowLogic.IntegrationInitializer();
 
                 /*
                  * What is missing:
@@ -28,6 +28,7 @@ namespace ERPIntegrationWorkerRole
                  * 4. does not use barcode/upc as primary key to reference products; uses product names instead, which have duplicates
                 */
 
+                // later on when we do multi-threading, these two are critical sections
                 initializer.updateSynchFromERP();
 
                 initializer.updateERPFromSynch();

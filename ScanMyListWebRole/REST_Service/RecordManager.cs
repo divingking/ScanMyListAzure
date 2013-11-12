@@ -579,6 +579,7 @@ namespace SynchWebRole.REST_Service
                     overallOrder.title = product.record_title;
                     overallOrder.date = (long)product.record_date;
                     overallOrder.category = (int)RecordCategory.Order;
+                    overallOrder.comment = product.record_comment;
                 }
 
                 if (!customers.ContainsKey(product.customer_id))
@@ -616,7 +617,19 @@ namespace SynchWebRole.REST_Service
                 orders[product.customer_id].products.Add(p);
             }
 
-            string accountEmail = this.FetchAccountEmail(context, aid);
+            User account = null;
+            var results = context.GetAccountById(aid);
+            IEnumerator<GetAccountByIdResult> accountEnumerator = results.GetEnumerator();
+            if (accountEnumerator.MoveNext())
+            {
+                GetAccountByIdResult getAccountResult = accountEnumerator.Current;
+                account = new User()
+                {
+                    email = getAccountResult.email,
+                    login = getAccountResult.login
+                };
+            }
+
             Business business = this.FetchBusiness(context, bid);
 
             customers.Add(business.id, business);
@@ -636,7 +649,7 @@ namespace SynchWebRole.REST_Service
 
             // silent fail for now
             MailHelper.SendRecord(bid, overallOrder, customers);
-            MailHelper.SendRecordBackup(accountEmail, bid, overallOrder, customers);
+            MailHelper.SendRecordBackup(account, bid, overallOrder, customers);
 
             this.DecrementInventories(overallOrder.products, bid);
 
@@ -659,6 +672,7 @@ namespace SynchWebRole.REST_Service
                     overallReceipt.title = product.record_title;
                     overallReceipt.date = (long)product.record_date;
                     overallReceipt.category = (int)RecordCategory.Receipt;
+                    overallReceipt.comment = product.record_comment;
                 }
 
                 if (!suppliers.ContainsKey(product.supplier_id))
@@ -696,14 +710,26 @@ namespace SynchWebRole.REST_Service
                 receipts[product.supplier_id].products.Add(p);
             }
 
-            string accountEmail = this.FetchAccountEmail(context, aid);
+            User account = null;
+            var results = context.GetAccountById(aid);
+            IEnumerator<GetAccountByIdResult> accountEnumerator = results.GetEnumerator();
+            if (accountEnumerator.MoveNext())
+            {
+                GetAccountByIdResult getAccountResult = accountEnumerator.Current;
+                account = new User()
+                {
+                    email = getAccountResult.email,
+                    login = getAccountResult.login
+                };
+            } 
+            
             Business business = this.FetchBusiness(context, bid);
 
             suppliers.Add(business.id, business);
 
             if (!MailHelper.SendRecord(bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send confirmation email! ");
-            if (!MailHelper.SendRecordBackup(accountEmail, bid, overallReceipt, suppliers))
+            if (!MailHelper.SendRecordBackup(account, bid, overallReceipt, suppliers))
                 throw new FaultException("Failed to send system backup confirmatoin email! ");
 
             foreach (int supplier in receipts.Keys)

@@ -237,13 +237,6 @@ namespace ERPIntegrationWorkerRole
 			return ((ISingleResult<GetCompleteChangeResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteOrder")]
-		public ISingleResult<GetCompleteOrderResult> GetCompleteOrder([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
-			return ((ISingleResult<GetCompleteOrderResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteReceipt")]
 		public ISingleResult<GetCompleteReceiptResult> GetCompleteReceipt([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
 		{
@@ -530,6 +523,13 @@ namespace ERPIntegrationWorkerRole
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), integration);
 			return ((ISingleResult<GetBusinessesWithIntegrationResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCompleteOrder")]
+		public ISingleResult<GetCompleteOrderResult> GetCompleteOrder([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> business, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), business, rid);
+			return ((ISingleResult<GetCompleteOrderResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -2082,248 +2082,6 @@ namespace ERPIntegrationWorkerRole
 				if ((this._product_note != value))
 				{
 					this._product_note = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetCompleteOrderResult
-	{
-		
-		private int _record_id;
-		
-		private string _record_title;
-		
-		private System.Nullable<long> _record_date;
-		
-		private System.Nullable<int> _record_account;
-		
-		private string _record_comment;
-		
-		private string _product_upc;
-		
-		private string _product_name;
-		
-		private System.Nullable<int> _product_quantity;
-		
-		private System.Nullable<double> _product_price;
-		
-		private string _product_note;
-		
-		private int _customer_id;
-		
-		private string _customer_name;
-		
-		private string _customer_email;
-		
-		public GetCompleteOrderResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_id", DbType="Int NOT NULL")]
-		public int record_id
-		{
-			get
-			{
-				return this._record_id;
-			}
-			set
-			{
-				if ((this._record_id != value))
-				{
-					this._record_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_title", DbType="VarChar(50)")]
-		public string record_title
-		{
-			get
-			{
-				return this._record_title;
-			}
-			set
-			{
-				if ((this._record_title != value))
-				{
-					this._record_title = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_date", DbType="BigInt")]
-		public System.Nullable<long> record_date
-		{
-			get
-			{
-				return this._record_date;
-			}
-			set
-			{
-				if ((this._record_date != value))
-				{
-					this._record_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_account", DbType="Int")]
-		public System.Nullable<int> record_account
-		{
-			get
-			{
-				return this._record_account;
-			}
-			set
-			{
-				if ((this._record_account != value))
-				{
-					this._record_account = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_comment", DbType="NVarChar(140)")]
-		public string record_comment
-		{
-			get
-			{
-				return this._record_comment;
-			}
-			set
-			{
-				if ((this._record_comment != value))
-				{
-					this._record_comment = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_upc", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string product_upc
-		{
-			get
-			{
-				return this._product_upc;
-			}
-			set
-			{
-				if ((this._product_upc != value))
-				{
-					this._product_upc = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_name", DbType="VarChar(100)")]
-		public string product_name
-		{
-			get
-			{
-				return this._product_name;
-			}
-			set
-			{
-				if ((this._product_name != value))
-				{
-					this._product_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_quantity", DbType="Int")]
-		public System.Nullable<int> product_quantity
-		{
-			get
-			{
-				return this._product_quantity;
-			}
-			set
-			{
-				if ((this._product_quantity != value))
-				{
-					this._product_quantity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_price", DbType="Float")]
-		public System.Nullable<double> product_price
-		{
-			get
-			{
-				return this._product_price;
-			}
-			set
-			{
-				if ((this._product_price != value))
-				{
-					this._product_price = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_note", DbType="VarChar(256)")]
-		public string product_note
-		{
-			get
-			{
-				return this._product_note;
-			}
-			set
-			{
-				if ((this._product_note != value))
-				{
-					this._product_note = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id", DbType="Int NOT NULL")]
-		public int customer_id
-		{
-			get
-			{
-				return this._customer_id;
-			}
-			set
-			{
-				if ((this._customer_id != value))
-				{
-					this._customer_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_name", DbType="VarChar(100)")]
-		public string customer_name
-		{
-			get
-			{
-				return this._customer_name;
-			}
-			set
-			{
-				if ((this._customer_name != value))
-				{
-					this._customer_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_email", DbType="VarChar(255)")]
-		public string customer_email
-		{
-			get
-			{
-				return this._customer_email;
-			}
-			set
-			{
-				if ((this._customer_email != value))
-				{
-					this._customer_email = value;
 				}
 			}
 		}
@@ -6078,6 +5836,266 @@ namespace ERPIntegrationWorkerRole
 				if ((this._phone_number != value))
 				{
 					this._phone_number = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetCompleteOrderResult
+	{
+		
+		private int _record_id;
+		
+		private string _record_title;
+		
+		private System.Nullable<long> _record_date;
+		
+		private System.Nullable<int> _record_account;
+		
+		private string _record_comment;
+		
+		private string _product_upc;
+		
+		private string _product_name;
+		
+		private System.Nullable<int> _product_quantity;
+		
+		private System.Nullable<double> _product_price;
+		
+		private string _product_note;
+		
+		private string _product_detail;
+		
+		private int _customer_id;
+		
+		private string _customer_name;
+		
+		private string _customer_email;
+		
+		public GetCompleteOrderResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_id", DbType="Int NOT NULL")]
+		public int record_id
+		{
+			get
+			{
+				return this._record_id;
+			}
+			set
+			{
+				if ((this._record_id != value))
+				{
+					this._record_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_title", DbType="VarChar(50)")]
+		public string record_title
+		{
+			get
+			{
+				return this._record_title;
+			}
+			set
+			{
+				if ((this._record_title != value))
+				{
+					this._record_title = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_date", DbType="BigInt")]
+		public System.Nullable<long> record_date
+		{
+			get
+			{
+				return this._record_date;
+			}
+			set
+			{
+				if ((this._record_date != value))
+				{
+					this._record_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_account", DbType="Int")]
+		public System.Nullable<int> record_account
+		{
+			get
+			{
+				return this._record_account;
+			}
+			set
+			{
+				if ((this._record_account != value))
+				{
+					this._record_account = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_record_comment", DbType="NVarChar(140)")]
+		public string record_comment
+		{
+			get
+			{
+				return this._record_comment;
+			}
+			set
+			{
+				if ((this._record_comment != value))
+				{
+					this._record_comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_upc", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string product_upc
+		{
+			get
+			{
+				return this._product_upc;
+			}
+			set
+			{
+				if ((this._product_upc != value))
+				{
+					this._product_upc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_name", DbType="VarChar(100)")]
+		public string product_name
+		{
+			get
+			{
+				return this._product_name;
+			}
+			set
+			{
+				if ((this._product_name != value))
+				{
+					this._product_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_quantity", DbType="Int")]
+		public System.Nullable<int> product_quantity
+		{
+			get
+			{
+				return this._product_quantity;
+			}
+			set
+			{
+				if ((this._product_quantity != value))
+				{
+					this._product_quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_price", DbType="Float")]
+		public System.Nullable<double> product_price
+		{
+			get
+			{
+				return this._product_price;
+			}
+			set
+			{
+				if ((this._product_price != value))
+				{
+					this._product_price = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_note", DbType="VarChar(256)")]
+		public string product_note
+		{
+			get
+			{
+				return this._product_note;
+			}
+			set
+			{
+				if ((this._product_note != value))
+				{
+					this._product_note = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product_detail", DbType="VarChar(255)")]
+		public string product_detail
+		{
+			get
+			{
+				return this._product_detail;
+			}
+			set
+			{
+				if ((this._product_detail != value))
+				{
+					this._product_detail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id", DbType="Int NOT NULL")]
+		public int customer_id
+		{
+			get
+			{
+				return this._customer_id;
+			}
+			set
+			{
+				if ((this._customer_id != value))
+				{
+					this._customer_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_name", DbType="VarChar(100)")]
+		public string customer_name
+		{
+			get
+			{
+				return this._customer_name;
+			}
+			set
+			{
+				if ((this._customer_name != value))
+				{
+					this._customer_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_email", DbType="VarChar(255)")]
+		public string customer_email
+		{
+			get
+			{
+				return this._customer_email;
+			}
+			set
+			{
+				if ((this._customer_email != value))
+				{
+					this._customer_email = value;
 				}
 			}
 		}

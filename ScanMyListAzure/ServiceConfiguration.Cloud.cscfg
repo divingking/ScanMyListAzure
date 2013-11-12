@@ -3,18 +3,31 @@
   <Role name="SynchWebRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=portalvhdsjk4yvzfdfsd68;AccountKey=Ss2IYIKNoL3EuUSP+VM1/jmWZeTYoMS01+ojY0zSLW+sPb/tcpMdvXGWcRv2+bXKheiCXn6XvYY1RiyvHxhAQA==" />
       <Setting name="SynchStorageConnection" value="DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="smladmin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEB9aMOfgsxeNSAdyc/HPV9AwDQYJKoZIhvcNAQEBBQAEggEAUlOeweSKrF5f1m4PBrC1fCrMglqTBU8SlFpZjSxJj2iQVPdSBxwAcwVXFyr11QnhkLLBuvZ4ClWsVYl78lRNt8YgQB6L2Vt8NoZRhpYAkm8VUV/u0CytHkZ8mtZneols73TodM/iR4t337/nWAlNNTyua/oG5PZROJi1GpXEhSVMeoalSVk+wn4HaMJurhANYlmirR8AdUa81IrR2WuSAW+yWsuUkvDAzicqvh5u7FyG/dy7jR8VycXq2JCWvRctsXdvy+lMfSuhK1LK86zQMwWL4/O8NIxejeMfP7LZ5yxzonDPg6KJwt4eo80JxFuby8naSNW2FgNdTRrCb/9DNTAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECMlIAjCt5C5hgBCJR5PGeEpEsuAdHGjJAGEz" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-11-09T23:59:59.0000000-08:00" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="SynchEntrust" thumbprint="A682B0D890CCCA87D4F6CB42E755D45C9946E2A9" thumbprintAlgorithm="sha1" />
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="8EBDDEDC423AABB8672E8D9BC693DFAE392A91AE" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
   <Role name="ERPIntegrationWorkerRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=portalvhdsjk4yvzfdfsd68;AccountKey=Ss2IYIKNoL3EuUSP+VM1/jmWZeTYoMS01+ojY0zSLW+sPb/tcpMdvXGWcRv2+bXKheiCXn6XvYY1RiyvHxhAQA==" />
       <Setting name="SynchStorageConnection" value="DefaultEndpointsProtocol=https;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="smladmin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEB9aMOfgsxeNSAdyc/HPV9AwDQYJKoZIhvcNAQEBBQAEggEAUlOeweSKrF5f1m4PBrC1fCrMglqTBU8SlFpZjSxJj2iQVPdSBxwAcwVXFyr11QnhkLLBuvZ4ClWsVYl78lRNt8YgQB6L2Vt8NoZRhpYAkm8VUV/u0CytHkZ8mtZneols73TodM/iR4t337/nWAlNNTyua/oG5PZROJi1GpXEhSVMeoalSVk+wn4HaMJurhANYlmirR8AdUa81IrR2WuSAW+yWsuUkvDAzicqvh5u7FyG/dy7jR8VycXq2JCWvRctsXdvy+lMfSuhK1LK86zQMwWL4/O8NIxejeMfP7LZ5yxzonDPg6KJwt4eo80JxFuby8naSNW2FgNdTRrCb/9DNTAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECMlIAjCt5C5hgBCJR5PGeEpEsuAdHGjJAGEz" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-11-09T23:59:59.0000000-08:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="8EBDDEDC423AABB8672E8D9BC693DFAE392A91AE" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

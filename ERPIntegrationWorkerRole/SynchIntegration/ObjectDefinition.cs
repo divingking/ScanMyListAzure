@@ -8,7 +8,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
 {
     using System.Runtime.Serialization;
 
-    public class Business
+    public class SynchBusiness
     {
         [DataMember]
         public int id;
@@ -31,7 +31,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
     }
 
     [DataContract]
-    public class Product
+    public class SynchProduct
     {
         [DataMember]
         public string upc { get; set; }
@@ -40,9 +40,9 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         [DataMember]
         public string detail { get; set; }
         [DataMember]
-        public Business supplier { get; set; }
+        public SynchBusiness supplier { get; set; }
         [DataMember]
-        public Business customer { get; set; }
+        public SynchBusiness customer { get; set; }
         [DataMember]
         public int quantity { get; set; }
         [DataMember]
@@ -58,12 +58,14 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
     }
 
     [DataContract]
-    public class RecordProduct
+    public class SynchRecordProduct
     {
         [DataMember]
         public string upc { get; set; }
         [DataMember]
         public string name { get; set; }
+        [DataMember]
+        public string detail { get; set; }
         [DataMember]
         public int supplier { get; set; }
         [DataMember]
@@ -77,7 +79,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
     }
 
     [DataContract]
-    public class Record
+    public class SynchRecord
     {
         [DataMember]
         public int id { get; set; }
@@ -90,7 +92,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         [DataMember]
         public long date { get; set; }
         [DataMember]
-        public List<RecordProduct> products { get; set; }
+        public List<SynchRecordProduct> products { get; set; }
         [DataMember]
         public int status { get; set; }
         [DataMember]
@@ -101,29 +103,9 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public string comment { get; set; }
     }
 
-    [DataContract]
-    public class Order
-    {
-        [DataMember]
-        public int oid { get; set; }
-        [DataMember]
-        public string title { get; set; }
-        [DataMember]
-        public int bid { get; set; }
-        [DataMember]
-        public long date { get; set; }
-        [DataMember]
-        public List<Product> products { get; set; }
-        [DataMember]
-        public bool sent { get; set; }
-        [DataMember]
-        public bool scanIn { get; set; }
-        [DataMember]
-        public string sessionId { get; set; }
-    }
 
     [DataContract]
-    public class User
+    public class SynchUser
     {
         [DataMember]
         public int id { get; set; }
@@ -147,14 +129,4 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public string phoneNumber { get; set; }
     }
 
-    [DataContract]
-    public class LoginUser
-    {
-        [DataMember]
-        public string login { get; set; }
-        [DataMember]
-        public string pass { get; set; }
-        [DataMember]
-        public int device { get; set; }
-    }
 }
