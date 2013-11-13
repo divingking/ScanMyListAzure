@@ -32,6 +32,7 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
         QBDDataUpdater qbdDataUpdater;
 
         DateTime transactionStartDateFilter;
+        Dictionary<string, Utilities.ERPRecordMapEntity> transactionIdToEntityMap;
 
         // Synch side of fields
         int synchBusinessId;
@@ -58,10 +59,12 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
 
             this.autoUpcPrefix = bid + "AUTO";
 
-            if (synchStorageReader.getTransactionIdToEntityMap(ApplicationConstants.ERP_QBD_TABLE_RECORD).Count > 0)
-                transactionStartDateFilter = DateTime.Now.AddDays(-7);
+            transactionIdToEntityMap = synchStorageReader.getTransactionIdToEntityMap(ApplicationConstants.ERP_QBD_TABLE_RECORD);
+            if (transactionIdToEntityMap.Count == 0)
+                transactionStartDateFilter = new DateTime(2013, 9, 1);
             else
-                transactionStartDateFilter = new DateTime(2013, 5, 1);
+                transactionStartDateFilter = DateTime.Now.AddDays(-7);
+
         }
 
         #region Update QuickBooks Desktop from Synch
@@ -307,7 +310,6 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
             // get product mapping information from QBD
             Dictionary<string, string> itemIdToUpcMap = synchStorageReader.getItemIdToUpcMap(ApplicationConstants.ERP_QBD_TABLE_PRODUCT);
             Dictionary<string, int> customerIdToSynchCidMap = synchStorageReader.getCustomerIdToSynchCidMap(ApplicationConstants.ERP_QBD_TABLE_BUSINESS);
-            Dictionary<string, Utilities.ERPRecordMapEntity> transactionIdToEntityMap = synchStorageReader.getTransactionIdToEntityMap(ApplicationConstants.ERP_QBD_TABLE_RECORD);
 
             if (transactionStartDateFilter == null)
                 transactionStartDateFilter = new DateTime(2013, 1, 1);
@@ -426,7 +428,6 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
             // get product mapping information from QBD
             Dictionary<string, string> itemIdToUpcMap = synchStorageReader.getItemIdToUpcMap(ApplicationConstants.ERP_QBD_TABLE_PRODUCT);
             Dictionary<string, int> customerIdToSynchCidMap = synchStorageReader.getCustomerIdToSynchCidMap(ApplicationConstants.ERP_QBD_TABLE_BUSINESS);
-            Dictionary<string, Utilities.ERPRecordMapEntity> transactionIdToEntityMap = synchStorageReader.getTransactionIdToEntityMap(ApplicationConstants.ERP_QBD_TABLE_RECORD);
 
             if (transactionStartDateFilter == null)
                 transactionStartDateFilter = new DateTime(2013, 1, 1);
@@ -586,29 +587,58 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
                 // or create a new mapping if no mapping exists.
                 if (!itemIdToUpcMap.ContainsKey(itemId))
                 {
-                    autoUpcCounter++;
-                    string autoUpc = autoUpcPrefix + autoUpcCounter;
-                    synchDatabaseUpdater.createNewProduct(autoUpc, nameFromQBD, detailFromQBD, "temporary location", quantityFromQBD, 7, priceFromQBD, 0);
-                    synchStorageUpdater.createProductMapping(ApplicationConstants.ERP_QBD_TABLE_PRODUCT, autoUpc, itemId);
+                    string upc = null;
+                    upc = matchNameAndDetailWithInventory(nameFromQBD, detailFromQBD, upcToInventoryMap.Values);
+
+                    if (upc == null)
+                    {
+                        // when no mapping exist and no product with same name/detail exist in our database,
+                        // we create new one for them
+                        autoUpcCounter++;
+                        string autoUpc = autoUpcPrefix + autoUpcCounter;
+                        synchDatabaseUpdater.createNewInventory(autoUpc, nameFromQBD, detailFromQBD, "temporary location", quantityFromQBD, 7, priceFromQBD, 0);
+                        synchStorageUpdater.createProductMapping(ApplicationConstants.ERP_QBD_TABLE_PRODUCT, autoUpc, itemId);
+                    }
+                    else
+                    {
+                        // when we have the same product with missing/incorrect mapping information in storage
+                        upcToInventoryMap.Remove(upc);
+                        synchStorageUpdater.createProductMapping(ApplicationConstants.ERP_QBD_TABLE_PRODUCT, upc, itemId);
+                    }
                 }
                 else
                 {
                     string upc = itemIdToUpcMap[itemId];
-                    // this product exists in Synch, update if needed
-                    SynchProduct itemFromSynch = upcToInventoryMap[upc];
-                    upcToInventoryMap.Remove(upc);
-                    if (detailFromQBD != itemFromSynch.detail ||
-                        priceFromQBD != itemFromSynch.price ||
-                        quantityFromQBD != itemFromSynch.quantity ||
-                        nameFromQBD != itemFromSynch.name)
-                    {
-                        synchDatabaseUpdater.updateInventory(itemFromSynch.upc, detailFromQBD, quantityFromQBD, priceFromQBD, synchBusinessId, nameFromQBD);
+                    itemIdToUpcMap.Remove(itemId);
 
+                    if (upcToInventoryMap.ContainsKey(upc))
+                    {
+                        // this product with correct upc exists in Synch, update if needed
+                        SynchProduct itemFromSynch = upcToInventoryMap[upc];
+                        upcToInventoryMap.Remove(upc);
+                        if (detailFromQBD != itemFromSynch.detail ||
+                            priceFromQBD != itemFromSynch.price ||
+                            quantityFromQBD != itemFromSynch.quantity ||
+                            nameFromQBD != itemFromSynch.name)
+                        {
+                            synchDatabaseUpdater.updateInventory(itemFromSynch.upc, detailFromQBD, quantityFromQBD, priceFromQBD, synchBusinessId, nameFromQBD);
+
+                        }
+                    }
+                    else
+                    {
+                        // this upc does not exist in Synch, create new one
+                        synchDatabaseUpdater.createNewInventory(upc, nameFromQBD, detailFromQBD, "Unassigned", quantityFromQBD, 7, priceFromQBD, 0);
                     }
                 }
             }
 
             // 3. After matching all the products from QBD, we delete excessive/inactive products in Synch
+            foreach (string upc in upcToInventoryMap.Keys)
+                synchDatabaseUpdater.deleteInventory(upc);
+
+            foreach (string itemId in itemIdToUpcMap.Keys)
+                synchStorageUpdater.deleteProductMapping(ApplicationConstants.ERP_QBD_TABLE_PRODUCT, itemId);
         }
 
         private void getAutoUpcCounter(Dictionary<string, SynchProduct>.KeyCollection keyCollection)
@@ -659,10 +689,10 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
                                     curCustomer.Address[0].PostalCode.Split('-')[0];
 
                     if (curCustomer.Address[0].Line1 == null)
-                        addressFromQBD += curCustomer.Address[0].City + ", " + curCustomer.Address[0].CountrySubDivisionCode;
+                        addressFromQBD = curCustomer.Address[0].City + ", " + curCustomer.Address[0].CountrySubDivisionCode;
                     else
                     {
-                        addressFromQBD += curCustomer.Address[0].Line1 + ", ";
+                        addressFromQBD = curCustomer.Address[0].Line1 + ", ";
                         if (curCustomer.Address[0].Line2 == null)
                             addressFromQBD += curCustomer.Address[0].City + ", " + curCustomer.Address[0].CountrySubDivisionCode;
                         else
@@ -736,6 +766,22 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
                 synchStorageUpdater.deleteBusinessMapping(ApplicationConstants.ERP_QBD_TABLE_BUSINESS, customerId);
             }            
         }
+        #endregion
+
+
+        #region private helper methods that are not always used in the service
+
+        private string matchNameAndDetailWithInventory(string nameFromQBD, string detailFromQBD, Dictionary<string, SynchProduct>.ValueCollection synchProducts)
+        {
+            foreach (SynchProduct p in synchProducts)
+            {
+                if (nameFromQBD == p.name || detailFromQBD == p.detail)
+                    return p.upc;
+            }
+
+            return null;
+        }
+
         #endregion
 
     }

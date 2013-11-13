@@ -89,5 +89,24 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
                 table.Execute(deleteOperation);
             }
         }
+
+        internal void deleteProductMapping(string productMappingStorage, string itemId)
+        {
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
+                                                   Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference(productMappingStorage);
+            table.CreateIfNotExists();
+
+            TableOperation retrieveOperation = TableOperation.Retrieve<Utilities.ERPBusinessMapEntity>(synchBusinessId.ToString(), itemId);
+            TableResult retrievedResult = table.Execute(retrieveOperation);
+            Utilities.ERPBusinessMapEntity deleteEntity = (Utilities.ERPBusinessMapEntity)retrievedResult.Result;
+
+            if (deleteEntity != null)
+            {
+                TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
+                table.Execute(deleteOperation);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         }
 
 
-        public void createNewProduct(string upc, string name, string detail, string location, int quantity, int leadTime, double price, int category)
+        public void createNewInventory(string upc, string name, string detail, string location, int quantity, int leadTime, double price, int category)
         {
             SynchDatabaseDataContext context = new SynchDatabaseDataContext();
 
@@ -148,6 +148,25 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
                 context.Dispose();
             }
 
+        }
+
+        public void deleteInventory(string upc)
+        {
+            SynchDatabaseDataContext context = new SynchDatabaseDataContext();
+
+            try
+            {
+                context.DeleteInventoryByUpc(upc, synchBusinessId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                context.Dispose();
+            }
         }
     }
 

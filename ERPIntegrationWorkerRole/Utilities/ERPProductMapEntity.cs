@@ -23,10 +23,5 @@ namespace ERPIntegrationWorkerRole.Utilities
 
         public string upc { get; set; }
 
-        public string nameFromSynch { get; set; }
-
-        public string nameFromERP { get; set; }
-
-        public DateTime lastUpdateTime { get; set; }
     }
 }

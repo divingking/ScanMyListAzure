@@ -182,6 +182,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
                     result.Add(customer.id,
                         new SynchBusiness()
                         {
+                            id = customer.id,
                             name = customer.name,
                             address = customer.address,
                             email = customer.email,
