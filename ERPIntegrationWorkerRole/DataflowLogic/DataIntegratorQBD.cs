@@ -73,6 +73,9 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
         {
             // get invoice information from Synch database
             SynchRecord recordFromSynch = synchDatabaseReader.getCompleteOrder(rid);
+            if (recordFromSynch.products == null)
+                return;
+
             SynchBusiness customerInSynch = synchDatabaseReader.getBusiness(recordFromSynch.products[0].customer);
 
             if (recordFromSynch == null)
@@ -93,6 +96,8 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
         {
             // get invoice information from Synch database
             SynchRecord recordFromSynch = synchDatabaseReader.getCompleteOrder(rid);
+            if (recordFromSynch.products == null)
+                return;
             SynchBusiness customerInSynch = synchDatabaseReader.getBusiness(recordFromSynch.products[0].customer);
 
             if (recordFromSynch == null)

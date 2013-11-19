@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -59,8 +62,12 @@
     <Reference Include="SendGridMail">
       <HintPath>..\packages\Sendgrid.1.0.1\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -75,6 +82,7 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -85,35 +93,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
-    <Compile Include="Library_Class\ERPIntegrator.cs" />
-    <Compile Include="Library_Class\SessionManager.cs" />
-    <Compile Include="Library_Class\ExcelGenerator.cs" />
-    <Compile Include="Library_Class\TierController.cs" />
-    <Compile Include="REST_Service\BusinessManager.cs" />
-    <Compile Include="REST_Service\IBusinessManager.cs" />
-    <Compile Include="REST_Service\IRecordManager.cs" />
-    <Compile Include="REST_Service\RecordManager.cs" />
-    <Compile Include="REST_Service\DatabaseProcedures.cs" />
-    <Compile Include="Library_Class\Encryptor.cs" />
-    <Compile Include="REST_Service\Enumerations.cs" />
-    <Compile Include="REST_Service\IAdministrator.cs" />
-    <Compile Include="REST_Service\IInventoryManager.cs" />
-    <Compile Include="REST_Service\InventoryManager.cs" />
-    <Compile Include="REST_Service\ISynchDataService.cs" />
-    <Compile Include="Library_Class\MailHelper.cs" />
-    <Compile Include="REST_Service\ObjectDefinition.cs" />
-    <Compile Include="REST_Service\Administrator.cs" />
-    <Compile Include="ScanMyListDatabase.designer.cs">
+    <Compile Include="Models\SynchError.cs" />
+    <Compile Include="Models\SynchHttpResponseMessage.cs" />
+    <Compile Include="ServiceManager\CustomerManager.cs" />
+    <Compile Include="ServiceManager\ICustomerManager.cs" />
+    <Compile Include="ServiceManager\ISupplierManager.cs" />
+    <Compile Include="ServiceManager\SupplierManager.cs" />
+    <Compile Include="SynchDatabase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ScanMyListDatabase.dbml</DependentUpon>
+      <DependentUpon>SynchDatabase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Utility\ERPIntegrator.cs" />
+    <Compile Include="Utility\SessionManager.cs" />
+    <Compile Include="Utility\ExcelGenerator.cs" />
+    <Compile Include="Utility\TierController.cs" />
+    <Compile Include="Models\SynchAccount.cs" />
+    <Compile Include="Models\SynchBusiness.cs" />
+    <Compile Include="Models\SynchCustomer.cs" />
+    <Compile Include="Models\SynchInventory.cs" />
+    <Compile Include="Models\SynchRecord.cs" />
+    <Compile Include="Models\SynchRecordLine.cs" />
+    <Compile Include="Models\SynchSupplier.cs" />
+    <Compile Include="ServiceManager\BusinessManager.cs" />
+    <Compile Include="ServiceManager\IBusinessManager.cs" />
+    <Compile Include="ServiceManager\IRecordManager.cs" />
+    <Compile Include="ServiceManager\RecordManager.cs" />
+    <Compile Include="ServiceManager\DatabaseProcedures.cs" />
+    <Compile Include="Utility\Encryptor.cs" />
+    <Compile Include="ServiceManager\Enumerations.cs" />
+    <Compile Include="ServiceManager\IAccountManager.cs" />
+    <Compile Include="ServiceManager\IInventoryManager.cs" />
+    <Compile Include="ServiceManager\InventoryManager.cs" />
+    <Compile Include="ServiceManager\ISynchDataService.cs" />
+    <Compile Include="Utility\MailHelper.cs" />
+    <Compile Include="ServiceManager\AccountManager.cs" />
     <Compile Include="SynchDataService.svc.cs">
       <DependentUpon>SynchDataService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Library_Class\SecurityUtilities.cs" />
-    <Compile Include="Utilities\ApplicationConstants.cs" />
+    <Compile Include="Utility\SecurityUtilities.cs" />
+    <Compile Include="Utility\ApplicationConstants.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,12 +147,12 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ScanMyListDatabase.dbml">
+    <Content Include="ServiceConfiguration.Local.cscfg" />
+    <Content Include="SynchDatabase.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ScanMyListDatabase.designer.cs</LastGenOutput>
+      <LastGenOutput>SynchDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ServiceConfiguration.Local.cscfg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -142,10 +162,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ScanMyListDatabase.dbml.layout">
-      <DependentUpon>ScanMyListDatabase.dbml</DependentUpon>
+    <None Include="SynchDatabase.dbml.layout">
+      <DependentUpon>SynchDatabase.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

@@ -76,6 +76,8 @@ namespace ERPIntegrationWorkerRole.QuickBookIntegration
             qbdSalesOrderQuery.ChunkSize = chunkSize.ToString();
             qbdSalesOrderQuery.StartCreatedTMS = startDate;
             qbdSalesOrderQuery.StartCreatedTMSSpecified = true;
+            qbdSalesOrderQuery.StatusFilter = Intuit.Ipp.Data.Qbd.SalesOrderStatusFilterEnumType.Open;
+            qbdSalesOrderQuery.StatusFilterSpecified = true;
             IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrder> salesOrdersFromQBD = qbdSalesOrderQuery.ExecuteQuery<Intuit.Ipp.Data.Qbd.SalesOrder>
             (qbServiceContext) as IEnumerable<Intuit.Ipp.Data.Qbd.SalesOrder>;
             result.AddRange(salesOrdersFromQBD.ToArray());
