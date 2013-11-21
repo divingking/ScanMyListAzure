@@ -7,8 +7,8 @@ namespace SynchWebRole.Utilities
 {
     public class ApplicationConstants
     {
-        public static string ERP_QBD_QUEUE = "erp-qbd-production";
-        //public static string ERP_QBD_QUEUE = "erp-qbd";
+        //public static string ERP_QBD_QUEUE = "erp-qbd-production";
+        public static string ERP_QBD_QUEUE = "erp-qbd";
 
     }
 }
