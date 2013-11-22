@@ -29,7 +29,7 @@ namespace ERPIntegrationWorkerRole
                 */
 
                 // later on when we do multi-threading, these two are critical sections
-                //initializer.updateSynchFromERP();
+                initializer.updateSynchFromERP();
 
                 initializer.updateERPFromSynch();
 
