@@ -49,7 +49,7 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
         public void updateERPFromSynch()
         {
             string message = MessageProcessor.retrieveMessageFromSynchStorage(ApplicationConstants.ERP_QBD_QUEUE);
-            if (message != null)
+            while (message != null)
             {
                 string[] elements = message.Split('-');
                 switch (elements[0])
@@ -68,6 +68,8 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
                     default:
                         break;
                 }
+
+                message = MessageProcessor.retrieveMessageFromSynchStorage(ApplicationConstants.ERP_QBD_QUEUE);
             }
         }
 

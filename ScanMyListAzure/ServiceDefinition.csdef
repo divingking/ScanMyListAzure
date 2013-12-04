@@ -25,7 +25,7 @@
       <LocalStorage name="SynchWebRole.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
     </LocalResources>
     <ConfigurationSettings>
-      <Setting name="SynchStorageConnection" />
+      <Setting name="DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
     </ConfigurationSettings>
   </WebRole>
   <WorkerRole name="ERPIntegrationWorkerRole" vmsize="Medium">
@@ -35,7 +35,7 @@
       <Import moduleName="RemoteForwarder" />
     </Imports>
     <ConfigurationSettings>
-      <Setting name="SynchStorageConnection" />
+      <Setting name="DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

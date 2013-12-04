@@ -26,7 +26,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public QuickBooksCredentialEntity getCredentialFromSynchServer()
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("quickbooksinfo");
@@ -49,7 +49,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             Dictionary<string, string> result = new Dictionary<string, string>();
 
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(productMappingStorage);
@@ -60,7 +60,8 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
 
             foreach (Utilities.ERPProductMapEntity entity in table.ExecuteQuery(query))
             {
-                result.Add(entity.upc, entity.RowKey);
+                if (!result.ContainsKey(entity.upc))
+                    result.Add(entity.upc, entity.RowKey);
             }
             return result;
         }
@@ -70,7 +71,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             Dictionary<string, string> result = new Dictionary<string, string>();
 
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(productMappingStorage);
@@ -90,7 +91,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(businessMappingStorage);
@@ -110,7 +111,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         {
             Dictionary<string, int> result = new Dictionary<string, int>();
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(businessMappingStorage);
@@ -132,7 +133,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
             // make Table Storage Connection
             // Retrieve the storage account from the connection string.
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             // Create the table client.
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();

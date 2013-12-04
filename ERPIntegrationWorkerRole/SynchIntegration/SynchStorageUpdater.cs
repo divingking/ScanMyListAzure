@@ -26,7 +26,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public void createBusinessMapping(string businessMappingStorage, int cid, string erpBusinessId)
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                           Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                           "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(businessMappingStorage);
             table.CreateIfNotExists();
@@ -41,7 +41,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public void createProductMapping(string productMappingStorage, string upc, string itemId)
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-               Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+               "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(productMappingStorage);
             table.CreateIfNotExists();
@@ -56,7 +56,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public void createRecordMapping(string recordMappingStorage, int rid, string transactionIdFromQBD)
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-               Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+               "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(recordMappingStorage);
             table.CreateIfNotExists();
@@ -74,7 +74,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         public void deleteBusinessMapping(string businessMappingStorage, string customerId)
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                                       Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                                       "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(businessMappingStorage);
             table.CreateIfNotExists();
@@ -93,7 +93,7 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
         internal void deleteProductMapping(string productMappingStorage, string itemId)
         {
             Microsoft.WindowsAzure.Storage.CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                                                   Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                                                   "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(productMappingStorage);
             table.CreateIfNotExists();

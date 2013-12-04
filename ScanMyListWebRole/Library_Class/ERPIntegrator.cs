@@ -33,7 +33,7 @@ namespace SynchWebRole.Library_Class
             {
                 string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
-                Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
                 // Create the queue client
                 CloudQueueClient queueClient = synchStorageAccount.CreateCloudQueueClient();
@@ -71,7 +71,7 @@ namespace SynchWebRole.Library_Class
             {
                 string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
-                Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
                 // Create the queue client
                 CloudQueueClient queueClient = synchStorageAccount.CreateCloudQueueClient();
@@ -113,7 +113,7 @@ namespace SynchWebRole.Library_Class
             {
                 string queueName = ApplicationConstants.ERP_QBD_QUEUE;
                 CloudStorageAccount synchStorageAccount = CloudStorageAccount.Parse(
-                Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
                 // Create the queue client
                 CloudQueueClient queueClient = synchStorageAccount.CreateCloudQueueClient();

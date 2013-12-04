@@ -144,17 +144,20 @@ namespace ERPIntegrationWorkerRole.SynchIntegration
                 var results = context.GetAllInventory(synchBusinessId);
                 foreach (var inventory in results)
                 {
-                    result.Add(inventory.upc,
-                        new SynchProduct()
-                        {
-                            name = inventory.name,
-                            upc = inventory.upc,
-                            detail = inventory.detail,
-                            location = inventory.location,
-                            quantity = (int)inventory.quantity,
-                            leadTime = (int)inventory.lead_time,
-                            price = (double)inventory.default_price
-                        });
+                    if (!result.ContainsKey(inventory.upc))
+                    {
+                        result.Add(inventory.upc,
+                            new SynchProduct()
+                            {
+                                name = inventory.name,
+                                upc = inventory.upc,
+                                detail = inventory.detail,
+                                location = inventory.location,
+                                quantity = (int)inventory.quantity,
+                                leadTime = (int)inventory.lead_time,
+                                price = (double)inventory.default_price
+                            });
+                    }
                 }
             }
             catch (Exception)

@@ -16,7 +16,7 @@ namespace ERPIntegrationWorkerRole.DataflowLogic
         {
             // Retrieve storage account from connection string
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("SynchStorageConnection"));
+                "DefaultEndpointsProtocol=http;AccountName=synch;AccountKey=lxe5LCcyVl6iRnqeSnHiwROOprdnAEJmtICr0VwFcrsOPAxDYEQBLLoiXsPWqwM96Fc9nPXRyR3y4adu4Kos+Q==");
 
             // Create the queue client
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
